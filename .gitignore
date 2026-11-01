@@ -1,0 +1,5 @@
+# downloaded source data (scripts/fetch_region.sh fetches it again)
+raw/*/
+# test pages, screenshots and throwaway browser profiles
+build/
+.DS_Store

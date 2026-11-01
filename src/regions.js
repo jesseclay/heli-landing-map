@@ -1,0 +1,55 @@
+// Each region the map covers: where its data lives, how the map opens, and the local details the app needs.
+// bounds are the data's [west, south, east, north]; examples are [label, [lat, lon] or { land: name }, zoom, level].
+window.HELI_REGIONS = {
+  austin: {
+    key: 'austin', label: 'Austin, TX', name: 'Austin', state: 'TX', data: 'data/austin.js',
+    title: 'Austin Helicopter Landing Map',
+    bounds: [-98.95, 29.55, -96.85, 31.25],
+    view: [30.29, -97.79], zoom: 10.5, zoomSmall: 9.5,
+    maxBounds: [[29.2, -99.4], [31.6, -96.4]],
+    attribution: 'Data: FAA, USGS PAD-US 4.1, US Census TIGER, EIA, USACE NID, City of Austin',
+    dataNote: 'FAA ADDS (airspace, airports, special-use airspace), USGS PAD-US 4.1 (parks and protected land), US Census TIGER (city limits, roads, water, campuses, correctional facilities), EIA (power plants), USACE National Inventory of Dams (high-hazard dams), City of Austin (zoning)',
+    major: ['Austin', 'Round Rock', 'Georgetown', 'San Marcos', 'Cedar Park', 'Pflugerville', 'New Braunfels', 'Killeen', 'Temple', 'Leander', 'Kyle', 'Bastrop', 'Lockhart', 'Marble Falls', 'Taylor', 'Fredericksburg', 'Seguin', 'Lakeway', 'Dripping Springs', 'Burnet', 'Llano', 'Elgin', 'Giddings'],
+    waterLabels: [
+      ['Lake Travis', 30.4378, -97.9200, ''], ['Lake Austin', 30.3511, -97.8070, ''], ['Lady Bird Lake', 30.2617, -97.7450, ''],
+      ['Lake LBJ', 30.5710, -98.3600, ''], ['Lake Buchanan', 30.7872, -98.4100, ''], ['Inks Lake', 30.7470, -98.3880, 'minor'],
+      ['Lake Marble Falls', 30.5546, -98.3000, 'minor'], ['Canyon Lake', 29.8928, -98.2600, ''], ['Lake Georgetown', 30.6741, -97.7500, 'minor'],
+      ['Granger Lake', 30.6950, -97.3500, 'minor'], ['Lake Bastrop', 30.1565, -97.2900, 'minor'], ['Walter E. Long Lake', 30.3032, -97.6000, 'minor'],
+      ['Belton Lake', 31.1396, -97.5200, ''], ['Stillhouse Hollow Lake', 31.0149, -97.6100, 'minor'],
+    ],
+    // city limits the build tags with a reg key, and the rule and map tint each one gets
+    cities: {
+      austin: { rule: 'city_austin', tint: 'amber' },
+      wlh: { rule: 'city_wlh', tint: 'red' },
+      lakeway: { rule: 'city_lakeway', tint: 'red' },
+      dripping: { rule: 'city_dripping', tint: 'red' },
+      hsb: { rule: 'city_hsb', tint: 'amber' },
+      zoning: { rule: 'city_zoning', tint: '' },
+    },
+    cityNotes: {
+      Georgetown: 'heliports are banned in agricultural, residential and neighborhood commercial districts; elsewhere only beside a hospital or government facility, or by special use permit (UDC §5.05.020)',
+      Kyle: 'heliports by conditional use only, in the CM, W and PUD districts (§53-1047)',
+      Buda: 'special use permit only, and not within 1,000 ft of a church, school, hospital, library, park or home without noise mitigation (UDC §2.06.06)',
+      'Cedar Park': 'accessory heliports only in the H, PS and PA districts (§11.02.064)',
+      'Marble Falls': 'rotary-wing aviation is a conditional use in a few commercial and industrial districts (Development Code Table 3.1.4)',
+      Leander: 'any landing field needs a special use permit (zoning Art. IV §2)',
+      'Round Rock': 'zoning provides only for hospital heliports (§§2-60, 2-91)',
+    },
+    airportRadius: { AUS: 2700, SAT: 2300, GRK: 2000 },
+    airspaceNames: { AUS: 'Austin-Bergstrom', SAT: 'San Antonio' },
+    hideAirspaceLabels: ['SAT', 'RND'],
+    examples: [
+      ['Zilker Park', { land: 'Zilker Metro Park' }, 14, 'red'],
+      ['Backyard in Hyde Park', [30.3050, -97.7292], 15, 'red'],
+      ['Industrial zoning in North Austin', [30.4000, -97.7200], 15, 'amber'],
+      ['Ranch land near Dripping Springs', [30.2290, -98.2140], 12, 'green'],
+      ['Backyard in West Lake Hills', [30.2953, -97.8124], 14, 'red'],
+      ['Lake Travis', [30.4378, -97.9200], 12, 'amber'],
+      ['Austin Executive Airport', [30.3975, -97.5664], 13, 'blue'],
+      ['UT campus', { land: 'University of Texas at Austin' }, 14, 'red'],
+      ['Pedernales Falls State Park', { land: 'Pedernales Falls State Park' }, 12, 'red'],
+      ['Balcones Canyonlands refuge', { land: 'Balcones Canyonlands National Wildlife Refuge' }, 11, 'red'],
+      ['Dell Children’s hospital helipad', [30.30440, -97.70773], 15, 'amber'],
+    ],
+  },
+};

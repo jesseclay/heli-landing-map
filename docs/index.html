@@ -1,0 +1,1645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Where a private helicopter can and can’t land around Austin, Texas, and Blacksburg, Virginia: the rules at any spot, who enforces them, and what a prohibited landing can cost.">
+<meta property="og:title" content="Helicopter Landing Map">
+<meta property="og:description" content="Where a private helicopter can and can’t land around Austin, Texas, and Blacksburg, Virginia: the rules at any spot, who enforces them, and what a prohibited landing can cost.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f1f3ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1318" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231d4f9c'/%3E%3Cpath d='M11 9v14M21 9v14M11 16h10' stroke='white' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Helicopter Landing Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:none;display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:none;width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:none;background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:none}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+<style>
+/* Layout: an EFB-style split, the chart on the left and a briefing panel on the right (stacked on phones). */
+:root {
+  --bg: #f1f3ee;
+  --panel: #fbfcf9;
+  --raise: #ffffff;
+  --ink: #16212b;
+  --muted: #56636e;
+  --faint: #8a949c;
+  --line: #d6dbd3;
+  --accent: #1d4f9c;
+  --accent-ink: #ffffff;
+  --map-land: #e8ebe1;
+  --map-water: #b7d3e6;
+  --map-water-edge: #86b2d0;
+  --map-road: #b99a6c;
+  --map-road-minor: #cdb895;
+  --map-county: #8f998f;
+  --map-city: #57616a;
+  --map-city-fill: #dfe3d8;
+  --air-c: #b3247b;
+  --air-d: #2457b5;
+  --air-r: #2457b5;
+  --air-tfr: #cf2f2a;
+  --s-red: #c63a2f;
+  --s-amber: #c98200;
+  --s-green: #2d8a4e;
+  --s-blue: #1f6db0;
+  --fill-red: 0.26;
+  --fill-amber: 0.22;
+  --zone-hatch: 0.5;
+  --zone-res-fill: 0.09;
+  --zone-ok-fill: 0.1;
+  --city-tint: 0.15;
+  --s-red-bg: #fbe9e6;
+  --s-amber-bg: #fdf1d9;
+  --s-green-bg: #e3f3e8;
+  --s-blue-bg: #e2eef9;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1318; --panel: #121a21; --raise: #18222b; --ink: #e5eaee; --muted: #9ba7b1; --faint: #6c7883; --line: #26323c;
+    --accent: #86acf0; --accent-ink: #0d1318;
+    --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
+    --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+    --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
+    --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
+    --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
+    --fill-red: 0.2; --fill-amber: 0.16;
+    --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1318; --panel: #121a21; --raise: #18222b; --ink: #e5eaee; --muted: #9ba7b1; --faint: #6c7883; --line: #26323c;
+  --accent: #86acf0; --accent-ink: #0d1318;
+  --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
+  --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+  --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
+  --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
+  --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
+  --fill-red: 0.2; --fill-amber: 0.16;
+  --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.45; }
+*, *::before, *::after { box-sizing: border-box; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+
+.app { display: flex; height: 100%; min-height: 0; }
+.map-wrap { position: relative; flex: 1 1 auto; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--map-land); }
+.panel { flex: 0 0 420px; width: 420px; display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-left: 1px solid var(--line); }
+.panel-scroll { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 28px; }
+
+/* Panel header */
+.brand { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.brand h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.05; letter-spacing: 0.01em; text-wrap: balance; }
+.brand p { margin: 6px 0 0; color: var(--muted); font-size: 13px; max-width: 60ch; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.regions { display: inline-flex; flex: 0 0 auto; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--raise); }
+.regions[hidden] { display: none; }
+.regions button { border: 0; background: none; padding: 4px 10px; border-radius: 999px; font: 600 12.5px var(--font-body); color: var(--muted); cursor: pointer; white-space: nowrap; }
+.regions button:hover { color: var(--ink); }
+.regions button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+.search { position: relative; padding: 12px 20px 0; }
+.search input { width: 100%; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); color: var(--ink); font: inherit; }
+.search svg { position: absolute; left: 31px; top: 23px; width: 15px; height: 15px; color: var(--faint); pointer-events: none; }
+.results { position: absolute; left: 20px; right: 20px; top: calc(100% + 4px); z-index: 1200; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); max-height: 320px; overflow-y: auto; }
+.results button { display: flex; width: 100%; gap: 10px; justify-content: space-between; align-items: baseline; padding: 8px 12px; border: 0; background: none; text-align: left; cursor: pointer; }
+.results button:hover, .results button[aria-selected="true"] { background: var(--s-blue-bg); }
+.results .rk { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.results .geo-ask > span:first-child { color: var(--accent); font-weight: 600; }
+
+.tabs { display: flex; gap: 4px; padding: 12px 20px 0; border-bottom: 1px solid var(--line); }
+.tabs button { padding: 8px 10px 9px; border: 0; background: none; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: 0.02em; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 12px; }
+.hint { color: var(--muted); font-size: 13px; }
+
+/* Spot check */
+.spot-head { padding-top: 16px; display: grid; gap: 6px; }
+.coords { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.linkbtn { margin-left: auto; border: 1px solid var(--line); background: var(--raise); border-radius: 4px; padding: 1px 8px; font: 500 12px var(--font-body); color: var(--ink); cursor: pointer; }
+.linkbtn:hover { border-color: var(--accent); color: var(--accent); }
+.addr { font-size: 13px; color: var(--muted); }
+.example-tag { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 1px 6px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+.spot-name { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.1; text-wrap: balance; }
+.verdict { margin-top: 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 8px; background: var(--vbg); border: 1px solid color-mix(in srgb, var(--vc) 35%, transparent); }
+.verdict .v-icon { grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--vc); color: var(--panel); display: grid; place-items: center; }
+.verdict .v-icon svg { width: 20px; height: 20px; }
+.verdict .v-title { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.05; color: var(--vc); }
+.verdict .v-sub { font-size: 13px; color: var(--ink); }
+.lv-red { --vc: var(--s-red); --vbg: var(--s-red-bg); }
+.lv-amber { --vc: var(--s-amber); --vbg: var(--s-amber-bg); }
+.lv-green { --vc: var(--s-green); --vbg: var(--s-green-bg); }
+.lv-blue { --vc: var(--s-blue); --vbg: var(--s-blue-bg); }
+.lv-info { --vc: var(--muted); --vbg: var(--raise); }
+
+.facts { margin: 14px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; font-size: 13px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; min-width: 0; }
+
+.group-title { margin: 22px 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.rules { display: grid; gap: 10px; }
+.rule { position: relative; padding: 12px 14px 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); overflow: hidden; }
+.rule::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--vc); }
+.rule h3 { margin: 0; font-size: 14.5px; line-height: 1.3; font-weight: 700; }
+.rule .where { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+.rule p { margin: 8px 0 0; }
+.rule .meta { margin-top: 10px; display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13px; }
+.rule .meta dt { color: var(--muted); font-family: var(--font-display); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px; padding-top: 1px; }
+.rule .meta dd { margin: 0; min-width: 0; }
+.rule .meta ul { margin: 0; padding-left: 16px; }
+.cites { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cite { font-family: var(--font-mono); font-size: 11.5px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: var(--panel); }
+a.cite:hover { border-color: var(--accent); color: var(--accent); }
+.badge { display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; color: var(--vc); background: var(--vbg); white-space: nowrap; }
+details.baseline > summary { cursor: pointer; list-style: none; }
+details.baseline > summary::-webkit-details-marker { display: none; }
+details.baseline > summary .chev { display: inline-block; transition: transform .15s; }
+details.baseline[open] > summary .chev { transform: rotate(90deg); }
+.examples { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); cursor: pointer; font-size: 12.5px; }
+.chip:hover { border-color: var(--accent); }
+.chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--vc); margin-right: 6px; vertical-align: 1px; }
+
+/* Reference tabs */
+.ref h2 { margin: 18px 0 6px; font-family: var(--font-display); font-weight: 700; font-size: 20px; }
+.ref p { margin: 6px 0; }
+.pen-list { display: grid; gap: 10px; margin-top: 12px; }
+.pen { border: 1px solid var(--line); border-radius: 8px; background: var(--raise); padding: 12px 14px; }
+.pen h3 { margin: 0; font-size: 14.5px; }
+.pen .agency { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.pen ul { margin: 8px 0 0; padding-left: 18px; }
+.pen li { margin: 3px 0; }
+.pen .amt { font-variant-numeric: tabular-nums; font-weight: 600; }
+.pen .pcite { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.checklist { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 10px; }
+.checklist li { counter-increment: step; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+.checklist li::before { content: counter(step); font-family: var(--font-display); font-weight: 700; font-size: 15px; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center; }
+.checklist strong { display: block; }
+.sources { margin-top: 10px; padding-left: 18px; font-size: 13px; }
+.sources li { margin: 4px 0; }
+.foot { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+
+/* Map overlays */
+.map-card { position: absolute; z-index: 800; background: color-mix(in srgb, var(--panel) 94%, transparent); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 4px 16px rgb(0 0 0 / 0.12); backdrop-filter: blur(6px); }
+.layers-card { top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; width: 236px; max-height: calc(100% - 80px); overflow-y: auto; }
+.layers-card summary { padding: 9px 12px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: 0.03em; }
+.layers-card summary::-webkit-details-marker { display: none; }
+.layers-card .body { padding: 0 12px 12px; display: grid; gap: 10px; }
+.legend-sec { display: grid; gap: 5px; }
+.lg { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; font-size: 12.5px; line-height: 1.25; }
+.sw { width: 22px; height: 14px; border-radius: 3px; }
+.sw.red { background: color-mix(in srgb, var(--s-red) 38%, transparent); border: 1.5px solid var(--s-red); }
+.sw.amber { background: color-mix(in srgb, var(--s-amber) 38%, transparent); border: 1.5px solid var(--s-amber); }
+.sw.green { background: color-mix(in srgb, var(--s-green) 22%, transparent); border: 1.5px dashed var(--s-green); }
+.sw.cityline { border: 1.5px solid var(--map-city); background: var(--map-city-fill); }
+.sw.c { border: 2.5px solid var(--air-c); border-radius: 50%; width: 18px; height: 18px; }
+.sw.d { border: 2.5px dashed var(--air-d); border-radius: 50%; width: 18px; height: 18px; }
+.sw.r { border: 2px solid var(--air-r); background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--air-r) 45%, transparent) 0 2px, transparent 2px 6px); }
+.sw.tfr { border: 2px dashed var(--air-tfr); border-radius: 50%; width: 18px; height: 18px; }
+.sw.zres { border: 1px solid color-mix(in srgb, var(--s-red) 45%, transparent); background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--s-red) 65%, transparent) 0 1.5px, color-mix(in srgb, var(--s-red) 8%, transparent) 1.5px 5px); }
+.sw.zok { border: 1px solid color-mix(in srgb, var(--s-amber) 45%, transparent); background: color-mix(in srgb, var(--s-amber) 28%, transparent); }
+.sw.cban { border: 2px dashed var(--s-red); background: color-mix(in srgb, var(--s-red) 20%, transparent); }
+.sw.cpermit { border: 2px dashed var(--s-amber); background: color-mix(in srgb, var(--s-amber) 20%, transparent); }
+.legend-sub { display: grid; gap: 5px; }
+.legend-sub[hidden] { display: none; }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; cursor: pointer; }
+.toggle input { accent-color: var(--accent); margin: 0; }
+.sym { display: inline-grid; place-items: center; }
+
+.readout { left: 12px; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); padding: 6px 10px; font-family: var(--font-mono); font-size: 11.5px; max-width: calc(100% - 24px); color: var(--ink); pointer-events: none; }
+.readout .z { color: var(--muted); }
+
+/* Leaflet theming */
+.leaflet-container { font-family: var(--font-body); background: var(--map-land); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted) !important; font-size: 10.5px; }
+.leaflet-control-attribution a { color: var(--muted) !important; }
+.leaflet-bar a { background: var(--raise); color: var(--ink); border-bottom-color: var(--line); }
+.leaflet-bar a:hover { background: var(--panel); color: var(--accent); }
+.leaflet-bar { border: 1px solid var(--line) !important; box-shadow: 0 2px 8px rgb(0 0 0 / 0.12) !important; }
+.lbl { white-space: nowrap; pointer-events: none; text-shadow: 0 0 3px var(--map-land), 0 0 3px var(--map-land), 0 0 6px var(--map-land); }
+.lbl-city { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: 0.04em; color: var(--map-city); text-transform: uppercase; transform: translate(-50%, -50%); position: absolute; }
+.lbl-city.major { font-size: 16px; font-weight: 700; color: var(--ink); }
+.lbl-water { font-family: var(--font-body); font-style: italic; font-size: 12px; color: color-mix(in srgb, var(--map-water-edge) 55%, var(--ink)); transform: translate(-50%, -50%); position: absolute; }
+.lbl-county { font-family: var(--font-display); font-weight: 500; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--map-county); transform: translate(-50%, -50%); position: absolute; }
+.lbl-ap { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--ink); position: absolute; left: 9px; top: -7px; }
+.map-z-lo .lbl-city:not(.major), .map-z-lo .lbl-ap, .map-z-lo .infra-ic, .map-z-lo .ap-priv, .map-z-lo .lbl-tfr { display: none; }
+.map-z-mid .lbl-county { display: none; }
+.map-z-hi .lbl-county { display: none; }
+.map-z-lo .lbl-water.minor { display: none; }
+.ap-ic svg { display: block; overflow: visible; }
+.pin svg { width: 30px; height: 30px; overflow: visible; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.4)); }
+@media (prefers-reduced-motion: no-preference) {
+  .pin .ring { animation: pulse 1.8s ease-out 2; transform-origin: 15px 15px; }
+  @keyframes pulse { from { transform: scale(0.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+}
+.leaflet-div-icon { background: none; border: 0; }
+
+/* Phones: map on top, panel below, each scrolling on its own */
+@media (max-width: 860px) {
+  .app { flex-direction: column; }
+  .map-wrap { flex: 0 0 52%; }
+  .panel { flex: 1 1 auto; width: auto; border-left: 0; border-top: 1px solid var(--line); }
+  .brand { padding: 12px 16px 8px; }
+  .brand h1 { font-size: 21px; }
+  .brand p { display: none; }
+  .search { padding: 10px 16px 0; }
+  .search svg { left: 27px; top: 21px; }
+  .results { left: 16px; right: 16px; }
+  .tabs { padding: 8px 16px 0; }
+  .panel-scroll { padding: 0 16px 24px; }
+  .layers-card { width: 200px; left: 8px; top: calc(8px + env(safe-area-inset-top, 0px)); }
+  .readout { display: none; }
+  .brand-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="map-wrap">
+    <div id="map" role="application" aria-label="Map of the area. Click or tap a spot to check it."></div>
+    <details class="map-card layers-card" id="layers" open>
+      <summary>Map layers <span class="hint" id="layersHint">hide</span></summary>
+      <div class="body">
+        <div class="legend-sec">
+          <div class="eyebrow">Ground</div>
+          <label class="toggle"><input type="checkbox" id="t-red" checked> <span class="lg"><span class="sw red"></span>Off-limits land</span></label>
+          <label class="toggle"><input type="checkbox" id="t-amber" checked> <span class="lg"><span class="sw amber"></span>Private or managed land: ask first</span></label>
+          <label class="toggle"><input type="checkbox" id="t-city" checked> <span class="lg"><span class="sw cityline"></span>City limits</span></label>
+          <div class="lg" style="padding-left:21px"><span class="sw cban"></span>City bans landings</div>
+          <div class="lg" style="padding-left:21px"><span class="sw cpermit"></span>City permit needed</div>
+          <div class="legend-sub" id="zoneLegend">
+            <label class="toggle"><input type="checkbox" id="t-zone" checked> <span class="lg"><span class="sw zres"></span>Austin residential zoning: no permit possible</span></label>
+            <div class="lg" style="padding-left:21px"><span class="sw zok"></span>Other Austin zoning: permit possible</div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="t-infra" checked> <span class="lg"><span class="sym"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" transform="rotate(45 7 7)" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--s-red)"/></svg></span>Power plants and high-hazard dams</span></label>
+        </div>
+        <div class="legend-sec">
+          <div class="eyebrow">Airspace</div>
+          <label class="toggle"><input type="checkbox" id="t-airspace" checked> <span class="lg"><span class="sym" style="gap:2px;display:inline-flex"><span class="sw c" style="width:10px;height:10px;border-width:2px"></span><span class="sw d" style="width:10px;height:10px;border-width:2px"></span></span>Class C and D</span></label>
+          <label class="toggle"><input type="checkbox" id="t-sua" checked> <span class="lg"><span class="sw r"></span>Restricted and alert areas</span></label>
+          <label class="toggle"><input type="checkbox" id="t-tfr" checked> <span class="lg"><span class="sw tfr"></span>Game and race day TFRs (3 NM)</span></label>
+        </div>
+        <div class="legend-sec">
+          <div class="eyebrow">Landing sites</div>
+          <label class="toggle"><input type="checkbox" id="t-ap" checked> <span class="lg"><span class="sym" style="display:inline-flex;gap:1px"><svg width="10" height="10" viewBox="-5 -5 10 10"><circle r="4.6" style="fill:var(--air-d)"/><circle r="1.7" style="fill:var(--panel)"/></svg><svg width="10" height="10" viewBox="-5 -5 10 10"><circle r="4.6" style="fill:var(--air-c)"/><circle r="1.7" style="fill:var(--panel)"/></svg></span>Public-use airports (blue has a tower)</span></label>
+          <label class="toggle"><input type="checkbox" id="t-priv" checked> <span class="lg"><span class="sym"><svg width="16" height="16" viewBox="-8 -8 16 16"><circle r="6" fill="var(--panel)" stroke="var(--muted)" stroke-width="1.5"/><text y="3.2" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Public Sans, sans-serif" fill="var(--muted)">H</text></svg></span>Private heliports and strips</span></label>
+        </div>
+      </div>
+    </details>
+    <div class="map-card readout" id="readout" aria-hidden="true">Move over the map</div>
+  </div>
+
+  <aside class="panel" aria-label="Landing briefing">
+    <div class="brand">
+      <div class="brand-row">
+        <h1 id="title">Helicopter Landing Map</h1>
+        <nav class="regions" id="regions" aria-label="Region"></nav>
+      </div>
+      <p id="tagline">Where a private helicopter can and can't put down, and what a prohibited landing can cost. Click any spot on the map, or search an address.</p>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+      <input id="q" type="search" placeholder="Search an address, park, town or airport" autocomplete="off" aria-label="Search an address or a place on the map" aria-controls="results" enterkeyhint="search">
+      <div class="results" id="results" role="listbox" hidden></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-spot" aria-selected="true" aria-controls="pane-spot">Spot check</button>
+      <button role="tab" id="tab-pen" aria-selected="false" aria-controls="pane-pen">Penalties</button>
+      <button role="tab" id="tab-check" aria-selected="false" aria-controls="pane-check">Before you land</button>
+    </div>
+    <div class="panel-scroll" id="scroller">
+      <section id="pane-spot" role="tabpanel" aria-labelledby="tab-spot"></section>
+      <section id="pane-pen" class="ref" role="tabpanel" aria-labelledby="tab-pen" hidden></section>
+      <section id="pane-check" class="ref" role="tabpanel" aria-labelledby="tab-check" hidden></section>
+    </div>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+// Each region the map covers: where its data lives, how the map opens, and the local details the app needs.
+// bounds are the data's [west, south, east, north]; examples are [label, [lat, lon] or { land: name }, zoom, level].
+window.HELI_REGIONS = {
+  austin: {
+    key: 'austin', label: 'Austin, TX', name: 'Austin', state: 'TX', data: 'data/austin.js',
+    title: 'Austin Helicopter Landing Map',
+    bounds: [-98.95, 29.55, -96.85, 31.25],
+    view: [30.29, -97.79], zoom: 10.5, zoomSmall: 9.5,
+    maxBounds: [[29.2, -99.4], [31.6, -96.4]],
+    attribution: 'Data: FAA, USGS PAD-US 4.1, US Census TIGER, EIA, USACE NID, City of Austin',
+    dataNote: 'FAA ADDS (airspace, airports, special-use airspace), USGS PAD-US 4.1 (parks and protected land), US Census TIGER (city limits, roads, water, campuses, correctional facilities), EIA (power plants), USACE National Inventory of Dams (high-hazard dams), City of Austin (zoning)',
+    major: ['Austin', 'Round Rock', 'Georgetown', 'San Marcos', 'Cedar Park', 'Pflugerville', 'New Braunfels', 'Killeen', 'Temple', 'Leander', 'Kyle', 'Bastrop', 'Lockhart', 'Marble Falls', 'Taylor', 'Fredericksburg', 'Seguin', 'Lakeway', 'Dripping Springs', 'Burnet', 'Llano', 'Elgin', 'Giddings'],
+    waterLabels: [
+      ['Lake Travis', 30.4378, -97.9200, ''], ['Lake Austin', 30.3511, -97.8070, ''], ['Lady Bird Lake', 30.2617, -97.7450, ''],
+      ['Lake LBJ', 30.5710, -98.3600, ''], ['Lake Buchanan', 30.7872, -98.4100, ''], ['Inks Lake', 30.7470, -98.3880, 'minor'],
+      ['Lake Marble Falls', 30.5546, -98.3000, 'minor'], ['Canyon Lake', 29.8928, -98.2600, ''], ['Lake Georgetown', 30.6741, -97.7500, 'minor'],
+      ['Granger Lake', 30.6950, -97.3500, 'minor'], ['Lake Bastrop', 30.1565, -97.2900, 'minor'], ['Walter E. Long Lake', 30.3032, -97.6000, 'minor'],
+      ['Belton Lake', 31.1396, -97.5200, ''], ['Stillhouse Hollow Lake', 31.0149, -97.6100, 'minor'],
+    ],
+    // city limits the build tags with a reg key, and the rule and map tint each one gets
+    cities: {
+      austin: { rule: 'city_austin', tint: 'amber' },
+      wlh: { rule: 'city_wlh', tint: 'red' },
+      lakeway: { rule: 'city_lakeway', tint: 'red' },
+      dripping: { rule: 'city_dripping', tint: 'red' },
+      hsb: { rule: 'city_hsb', tint: 'amber' },
+      zoning: { rule: 'city_zoning', tint: '' },
+    },
+    cityNotes: {
+      Georgetown: 'heliports are banned in agricultural, residential and neighborhood commercial districts; elsewhere only beside a hospital or government facility, or by special use permit (UDC §5.05.020)',
+      Kyle: 'heliports by conditional use only, in the CM, W and PUD districts (§53-1047)',
+      Buda: 'special use permit only, and not within 1,000 ft of a church, school, hospital, library, park or home without noise mitigation (UDC §2.06.06)',
+      'Cedar Park': 'accessory heliports only in the H, PS and PA districts (§11.02.064)',
+      'Marble Falls': 'rotary-wing aviation is a conditional use in a few commercial and industrial districts (Development Code Table 3.1.4)',
+      Leander: 'any landing field needs a special use permit (zoning Art. IV §2)',
+      'Round Rock': 'zoning provides only for hospital heliports (§§2-60, 2-91)',
+    },
+    airportRadius: { AUS: 2700, SAT: 2300, GRK: 2000 },
+    airspaceNames: { AUS: 'Austin-Bergstrom', SAT: 'San Antonio' },
+    hideAirspaceLabels: ['SAT', 'RND'],
+    examples: [
+      ['Zilker Park', { land: 'Zilker Metro Park' }, 14, 'red'],
+      ['Backyard in Hyde Park', [30.3050, -97.7292], 15, 'red'],
+      ['Industrial zoning in North Austin', [30.4000, -97.7200], 15, 'amber'],
+      ['Ranch land near Dripping Springs', [30.2290, -98.2140], 12, 'green'],
+      ['Backyard in West Lake Hills', [30.2953, -97.8124], 14, 'red'],
+      ['Lake Travis', [30.4378, -97.9200], 12, 'amber'],
+      ['Austin Executive Airport', [30.3975, -97.5664], 13, 'blue'],
+      ['UT campus', { land: 'University of Texas at Austin' }, 14, 'red'],
+      ['Pedernales Falls State Park', { land: 'Pedernales Falls State Park' }, 12, 'red'],
+      ['Balcones Canyonlands refuge', { land: 'Balcones Canyonlands National Wildlife Refuge' }, 11, 'red'],
+      ['Dell Children’s hospital helipad', [30.30440, -97.70773], 15, 'amber'],
+    ],
+  },
+};
+
+</script>
+<script>
+window.HELI_RULES = window.HELI_RULES || {};
+window.HELI_RULES.TX = (function () {
+  const ecfr = (title, sec) => `https://www.ecfr.gov/current/title-${title}/section-${sec}`;
+  const usc = (t, s) => `https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title${t}-section${s}&num=0&edition=prelim`;
+  const tx = (code, ch) => `https://statutes.capitol.texas.gov/Docs/${code}/htm/${code}.${ch}.htm`;
+  const muniAustin = (node) => `https://library.municode.com/tx/austin/codes/code_of_ordinances?nodeId=${node}`;
+  const c = (t, u) => ({ t, u });
+  const R = (level, title, text, extra) => Object.assign({ level, title, text }, extra || {});
+
+  // Penalty lines shared by several rules
+  const P = {
+    cert: 'Pilot certificate suspension, roughly 20–60 days for a careless first case and 60–120 days or more when reckless or intentional; revocation in the worst cases',
+    civil: 'FAA civil penalty up to $1,875 per violation for a pilot, and each flight counts separately',
+    trespassB: 'Criminal trespass, Class B misdemeanor: up to 180 days in jail and a $2,000 fine',
+    cityC: 'City ordinance violation, Class C: up to $500',
+  };
+  const FAA_WHO = 'FAA Flight Standards, San Antonio FSDO (covers Austin)';
+  const LCRA_REGS = 'https://www.lcra.org/download/lcra-land-and-water-use-regulations-pdf/?wpdmdl=19648';
+  const AUS_LDC = 'https://library.municode.com/tx/austin/codes/land_development_code';
+  const AUS_LDC_861 = `${AUS_LDC}?nodeId=TIT25LADE_CH25-2ZO_SUBCHAPTER_CUSDERE_ART4ADRECEUS_DIV4OTUS_S25-2-861FAHEOTNOWIAI`;
+  const AUS_PROFILE = 'https://maps.austintexas.gov/PropertyProfile/';
+  const CITE = {
+    f91119: c('14 CFR 91.119', ecfr(14, '91.119')),
+    f9113: c('14 CFR 91.13', ecfr(14, '91.13')),
+    f913: c('14 CFR 91.3', ecfr(14, '91.3')),
+    f13301: c('14 CFR 13.301', ecfr(14, '13.301')),
+    u44709: c('49 U.S.C. 44709', usc(49, 44709)),
+    order: c('FAA Order 2150.3C', 'https://www.faa.gov/documentLibrary/media/Order/FAA_Order_2150.3C_with_Changes_1-13.pdf'),
+    pc3005: c('Tex. Penal Code §30.05', tx('PE', 30)),
+    pc12: c('Penal Code §§12.21–.23', tx('PE', 12)),
+    a1315: c('Austin Code §13-1-15', muniAustin('TIT13TRSE_CH13-1AVSE_ART2CIDEAIRE_S13-1-15AULAAR')),
+    lgc54: c('Local Gov’t Code §54.001', tx('LG', 54)),
+  };
+
+  const rules = {
+    // ---------- apply everywhere ----------
+    baseline_faa: R('info', 'FAA rules for every off-airport landing',
+      'Federal law lets a helicopter land off-airport if it can do so without hazard to people or property on the surface, and the approach still has to leave room for a safe emergency landing. Careless or reckless operation that endangers anyone is a separate violation. In a real emergency the pilot may break any Part 91 rule to the extent needed, and must explain in writing if the FAA asks.',
+      { always: true, who: FAA_WHO, pen: [P.cert, P.civil], cites: [CITE.f91119, CITE.f9113, CITE.f913, CITE.u44709, CITE.f13301, CITE.order] }),
+    baseline_consent: R('info', 'Landowner consent and Texas trespass law',
+      'Landing on someone else’s land is criminal trespass once you have notice that entry is forbidden: being told, a fence, signs, purple paint marks on trees or posts, or crops under cultivation. No Texas statute deals with aircraft landings specifically, so the general trespass law applies. Get the owner’s permission, in writing if you can.',
+      { always: true, who: 'Any peace officer: sheriff, constable, city police or DPS',
+        pen: ['Class B misdemeanor by default: up to 180 days in jail and a $2,000 fine', 'Class A at a fenced critical facility, a home or shelter, or while carrying a weapon: up to 1 year and $4,000', 'Class C on farm or ranch land within 100 ft of the boundary: up to $500'],
+        cites: [CITE.pc3005, CITE.pc12] }),
+    baseline_conduct: R('info', 'Damage, danger and noise',
+      'Wherever you land, rotor wash and noise bring their own offenses: damaging property, endangering people, or making unreasonable noise near homes or in public places. Flying while intoxicated is a crime in Texas too.',
+      { always: true, who: 'Any peace officer',
+        pen: ['Deadly conduct (recklessly putting someone in danger of serious injury): Class A, up to 1 year and $4,000', 'Reckless damage: Class C, up to $500. Intentional damage runs from Class C to a felony by dollar amount, and is a state jail felony at any amount if it hits a livestock fence or impairs a dam; killing cattle or horses is a third-degree felony', 'Unreasonable noise near a home or in a public place: Class C, up to $500', 'Flying while intoxicated: Class B, with at least 72 hours in jail'],
+        cites: [c('Penal Code §22.05', tx('PE', 22)), c('§§28.03–.04', tx('PE', 28)), c('§42.01', tx('PE', 42)), c('§49.05', tx('PE', 49))] }),
+
+    // ---------- landing facilities ----------
+    airport_public: R('blue', 'Public-use airport',
+      'Open to any aircraft without permission. Use the airport’s helicopter procedures, follow the tower where there is one, and park where the FBO directs.',
+      { who: 'Airport operator; ATC at towered airports', cites: [c('FAA Chart Supplement', 'https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dafd/')] }),
+    private_strip: R('amber', 'Private-use airfield',
+      'Private-use airfields need the owner’s permission before you land (prior permission required).',
+      { who: 'Owner; sheriff for trespass', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    heliport_private: R('amber', 'Private-use heliport',
+      'Registered with the FAA but private: land only with the owner’s prior permission.',
+      { who: 'Owner; police or sheriff for trespass', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    heliport_hospital: R('amber', 'Hospital helipad',
+      'Hospital helipads are private-use and kept clear for air ambulances. Arrange any landing with the hospital first; an unannounced one can block a trauma flight and will be reported.',
+      { who: 'Hospital security; police; FAA', pen: [P.trespassB, 'An FAA careless-operation case if the landing creates a hazard'], cites: [CITE.pc3005, CITE.f9113] }),
+    heliport_military: R('red', 'Military heliport',
+      'Camp Mabry’s Army heliport serves National Guard aircraft. Civil helicopters need prior approval from the Texas Military Department.',
+      { who: 'Texas Military Department security', pen: ['See the National Guard installation rule'] }),
+
+    // ---------- airspace ----------
+    class_c: R('amber', 'Austin-Bergstrom Class C surface area',
+      'From the surface to 4,500 ft MSL within 5 NM of AUS. Before entering you need two-way radio contact with Austin Approach or Tower, a Mode C transponder and ADS-B Out. ATC can clear you to land at an off-airport site but doesn’t vet it: the tower will tell you the landing is at your own risk.',
+      { who: 'FAA; Austin Approach and AUS Tower report deviations', pen: ['Entering without radio contact is a top-severity case: about 20–60 days’ suspension if careless, 60–120 if intentional', P.civil],
+        cites: [c('14 CFR 91.130', ecfr(14, '91.130')), c('14 CFR 91.225', ecfr(14, '91.225')), c('JO 7110.65 ¶3-11-6', 'https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap3_section_11.html')] }),
+    class_c_shelf: R('info', 'Under the Class C outer shelf',
+      'The outer ring of the AUS Class C starts at 2,100 ft MSL, roughly 1,500 ft above the ground here, so a landing stays below it and needs no ATC contact. You are under arrival and departure paths, though, and most pilots talk to Austin Approach anyway.',
+      { cites: [c('FAA JO 7400.11M', 'https://www.faa.gov/documentLibrary/media/Order/2026-07-30_Order_JO_7400.11M_Airspace_Designations_and_Reporting_Points_FINAL.pdf')] }),
+    class_d: R('amber', 'Class D surface area',
+      'While the tower is open you need two-way radio contact with it before entering, and you should tell it you plan to land off-airport. ATC can approve the operation but not the site. When the tower closes the area becomes Class E or G, and no contact is required.',
+      { who: 'FAA; the airport’s tower reports deviations', pen: ['Entering without radio contact: about 20–60 days’ suspension if careless', P.civil], cites: [c('14 CFR 91.129', ecfr(14, '91.129'))] }),
+    restricted: R('red', 'Restricted area over Fort Cavazos',
+      'R-6302 covers the Fort Cavazos ranges from the surface up. R-6302A is active around the clock, B and C on their published schedules and at other times by NOTAM. Entry needs permission from Fort Cavazos or Houston Center.',
+      { who: 'FAA; Fort Cavazos range control', pen: ['Top-severity airspace case: certificate suspension and civil penalty up to $1,875 per violation', 'Landing also puts you on a closed military reservation'], cites: [c('14 CFR 73.13', ecfr(14, '73.13'))] }),
+    alert: R('info', 'Alert area A-638',
+      'Heavy military pilot training from the surface to 3,500 ft MSL, weekdays from sunrise to sunset. It restricts nothing, but watch for training traffic.'),
+    tfr_stadium: R('amber', 'Stadium TFR on game and race days',
+      'During UT home football games and NASCAR Cup races at COTA, a standing TFR bars all aircraft within 3 NM and up to 3,000 ft above the ground, from one hour before the scheduled start until one hour after the event ends. The F1 Grand Prix gets its own TFRs, published a few days ahead. Outside those windows the ring means nothing, so check tfr.faa.gov on the day.',
+      { who: 'FAA, with NORAD and law enforcement responding to violators',
+        pen: ['Interception, then detention and questioning by law enforcement', 'Top-severity case: certificate suspension and civil penalty up to $1,875 per violation', 'Knowing or willful violation is a federal crime: up to 1 year and $100,000, or up to 5 years for a repeat offense'],
+        cites: [c('FDC 0/0367', 'https://tfr.faa.gov/download/detail_0_0367.xml'), c('14 CFR 99.7', ecfr(14, '99.7')), c('49 U.S.C. 46307', usc(49, 46307))] }),
+
+    // ---------- jurisdiction ----------
+    unincorporated: R('green', 'Outside city limits',
+      'Texas counties have no general zoning power, so outside city limits no state or county permit is needed to land on private land with the owner’s consent. Deed restrictions, HOA covenants, nuisance suits and the trespass, noise and damage laws still apply.',
+      { cites: [c('Local Gov’t Code ch. 241', tx('LG', 241)), c('ch. 231', tx('LG', 231))] }),
+    city_austin: R('amber', 'Austin: only at the airport or a permitted site',
+      'Austin bans aircraft landings anywhere in the city except in an emergency, at the airport, or at a heli-facility with a city permit. A temporary (Category I) helistop permit allows up to 10 operations a day and 18 in all over at most 180 days, and needs an application 30 days ahead, a fire department inspection and $5 million of insurance. No permits are issued in residential zoning, except for hospital heliports and construction-site helistops.',
+      { who: 'Austin Police (including its Air Support Unit); the Aviation Department issues permits',
+        pen: ['Class C misdemeanor: up to $500 per landing', 'A landowner who knowingly allows an unpermitted landing commits a separate offense', 'Low flying and hazardous approaches are separate city offenses, up to $500 each; how far they reach over federal flight rules is untested'],
+        cites: [CITE.a1315, c('Heli-facility permits, §§13-1-171–191', muniAustin('TIT13TRSE_CH13-1AVSE_ART4HEHEOP')), c('§1-1-99', 'https://library.municode.com/tx/austin/codes/code_of_ordinances')],
+        note: 'The permit rules do not apply on state or federal property.' }),
+    city_wlh: R('red', 'West Lake Hills bans aircraft landings',
+      'No one may take off or land any aircraft within the city limits. Medical helicopters, emergencies and military or National Guard aircraft are exempt.',
+      { who: 'West Lake Hills Police', pen: ['Zoning violation: fine up to $2,000'], cites: [c('West Lake Hills Code §38.03.061', 'https://ecode360.com/40402113')] }),
+    city_lakeway: R('red', 'Lakeway allows landings only at the airpark',
+      'Aircraft may land or take off only as permitted in the airpark (AV) zoning district, and helipads aren’t allowed anywhere else. Medical helicopters, emergencies and military aircraft are exempt. Takeoffs and landings at night are banned outright.',
+      { who: 'Lakeway Police', pen: ['Up to $2,000 a day', 'Night landing: up to $500'], cites: [c('Lakeway Code §30.04.005', 'https://ecode360.com/39617576'), c('§14.09.004', 'https://ecode360.com/39613672')] }),
+    city_dripping: R('red', 'Dripping Springs allows landings only at licensed heliports',
+      'Landing or taking off anywhere in the city except at a licensed heliport or helistop is an offense, and the aircraft owner is presumed to be the operator. Licensed sites must be at least 750 ft from any church, school or home. Medical and emergency flights are exempt.',
+      { who: 'Dripping Springs code enforcement; Hays County Sheriff', pen: ['Fine up to $2,000, with no need to prove intent', 'Civil penalty up to $500 a day after notice, plus an injunction'],
+        cites: [c('Dripping Springs Code §30.06.006', 'https://library.municode.com/tx/dripping_springs/codes/code_of_ordinances?nodeId=COOR_CH30ZO_ART30.06HE')] }),
+    city_hsb: R('amber', 'Horseshoe Bay: airport, permitted sites, or council approval',
+      'Takeoffs and landings are allowed only at the airport, at city-permitted heliports, or with the prior written approval of the mayor or city council. Medical and rescue flights are exempt.',
+      { who: 'Horseshoe Bay Police', pen: ['Up to $2,000, each day a separate offense', 'Civil penalty up to $2,000 a day'], cites: [c('Horseshoe Bay Code §12.04.004', 'https://ecode360.com/39028739')] }),
+    city_zoning: R('amber', 'City zoning restricts heliports',
+      'This city regulates landing sites through zoning: a place used for helicopter landings counts as a heliport, allowed only in certain districts and often only with a special or conditional use permit. A one-off landing isn’t expressly banned, but check with the planning department before relying on that.',
+      { who: 'City code enforcement and police', pen: ['Zoning violation: fine up to $2,000'], cites: [CITE.lgc54] }),
+    city_other: R('amber', 'Inside city limits',
+      'We found no landing rule for this city, but Texas cities often regulate heliports through zoning or nuisance rules. Check the city code or call the planning department before you land.',
+      { who: 'City police and code enforcement', pen: ['City ordinance violation: Class C, up to $500; up to $2,000 for zoning, fire-safety or public-health rules'], cites: [CITE.lgc54] }),
+
+    // ---------- Austin zoning ----------
+    austin_res: R('red', 'Residential zoning: no city permit possible',
+      'Austin issues no heli-facility permits in residential base districts (LA, RR, SF-1 to SF-6, MF-1 to MF-6 and MH), so a private landing on this lot can’t be made legal. The only exceptions are a hospital heliport and a temporary helistop on a construction site.',
+      { who: 'Austin Police; the Aviation Department issues permits',
+        pen: ['Class C misdemeanor: up to $500 per landing', 'A landowner who knowingly allows the landing commits a separate offense'],
+        cites: [c('Austin Code §13-1-176', muniAustin('TIT13TRSE_CH13-1AVSE_ART4HEHEOP')), c('LDC §25-2-32 (districts)', AUS_LDC), c('Austin Property Profile', AUS_PROFILE)] }),
+    austin_permit: R('amber', 'Zoning allows a city helistop permit',
+      'Outside residential districts the city can issue a temporary (Category I) helistop permit: up to 10 operations a day and 18 in all, over at most 180 days, and it can’t be renewed. Apply 30 days ahead; the site needs a fire department inspection and $5 million of insurance. A permanent heliport is a conditional use in these districts, so it needs a conditional use permit as well.',
+      { who: 'Aviation Department (helistop permits); Development Services (conditional use permits)',
+        pen: ['Landing without the permit: Class C, up to $500 per landing'],
+        cites: [c('Austin Code §§13-1-171–191', muniAustin('TIT13TRSE_CH13-1AVSE_ART4HEHEOP')), c('LDC §25-2-861', AUS_LDC_861), c('Austin Property Profile', AUS_PROFILE)] }),
+    austin_unzoned: R('amber', 'Unzoned land in Austin',
+      'The city hasn’t zoned this tract, which usually means state or federal property such as a campus, a state hospital or Camp Mabry. Austin’s heli-facility permit rules don’t apply on state or federal property, so the agency that owns it decides.',
+      { who: 'The owning agency; Austin Police', cites: [c('Austin Code §13-1-172(B)', muniAustin('TIT13TRSE_CH13-1AVSE_ART4HEHEOP'))] }),
+
+    // ---------- federal land ----------
+    military_fed: R('red', 'Military installation',
+      'Fort Cavazos and Joint Base San Antonio are closed federal reservations. Landing without the installation’s permission is entering for a prohibited purpose, and on Fort Cavazos you are also inside restricted airspace.',
+      { who: 'Military police and installation security; federal prosecutors', pen: ['Up to 6 months in jail and a $5,000 fine', 'Willful breach of an installation security order: up to 1 year and $100,000', 'FAA action for any restricted-airspace entry'],
+        cites: [c('18 U.S.C. 1382', usc(18, 1382)), c('50 U.S.C. 797', usc(50, 797))] }),
+    military_guard: R('red', 'National Guard installation',
+      'Camp Mabry in Austin, Camp Swift near Bastrop and the Guard ramp at Austin-Bergstrom are Texas Military Department posts closed to the public. A commanding officer may detain trespassers and hand them to civil authorities.',
+      { who: 'Texas Military Department security; Austin Police or Bastrop County Sheriff', pen: [P.trespassB, 'Hindering Texas military forces: Class B, up to 180 days and $2,000', 'Federal charges are possible on federally owned land'],
+        cites: [c('Gov’t Code §437.210', tx('GV', 437)), CITE.pc3005] }),
+    nwr: R('red', 'National wildlife refuge',
+      'Unauthorized landing or takeoff on a national wildlife refuge is prohibited except in an emergency, and so is low flight that harasses wildlife.',
+      { who: 'U.S. Fish and Wildlife Service federal wildlife officers', pen: ['Up to 180 days in jail and a $5,000 fine', 'Knowing violation: up to 1 year and $100,000'], cites: [c('50 CFR 27.34', ecfr(50, '27.34')), c('16 U.S.C. 668dd(f)', usc(16, '668dd'))] }),
+    esa: R('red', 'Endangered songbird habitat',
+      'Golden-cheeked warblers nest in these juniper-oak woodlands, roughly March through July. A landing or hover that flushes nesting birds could be an illegal take by harassment under the Endangered Species Act. That turns on the facts, and no helicopter case is on record.',
+      { who: 'U.S. Fish and Wildlife Service, Office of Law Enforcement', pen: ['Civil penalty up to $65,653 per knowing take', 'Criminal: up to 1 year in jail and a $100,000 fine'],
+        cites: [c('50 CFR 17.3', ecfr(50, '17.3')), c('50 CFR 11.33', ecfr(50, '11.33')), c('16 U.S.C. 1540', usc(16, 1540))] }),
+    nps: R('red', 'National Park Service land',
+      'Aircraft may land in a national park only at sites designated by special regulation, and LBJ National Historical Park has none. The old LBJ Ranch airstrip is closed year-round except to users the Park Service authorizes.',
+      { who: 'National Park Service law enforcement rangers', pen: ['Up to 6 months in jail and a $5,000 fine'], cites: [c('36 CFR 2.17', ecfr(36, '2.17')), c('36 CFR 1.3', ecfr(36, '1.3')), c('Park compendium', 'https://www.nps.gov/lyjo/learn/management/superintendent-compendium.htm')] }),
+    usace: R('red', 'Army Corps of Engineers lake project',
+      'On Corps land and water at Lake Georgetown, Granger, Canyon, Stillhouse Hollow and Belton lakes, aircraft may operate only where the District Commander designates, and dropping off or picking up anyone by helicopter needs written permission except in an extreme emergency.',
+      { who: 'Corps of Engineers park rangers; citations go before a U.S. Magistrate', pen: ['Up to $5,000 and 6 months in jail'], cites: [c('36 CFR 327.4', ecfr(36, '327.4')), c('36 CFR 327.25', ecfr(36, '327.25'))] }),
+    federal_land: R('red', 'Other federal property',
+      'Federal fish hatcheries and research stations are closed to aircraft landings without the managing agency’s permission.',
+      { who: 'The managing agency’s law enforcement', pen: ['Usually a federal petty offense: up to 6 months and a $5,000 fine'] }),
+
+    // ---------- state land ----------
+    state_park: R('red', 'Texas state park or natural area',
+      'No park rule names aircraft, but a landing uses park land for a purpose contrary to its designated one and makes noise that disturbs other visitors; both are violations. Officers can also remove you from the park.',
+      { who: 'Texas Parks and Wildlife state park police and game wardens', pen: ['Class C Parks and Wildlife misdemeanor: $25–$500 per violation', 'Removal from the park for up to 48 hours'],
+        cites: [c('31 TAC §59.134', 'https://www.law.cornell.edu/regulations/texas/31-Tex-Admin-Code-SS-59-134'), c('Parks & Wildlife Code §§13.108, 13.112', tx('PW', 13))] }),
+    state_wma: R('red', 'State wildlife area or fish hatchery',
+      'Texas Parks and Wildlife land managed for wildlife or fish production. Public use is limited to permitted activities, so a landing needs the department’s permission.',
+      { who: 'Texas Parks and Wildlife game wardens', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    state_land: R('red', 'State-owned land',
+      'Land held by a state agency or university: research ranches, historic sites, hospital grounds. A landing needs the agency’s permission.',
+      { who: 'The agency’s police or the county sheriff', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    capitol: R('red', 'Texas Capitol Complex',
+      'The state campus from 10th Street to MLK Boulevard, between Lavaca and Trinity streets, including the Governor’s Mansion. No rule names crewed aircraft, but a landing would break the complex’s rule against actions that risk safety, and DPS polices it.',
+      { who: 'Texas Department of Public Safety', pen: ['Class C misdemeanor: up to $500', P.trespassB],
+        cites: [c('Gov’t Code §§411.061–.062', tx('GV', 411)), c('13 TAC §111.27', 'https://www.law.cornell.edu/regulations/texas/13-Tex-Admin-Code-SS-111-27'), CITE.pc3005] }),
+    campus_public: R('red', 'Public university campus',
+      'Trespassing on a state university’s grounds is its own offense, and university police can remove you. We found no university rule naming aircraft, so these general laws apply.',
+      { who: 'University police (UTPD at UT Austin)', pen: ['Trespass on university grounds: fine up to $200', 'Criminal trespass: Class B, or Class A after a prior campus-trespass conviction'],
+        cites: [c('Education Code §§51.204, 51.208', tx('ED', 51)), CITE.pc3005] }),
+    campus_private: R('amber', 'Private college campus',
+      'Private property: land only with the college’s permission.',
+      { who: 'Campus security; city police', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    prison: R('red', 'Jail or correctional facility',
+      'Secure grounds, where an unannounced aircraft will be treated as an escape or contraband attempt. Expect an armed response.',
+      { who: 'Facility security and the sheriff; federal officers at FCI Bastrop', pen: [P.trespassB, 'Federal charges are possible at FCI Bastrop'], cites: [CITE.pc3005] }),
+    school: R('red', 'School district property',
+      'Trespassing on school grounds is its own offense, school police can remove you, and a campus counts as a public place under the noise law.',
+      { who: 'School district police; city police', pen: ['Trespass on school grounds: Class C, up to $500', P.trespassB], cites: [c('Education Code §37.107', tx('ED', 37)), CITE.pc3005] }),
+
+    // ---------- local parks and preserves ----------
+    austin_park: R('red', 'City of Austin parkland',
+      'Austin’s park rules don’t mention aircraft, but its citywide landing ban covers parks: a park landing would need a heli-facility permit and the parks department’s agreement. Park rangers can cite you and remove you.',
+      { who: 'Austin Police; Parks and Recreation park rangers', pen: ['Class C misdemeanor: up to $500 per landing'], cites: [CITE.a1315] }),
+    austin_wqpl: R('red', 'Austin Water Quality Protection Land',
+      'City-owned ranch land over the Edwards Aquifer recharge zone, closed to the public. Entry without permission is trespass.',
+      { who: 'Austin Water; county sheriff', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    bcp: R('red', 'Balcones Canyonlands Preserve',
+      'City of Austin, Travis County and LCRA land set aside as endangered songbird habitat. Most tracts are closed to the public and posted, so any entry without permission is trespass, and the songbird rule below applies.',
+      { who: 'Preserve staff with city, county or LCRA officers', pen: [P.trespassB, 'Inside Austin, the city landing ban: up to $500'], cites: [CITE.pc3005] }),
+    city_park: R('red', 'City park',
+      'Public parkland. Park codes rarely mention aircraft, but a landing needs the city’s permission, and several nearby cities ban landings anywhere inside their limits.',
+      { who: 'City police; park rangers', pen: [P.cityC, 'Removal and a criminal trespass warning; returning is Class B trespass'], cites: [CITE.lgc54, CITE.pc3005] }),
+    travis_park: R('red', 'Travis County park',
+      'County park rules regulate drones but say nothing about helicopters. Land without the county’s permission and rangers can evict you for at least 48 hours and issue a criminal trespass warning lasting from 30 days to life.',
+      { who: 'Travis County park rangers (licensed peace officers)', pen: ['Eviction for at least 48 hours', 'Criminal trespass warning, 30 days to life; returning is Class B trespass, up to 180 days and $2,000'],
+        cites: [c('Travis County Code ch. 232', 'https://www.traviscountytx.gov/images/commissioners_court/Doc/county-code/subtitle12/Ch_232_County_Parks.pdf')] }),
+    county_park: R('red', 'County park',
+      'Williamson County’s park rules have no aircraft section, but a landing can break its rules on closed areas, fees, natural resources and non-public preserves. Other counties’ rules vary; ask the county first.',
+      { who: 'County park rangers or sheriff', pen: ['Williamson County: civil penalty up to $100 per violation, and eviction', 'Elsewhere: removal and a criminal trespass warning; returning is Class B trespass'],
+        cites: [c('Williamson County Park Rules (2026)', 'https://public.destinyhosted.com/wilcodocs/2026/COM/20260428_1973/39603_revised_Park_Rules_final_draft.pdf')] }),
+    lcra_land: R('red', 'LCRA park or land',
+      'LCRA’s rules don’t mention aircraft, but its dams, power plants and the land around them are restricted to staff, closed areas and fees apply on the rest, and damaging vegetation or making noise between 10 pm and 6 am is prohibited. A permit from LCRA’s general manager is the only clean way in.',
+      { who: 'LCRA Rangers (licensed peace officers)', pen: ['Class C misdemeanor: up to $500 per violation', 'Being barred from LCRA land'], cites: [c('LCRA Land and Water Use Regulations', LCRA_REGS)] }),
+    district: R('red', 'Utility or special-district park',
+      'Parks and ponds owned by municipal utility districts and similar local districts: public land run by the district’s board. Land only with its permission.',
+      { who: 'Sheriff or city police; district staff', pen: [P.trespassB], cites: [CITE.pc3005] }),
+
+    // ---------- private and nonprofit land ----------
+    ngo: R('amber', 'Nonprofit conservation land',
+      'Owned by a land trust or conservation group and usually closed to the public. Ask the owner; conservation easements often forbid aircraft use.',
+      { who: 'Owner; sheriff for trespass', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    private_cons: R('amber', 'Private conservation land',
+      'Private land under a conservation designation or easement. The owner can allow a landing unless the easement forbids it, so ask first.',
+      { who: 'Owner; sheriff for trespass', pen: [P.trespassB], cites: [CITE.pc3005] }),
+    hoa: R('amber', 'HOA common area',
+      'Owned by a homeowners association. A landing needs the association’s permission, and deed restrictions may bar it outright.',
+      { who: 'The HOA; police or sheriff for trespass', pen: [P.trespassB, 'A civil suit for violating deed restrictions'], cites: [CITE.pc3005] }),
+    unknown_protected: R('amber', 'Protected land, owner unclear',
+      'Listed in the national protected-areas database without a clear manager. Treat it as private land: find the owner and ask.',
+      { who: 'Owner; sheriff for trespass', pen: [P.trespassB], cites: [CITE.pc3005] }),
+
+    // ---------- water ----------
+    lcra_lake: R('amber', 'Highland Lakes (LCRA)',
+      'LCRA’s rules don’t mention aircraft, and seaplanes aren’t vessels under the state boating law, so float-equipped aircraft use these lakes. Stay out of buoyed and closed areas near dams, don’t obstruct boats, and keep quiet between 10 pm and 6 am. Shorelines are mostly private, and city rules apply where the lake lies inside city limits.',
+      { who: 'LCRA Rangers; sheriff lake patrols', pen: ['Class C misdemeanor: up to $500, and being barred from LCRA land and water'],
+        cites: [c('LCRA Land and Water Use Regulations', LCRA_REGS), c('Parks & Wildlife Code §31.003', tx('PW', 31))] }),
+    austin_lakes: R('red', 'Lady Bird Lake and Lake Austin',
+      'Under the city’s lake rules a seaplane counts as a motorboat, and motorboats are banned on Lady Bird Lake. On Lake Austin a water landing needs the city’s advance approval under its landing ban.',
+      { who: 'Austin Police Lake Patrol', pen: ['Up to $500 per violation of the lake rules', 'Class C, up to $500 per landing under the landing ban'],
+        cites: [c('Austin Code ch. 8-5', muniAustin('TIT8PARE_CH8-5WAACUS')), CITE.a1315] }),
+    water_river: R('green', 'Riverbed of a navigable stream',
+      'Texas law lets aircraft operate in and on the beds and banks of rivers averaging 30 ft or wider, below the gradient boundary, as long as the pilot avoids harming vegetation and wildlife. That doesn’t override city or park rules, and the land above the banks is usually private.',
+      { who: 'Texas Parks and Wildlife game wardens', cites: [c('Parks & Wildlife Code §90.0035', tx('PW', 90))] }),
+    water_other: R('amber', 'Lake or pond',
+      'Only float-equipped aircraft can use the water, and most small lakes and stock tanks belong to a landowner or a district. Ask the owner.',
+      { who: 'Owner; sheriff', pen: [P.trespassB], cites: [CITE.pc3005] }),
+
+    // ---------- infrastructure and roads ----------
+    critical_infra: R('red', 'Power plant nearby',
+      'Texas treats a power plant, substation, water or wastewater plant, or similar facility as critical infrastructure when it is completely fenced. Landing inside the fence is Class A trespass, and the operator will call the police.',
+      { who: 'Plant security; sheriff or city police', pen: ['Class A misdemeanor: up to 1 year in jail and a $4,000 fine', 'Damage that impairs public power supply: third-degree felony, 2–10 years'], cites: [c('Penal Code §30.05(b)(7)', tx('PE', 30)), c('§28.03', tx('PE', 28))] }),
+    dam: R('red', 'Major dam',
+      'Dams aren’t on Texas’s critical-infrastructure list, but LCRA closes its dams and the land around them to everyone but staff, Corps of Engineers dams sit on federal project land, and damage that impairs any dam is a felony.',
+      { who: 'Dam operator; LCRA Rangers, Corps rangers or sheriff', pen: ['Criminal mischief that impairs a dam: state jail felony, 180 days to 2 years and up to $10,000', 'On LCRA dam land: Class C, up to $500, and being barred'],
+        cites: [c('Penal Code §28.03', tx('PE', 28)), c('LCRA regulations §16', LCRA_REGS)] }),
+    roadway: R('red', 'Public road',
+      'Texas bans taking off, landing or maneuvering on a public highway, road or street, except to prevent serious injury, during or just after an emergency, or where a county ordinance allows it. Blocking traffic is a separate offense.',
+      { who: 'Any peace officer; DPS troopers on state highways', pen: ['Fine of $25–$200, handled like a traffic ticket', 'Obstructing a highway: Class B, up to 180 days and $2,000; a state jail felony if it blocks an emergency vehicle or hospital access'],
+        cites: [c('Transportation Code §24.021', tx('TN', 24)), c('Penal Code §42.03', tx('PE', 42))] }),
+  };
+
+  const checklist = [
+    ['Check TFRs and NOTAMs the day you fly.', 'Use tfr.faa.gov or a briefing at 1-800-WX-BRIEF. UT home games, NASCAR and F1 at COTA, VIP visits and air shows all bring TFRs; one covers San Marcos for the Texas Capital Airshow, Nov 6–8, 2026.'],
+    ['Get the owner’s permission in writing.', 'Name the site, the dates and the times. On public land, ask the managing agency; most say no outside designated sites.'],
+    ['Check the city’s rules.', 'Austin allows landings only at the airport or a permitted site, and won’t permit one on a residentially zoned lot; a temporary helistop permit takes 30 days, a fire inspection and $5 million of insurance. West Lake Hills, Lakeway and Dripping Springs ban landings almost everywhere. Outside city limits there’s no state or county permit.'],
+    ['Talk to ATC inside Class C or D.', 'Call Austin Approach or the tower before you enter. ATC can approve the operation, never the site.'],
+    ['Survey the site.', 'Look for wires, towers, slope, loose debris, people and livestock, and plan an approach and a go-around path.'],
+    ['Keep people clear.', 'The helicopter exception in 14 CFR 91.119(d) applies only when there’s no hazard to people or property on the surface.'],
+    ['File FAA Form 7480-1 for a site you’ll keep using.', 'Notice is due 90 days ahead unless the site is used for less than a year, no more than 3 days a week and 10 operations a day (14 CFR 157.1).'],
+    ['In an emergency, land where it’s safest.', '14 CFR 91.3(b) lets the pilot deviate from any rule to meet the emergency, and Texas’s road-landing ban has the same exception. Tell the landowner and be ready to send the FAA a written report.'],
+  ];
+
+  const penalties = [
+    { t: 'How Texas grades offenses', who: 'Penal Code §§12.21–.35', items: [
+      ['Class C misdemeanor', 'fine up to $500, no jail', ''],
+      ['Class B misdemeanor', 'up to 180 days and $2,000', ''],
+      ['Class A misdemeanor', 'up to 1 year and $4,000', ''],
+      ['State jail felony', '180 days to 2 years and up to $10,000', ''],
+    ] },
+    { t: 'FAA certificate and civil penalties', who: FAA_WHO, items: [
+      ['Pilot certificate suspension', '20–60 days if careless, 60–120 or more if intentional', 'Order 2150.3C'],
+      ['Civil penalty, pilot', '$1,875 per violation, each flight separate', '14 CFR 13.301'],
+      ['Civil penalty, other individual or small business', '$17,062 per violation', '14 CFR 13.301'],
+      ['Civil penalty, company', '$75,000 per violation', '49 U.S.C. 46301'],
+    ] },
+    { t: 'TFRs and national defense airspace', who: 'FAA; NORAD intercepts; federal prosecutors', items: [
+      ['Knowing or willful violation', 'up to 1 year and $100,000', '49 U.S.C. 46307'],
+      ['Repeat offense (since Dec 18, 2025)', 'up to 5 years and $250,000', '49 U.S.C. 46307'],
+    ] },
+    { t: 'Federal land', who: 'Fish and Wildlife Service, National Park Service, Corps of Engineers, military police', items: [
+      ['Wildlife refuge landing', '180 days and $5,000; 1 year and $100,000 if knowing', '16 U.S.C. 668dd'],
+      ['National park landing', '6 months and $5,000', '36 CFR 1.3'],
+      ['Corps of Engineers lake land', '6 months and $5,000', '36 CFR 327.25'],
+      ['Military installation', '6 months and $5,000; 1 year and $100,000 for a security-order breach', '18 U.S.C. 1382'],
+      ['Endangered species take', 'civil $65,653; criminal 1 year and $100,000', '16 U.S.C. 1540'],
+    ] },
+    { t: 'Texas criminal law', who: 'Any peace officer: sheriff, constable, city police, DPS', items: [
+      ['Criminal trespass', 'Class B; Class A at a fenced critical facility; Class C on farm land within 100 ft of the line', 'Penal §30.05'],
+      ['Landing on a public road', '$25–$200 fine', 'Transp. §24.021'],
+      ['Obstructing a highway', 'Class B', 'Penal §42.03'],
+      ['Deadly conduct', 'Class A', 'Penal §22.05'],
+      ['Damaging property', 'Class C to felony by amount; state jail felony if it impairs a dam', 'Penal §§28.03–.04'],
+      ['Unreasonable noise', 'Class C', 'Penal §42.01'],
+      ['Flying while intoxicated', 'Class B, at least 72 hours in jail', 'Penal §49.05'],
+    ] },
+    { t: 'State property', who: 'TPWD officers, DPS, university and school police, Texas Military Department', items: [
+      ['State park', '$25–$500 per violation, and removal for up to 48 hours', '31 TAC §59.134'],
+      ['Capitol Complex', 'Class C, plus trespass', '13 TAC §111.27'],
+      ['University grounds', 'up to $200, plus trespass', 'Educ. §51.204'],
+      ['School grounds', 'Class C, plus trespass', 'Educ. §37.107'],
+      ['National Guard post', 'Class B for hindering the forces, plus trespass', 'Gov’t §437.210'],
+    ] },
+    { t: 'City of Austin', who: 'Austin Police; Parks and Recreation rangers; Aviation Department', items: [
+      ['Landing anywhere but the airport or a permitted site', 'up to $500 per landing, for the pilot and a knowing landowner', '§13-1-15'],
+      ['Seaplane on Lady Bird Lake', 'up to $500', '§8-5-82'],
+      ['Zoning violations', 'up to $2,000', '§1-1-99'],
+    ] },
+    { t: 'Other cities', who: 'City police and code enforcement', items: [
+      ['West Lake Hills: any landing', 'up to $2,000', '§38.03.061'],
+      ['Lakeway: outside the airpark', 'up to $2,000 a day; $500 for night landings', '§30.04.005'],
+      ['Dripping Springs: outside a licensed heliport', 'up to $2,000, plus $500 a day civil', '§30.06.006'],
+      ['Horseshoe Bay: without a permit or approval', 'up to $2,000 a day, plus up to $2,000 a day civil', '§12.04.004'],
+      ['Zoning-only cities', 'up to $2,000', 'LGC §54.001'],
+    ] },
+    { t: 'Counties and LCRA', who: 'County park rangers; LCRA Rangers', items: [
+      ['Travis County park', 'eviction for 48+ hours and a trespass warning; returning is Class B', 'ch. 232'],
+      ['Williamson County park', 'civil penalty up to $100 and eviction', 'Park Rules'],
+      ['LCRA land and water', 'Class C up to $500, and a ban from LCRA land', 'LCRA §25'],
+    ] },
+  ];
+
+  const sources = [
+    ['14 CFR 91.119, 91.13, 91.3 (eCFR)', ecfr(14, '91.119')],
+    ['14 CFR Part 157: notice for landing sites', 'https://www.ecfr.gov/current/title-14/part-157'],
+    ['14 CFR 13.301: inflation-adjusted civil penalties', ecfr(14, '13.301')],
+    ['FAA Order 2150.3C, Compliance and Enforcement Program', 'https://www.faa.gov/documentLibrary/media/Order/FAA_Order_2150.3C_with_Changes_1-13.pdf'],
+    ['FDC 0/0367, stadium TFR', 'https://tfr.faa.gov/download/detail_0_0367.xml'],
+    ['FAA JO 7400.11M, airspace designations', 'https://www.faa.gov/documentLibrary/media/Order/2026-07-30_Order_JO_7400.11M_Airspace_Designations_and_Reporting_Points_FINAL.pdf'],
+    ['San Antonio FSDO', 'https://www.faa.gov/about/office_org/field_offices/fsdo/sat'],
+    ['50 CFR 27.34, wildlife refuges', ecfr(50, '27.34')],
+    ['36 CFR 2.17, national parks', ecfr(36, '2.17')],
+    ['36 CFR 327.4, Corps of Engineers lakes', ecfr(36, '327.4')],
+    ['Texas Penal Code ch. 30 (trespass)', tx('PE', 30)],
+    ['Texas Transportation Code ch. 24 (aircraft on roads)', tx('TN', 24)],
+    ['Austin City Code §13-1-15 and heli-facility permits', muniAustin('TIT13TRSE_CH13-1AVSE_ART4HEHEOP')],
+    ['Austin Land Development Code §25-2-861: heliports as a conditional use', AUS_LDC_861],
+    ['Austin Property Profile: a lot’s zoning by address', AUS_PROFILE],
+    ['31 TAC §59.134, state park rules', 'https://www.law.cornell.edu/regulations/texas/31-Tex-Admin-Code-SS-59-134'],
+    ['Parks and Wildlife Code §90.0035 (riverbeds)', tx('PW', 90)],
+    ['LCRA Land and Water Use Regulations', LCRA_REGS],
+    ['Travis County Code ch. 232, county parks', 'https://www.traviscountytx.gov/images/commissioners_court/Doc/county-code/subtitle12/Ch_232_County_Parks.pdf'],
+  ];
+
+  return { checked: 'October 31, 2026', rules, penalties, checklist, sources };
+})();
+
+</script>
+<script>
+// Picks a region from the URL hash (#austin, #blacksburg/37.22900,-80.41400), loads that region's data file,
+// then builds the map and the briefing panel for it.
+(function () {
+  'use strict';
+  const REGIONS = window.HELI_REGIONS;
+  function parseHash() {
+    const m = /^#([a-z]+)(?:\/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?))?/.exec(location.hash || '');
+    const key = m && REGIONS[m[1]] ? m[1] : Object.keys(REGIONS)[0];
+    return { key, at: m && m[2] ? [+m[2], +m[3]] : null };
+  }
+  const h = parseHash();
+  const REGION = REGIONS[h.key];
+  window.addEventListener('hashchange', () => {
+    const n = parseHash();
+    if (n.key !== REGION.key) location.reload();
+    else if (n.at && window.__heliGoTo) window.__heliGoTo(n.at[0], n.at[1]);
+  });
+  const s = document.createElement('script');
+  s.src = REGION.data;
+  s.onload = () => heliStart(REGION, h.at);
+  s.onerror = () => { document.getElementById('pane-spot').innerHTML = '<p class="hint" style="padding-top:16px">The map data didn’t load. Reload the page to try again.</p>'; };
+  document.head.appendChild(s);
+})();
+
+function heliStart(REGION, startAt) {
+  'use strict';
+  const D = window.HELI_DATA;
+  const RB = window.HELI_RULES[REGION.state];
+  const RULES = RB.rules;
+  const NM = 1852;
+  const REGIONS = window.HELI_REGIONS;
+
+  // ---------- geometry ----------
+  function dec(a) {
+    const o = new Array(a.length / 2);
+    let x = 0, y = 0;
+    for (let i = 0, j = 0; i < a.length; i += 2, j++) { x += a[i]; y += a[i + 1]; o[j] = [y / 1e5, x / 1e5]; }
+    return o;
+  }
+  const decG = (g) => g.map((p) => p.map(dec));
+  function bbOf(polys) {
+    let s = 90, w = 180, n = -90, e = -180;
+    for (const p of polys) for (const c of p[0]) { if (c[0] < s) s = c[0]; if (c[0] > n) n = c[0]; if (c[1] < w) w = c[1]; if (c[1] > e) e = c[1]; }
+    return [s, w, n, e];
+  }
+  function pip(la, lo, r) {
+    let ins = false;
+    for (let i = 0, j = r.length - 1; i < r.length; j = i++) {
+      const yi = r[i][0], xi = r[i][1], yj = r[j][0], xj = r[j][1];
+      if ((yi > la) !== (yj > la) && lo < ((xj - xi) * (la - yi)) / (yj - yi) + xi) ins = !ins;
+    }
+    return ins;
+  }
+  function inZone(z, la, lo) {
+    const b = z.bb;
+    if (la < b[0] || la > b[2] || lo < b[1] || lo > b[3]) return false;
+    return z.polys.some((p) => pip(la, lo, p[0]) && !p.slice(1).some((h) => pip(la, lo, h)));
+  }
+  function meters(la1, lo1, la2, lo2) {
+    const k = Math.cos(((la1 + la2) / 2) * Math.PI / 180);
+    return Math.hypot((lo2 - lo1) * k * 111320, (la2 - la1) * 110574);
+  }
+  function bearing(la1, lo1, la2, lo2) {
+    const t = Math.PI / 180;
+    const y = Math.sin((lo2 - lo1) * t) * Math.cos(la2 * t);
+    const x = Math.cos(la1 * t) * Math.sin(la2 * t) - Math.sin(la1 * t) * Math.cos(la2 * t) * Math.cos((lo2 - lo1) * t);
+    return (Math.atan2(y, x) / t + 360) % 360;
+  }
+  function segMeters(la, lo, a, b) {
+    const kx = Math.cos(la * Math.PI / 180) * 111320, ky = 110574;
+    const px = lo * kx, py = la * ky, ax = a[1] * kx, ay = a[0] * ky, bx = b[1] * kx, by = b[0] * ky;
+    const dx = bx - ax, dy = by - ay;
+    let t = 0;
+    if (dx || dy) t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
+    return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+  }
+  function insidePoint(z) {
+    const [s, w, n, e] = z.bb;
+    if (inZone(z, (s + n) / 2, (w + e) / 2)) return [(s + n) / 2, (w + e) / 2];
+    for (let k = 3; k <= 11; k += 2) {
+      for (let i = 1; i < k; i++) for (let j = 1; j < k; j++) {
+        const la = s + ((n - s) * i) / k, lo = w + ((e - w) * j) / k;
+        if (inZone(z, la, lo)) return [la, lo];
+      }
+    }
+    return z.polys[0][0][0];
+  }
+  const inBounds = (b, la, lo) => lo >= b[0] && la >= b[1] && lo <= b[2] && la <= b[3];
+
+  // ---------- formatting ----------
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function dm(v, pos, neg) {
+    const h = v >= 0 ? pos : neg;
+    v = Math.abs(v);
+    let d = Math.floor(v), m = Math.round((v - d) * 600) / 10;
+    if (m >= 60) { d += 1; m = 0; }
+    return `${d}°${m.toFixed(1).padStart(4, '0')}′${h}`;
+  }
+  const fmtLL = (la, lo) => `${dm(la, 'N', 'S')} ${dm(lo, 'E', 'W')}`;
+  const compass = (b) => ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'][Math.round(b / 22.5) % 16];
+  const nmStr = (m) => (m < 0.2 * NM ? `${Math.round(m / 0.3048).toLocaleString()} ft` : `${(m / NM).toFixed(m < 10 * NM ? 1 : 0)} NM`);
+  // Virginia's independent cities are county-equivalents, so the county list holds them too
+  const countyName = (c) => (c.ic ? `City of ${c.n}` : `${c.n} County`);
+  const placeKind = (p) => ({ town: 'Town', village: 'Village' }[p.lsad] || 'City');
+
+  // ---------- what each kind of zone means (kinds come from the build; rule ids from the region's state) ----------
+  const LAND = {
+    military_federal: { s: 'red', label: 'Military installation', rules: ['military_fed'] },
+    military_guard: { s: 'red', label: 'National Guard installation', rules: ['military_guard'] },
+    nwr: { s: 'red', label: 'National wildlife refuge', rules: ['nwr', 'esa'] },
+    nps: { s: 'red', label: 'National Park Service land', rules: ['nps'] },
+    usace: { s: 'red', label: 'Army Corps of Engineers lake land', rules: ['usace'] },
+    federal_other: { s: 'red', label: 'Federal land', rules: ['federal_land'] },
+    usfs: { s: 'amber', label: 'National forest', rules: ['usfs'] },
+    wilderness: { s: 'red', label: 'National forest wilderness', rules: ['wilderness'] },
+    state_park: { s: 'red', label: 'State park or natural area', rules: ['state_park'] },
+    state_wma: { s: 'red', label: 'State wildlife area or hatchery', rules: ['state_wma'] },
+    state_forest: { s: 'amber', label: 'State forest', rules: ['state_forest'] },
+    state_other: { s: 'red', label: 'State-owned land', rules: ['state_land'] },
+    capitol: { s: 'red', label: 'Texas Capitol Complex', rules: ['capitol'] },
+    campus_public: { s: 'red', label: 'Public university campus', rules: ['campus_public'] },
+    prison: { s: 'red', label: 'Jail or correctional facility', rules: ['prison'] },
+    lcra: { s: 'red', label: 'LCRA park or land', rules: ['lcra_land'] },
+    utility: { s: 'red', label: 'Utility project land', rules: ['utility_land'] },
+    bcp: { s: 'red', label: 'Balcones Canyonlands Preserve', rules: ['bcp', 'esa'] },
+    park_austin: { s: 'red', label: 'City of Austin parkland', rules: ['austin_park'] },
+    austin_wqpl: { s: 'red', label: 'City of Austin protected land', rules: ['austin_wqpl'] },
+    park_city: { s: 'red', label: 'City or town park', rules: ['city_park'] },
+    park_travis: { s: 'red', label: 'Travis County park', rules: ['travis_park'] },
+    park_county: { s: 'red', label: 'County park', rules: ['county_park'] },
+    school: { s: 'red', label: 'School district property', rules: ['school'] },
+    district: { s: 'red', label: 'Utility or special-district park', rules: ['district'] },
+    campus_private: { s: 'amber', label: 'Private college campus', rules: ['campus_private'] },
+    ngo: { s: 'amber', label: 'Nonprofit conservation land', rules: ['ngo'] },
+    private_cons: { s: 'amber', label: 'Private conservation land', rules: ['private_cons'] },
+    hoa: { s: 'amber', label: 'HOA common area', rules: ['hoa'] },
+    unknown: { s: 'amber', label: 'Protected land, owner unclear', rules: ['unknown_protected'] },
+    easement: { s: 'none', label: 'Private farmland under easement', rules: [] },
+  };
+  const WATER = {
+    lake_lcra: { s: 'amber', label: 'Highland Lakes (LCRA)', rules: ['lcra_lake'] },
+    lake_austin_city: { s: 'red', label: 'City-regulated lake', rules: ['austin_lakes'] },
+    lake_austin_park: { s: 'red', label: 'Lake inside an Austin park', rules: ['austin_park', 'water_other'] },
+    lake_usace: { s: 'red', label: 'Army Corps of Engineers lake', rules: ['usace', 'water_other'] },
+    lake_utility: { s: 'amber', label: 'Utility reservoir', rules: ['utility_lake'] },
+    river: { s: 'green', label: 'River', rules: ['water_river'] },
+    lake_other: { s: 'amber', label: 'Lake or pond', rules: ['water_other'] },
+  };
+  const CITY = REGION.cities || {};
+  const CITY_NOTES = REGION.cityNotes || {};
+  const MAJOR = new Set(REGION.major || []);
+  const WATER_LABELS = REGION.waterLabels || [];
+
+  // ---------- decode the bundle ----------
+  const zone = (o) => { const polys = decG(o.g); const bb = bbOf(polys); return { ...o, polys, bb, area: (bb[2] - bb[0]) * (bb[3] - bb[1]) }; };
+  const lands = D.lands.map(zone).map((z) => ({ ...z, def: LAND[z.k] || LAND.unknown }));
+  const water = D.water.map(zone).map((z) => ({ ...z, def: WATER[z.k] || WATER.lake_other }));
+  const places = D.places.map(zone);
+  const counties = D.counties.map(zone);
+  const airspace = D.airspace.map(zone);
+  const sua = D.sua.map(zone);
+  const roads = D.roads.map((r) => {
+    const line = dec(r.g);
+    let s = 90, w = 180, n = -90, e = -180;
+    for (const c of line) { if (c[0] < s) s = c[0]; if (c[0] > n) n = c[0]; if (c[1] < w) w = c[1]; if (c[1] > e) e = c[1]; }
+    return { ...r, line, bb: [s, w, n, e] };
+  });
+  const airports = D.airports;
+  const infra = D.infra;
+
+  // ---------- Austin zoning ----------
+  // A lot's base district decides whether the city can permit a heli-facility on it: never in a residential district
+  // (§13-1-176, bar hospital heliports and construction-site helistops), as a conditional use in all the rest (§25-2-861).
+  const ZBASE = {
+    LA: ['Lake Austin residence', 'res'], RR: ['Rural residence', 'res'], SF: ['Single-family residence', 'res'], MF: ['Multifamily residence', 'res'], MH: ['Mobile home residence', 'res'],
+    NO: ['Neighborhood office', 'com'], LO: ['Limited office', 'com'], GO: ['General office', 'com'], LR: ['Neighborhood commercial', 'com'], GR: ['Community commercial', 'com'],
+    CR: ['Commercial recreation', 'com'], L: ['Lake commercial', 'com'], CBD: ['Central business district', 'com'], DMU: ['Downtown mixed use', 'com'],
+    'W/LO': ['Warehouse and limited office', 'com'], CS: ['General commercial services', 'com'], CH: ['Commercial highway services', 'com'],
+    IP: ['Industrial park', 'ind'], MI: ['Major industry', 'ind'], LI: ['Limited industrial services', 'ind'], 'R&D': ['Research and development', 'ind'],
+    DR: ['Development reserve', 'sp'], AV: ['Aviation services', 'sp'], AG: ['Agricultural', 'sp'], P: ['Public', 'sp'], PUD: ['Planned unit development', 'sp'],
+    TOD: ['Transit-oriented development', 'sp'], NBG: ['North Burnet/Gateway', 'sp'], ERC: ['East Riverside Corridor', 'sp'], TND: ['Traditional neighborhood', 'sp'],
+    UNZ: ['Unzoned', 'unz'], UNK: ['Zoning not recorded', 'unz'],
+  };
+  const zTypes = (D.zoning ? D.zoning.types : []).map(([code, base]) => {
+    const b = ZBASE[base] || ZBASE.UNK;
+    return { code, base, cls: b[1], name: (/^(I-)?CS-1\b/.test(code) ? 'Commercial-liquor sales' : b[0]) + (code.startsWith('I-') ? ' (interim)' : '') };
+  });
+  // Lots are kept in Web Mercator world units (256 to the world at zoom 0): tiles draw them as they are, and
+  // lookups convert the clicked point instead.
+  const WU = 256;
+  const mercY = (la) => { const s = Math.sin(la * Math.PI / 180); return WU / 2 - (WU / (4 * Math.PI)) * Math.log((1 + s) / (1 - s)); };
+  const toWorld = (la, lo) => [(lo + 180) * WU / 360, mercY(la)];
+  const fromWorld = (x, y) => [(2 * Math.atan(Math.exp((WU / 2 - y) * 2 * Math.PI / WU)) - Math.PI / 2) * 180 / Math.PI, x * 360 / WU - 180];
+  const zLots = (() => {
+    const Z = D.zoning;
+    if (!Z) return [];
+    const bin = atob(Z.g), bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    let p = 0;
+    const uint = () => { let v = 0, m = 1, b; do { b = bytes[p++]; v += (b & 127) * m; m *= 128; } while (b & 128); return v; };
+    const sint = () => { const v = uint(); return v % 2 ? -(v + 1) / 2 : v / 2; };
+    let x = Z.o[0], y = Z.o[1];
+    const lots = [];
+    for (let k = 0; k < Z.n; k++) {
+      const t = zTypes[uint()], rings = [];
+      for (let r = 0, nr = uint(); r < nr; r++) {
+        const n = uint(), a = new Float64Array(n * 2);
+        for (let v = 0; v < n; v++) { x += sint(); y += sint(); a[2 * v] = (x / Z.q + 180) * WU / 360; a[2 * v + 1] = mercY(y / Z.q); }
+        rings.push(a);
+      }
+      const o = rings[0];
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      for (let i = 0; i < o.length; i += 2) { if (o[i] < x0) x0 = o[i]; if (o[i] > x1) x1 = o[i]; if (o[i + 1] < y0) y0 = o[i + 1]; if (o[i + 1] > y1) y1 = o[i + 1]; }
+      lots.push({ t, rings, bb: [x0, y0, x1, y1] });
+    }
+    return lots;
+  })();
+  function pipW(x, y, a) {
+    let ins = false;
+    for (let i = 0, j = a.length - 2; i < a.length; j = i, i += 2) {
+      const xi = a[i], yi = a[i + 1], xj = a[j], yj = a[j + 1];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) ins = !ins;
+    }
+    return ins;
+  }
+  function lotAt(la, lo) {
+    const [x, y] = toWorld(la, lo);
+    for (const z of zLots) {
+      const b = z.bb;
+      if (x < b[0] || x > b[2] || y < b[1] || y > b[3]) continue;
+      let ins = false;
+      for (const r of z.rings) if (pipW(x, y, r)) ins = !ins;
+      if (ins) return z;
+    }
+    return null;
+  }
+  // the nearest lot within maxM meters, for a spot that falls between lots
+  function nearLot(la, lo, maxM) {
+    const [x, y] = toWorld(la, lo);
+    const mPer = 40075016.686 * Math.cos(la * Math.PI / 180) / WU;
+    let best = null, bd = maxM / mPer;
+    for (const z of zLots) {
+      const b = z.bb;
+      if (x < b[0] - bd || x > b[2] + bd || y < b[1] - bd || y > b[3] + bd) continue;
+      const a = z.rings[0];
+      for (let i = 0, j = a.length - 2; i < a.length; j = i, i += 2) {
+        const ax = a[j], ay = a[j + 1], dx = a[i] - ax, dy = a[i + 1] - ay;
+        const t = dx || dy ? Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy))) : 0;
+        const d = Math.hypot(x - ax - t * dx, y - ay - t * dy);
+        if (d < bd) { bd = d; best = z; }
+      }
+    }
+    return best ? { z: best, d: bd * mPer } : null;
+  }
+  const lotNote = (t) => (t.cls === 'res' ? 'no permit possible' : t.cls === 'unz' ? 'unzoned' : 'permit possible');
+  const zoned = (p) => !!(p && zLots.length && p.reg === 'austin');
+
+  // ---------- page chrome for the region ----------
+  document.title = REGION.title;
+  document.getElementById('title').textContent = REGION.title;
+  document.getElementById('tagline').textContent = `Where a private helicopter can and can't put down around ${REGION.name}, and what a prohibited landing can cost. Click any spot on the map, or search an address.`;
+  const regionsEl = document.getElementById('regions');
+  const regionKeys = Object.keys(REGIONS);
+  if (regionKeys.length > 1) {
+    regionsEl.innerHTML = regionKeys.map((k) => `<button type="button" data-region="${k}" aria-pressed="${k === REGION.key}">${esc(REGIONS[k].label)}</button>`).join('');
+    regionsEl.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { if (b.dataset.region !== REGION.key) location.hash = b.dataset.region; }));
+  } else regionsEl.hidden = true;
+  if (!zLots.length) document.getElementById('zoneLegend').hidden = true;
+
+  // ---------- map ----------
+  const map = L.map('map', {
+    minZoom: 8, maxZoom: 16, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
+    maxBounds: REGION.maxBounds, maxBoundsViscosity: 0.7, attributionControl: true,
+  });
+  map.zoomControl.setPosition('topright');
+  map.attributionControl.setPrefix(false).addAttribution(REGION.attribution);
+  const pane = (name, z) => { map.createPane(name).style.zIndex = z; return L.canvas({ pane: name, padding: 0.4, tolerance: 2 }); };
+  const rBase = pane('p-base', 210), rTint = pane('p-tint', 212), rWater = pane('p-water', 220), rLand = pane('p-land', 230), rRoad = pane('p-road', 240), rAir = pane('p-air', 250), rHl = pane('p-hl', 260);
+  map.createPane('p-zone').style.zIndex = 215;
+  const labelPane = map.createPane('p-label');
+  labelPane.style.zIndex = 450;
+  labelPane.style.pointerEvents = 'none';
+  map.createPane('p-pin').style.zIndex = 700;
+
+  let C = {};
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    const g = (n) => cs.getPropertyValue(n).trim();
+    const num = (n, d) => { const v = parseFloat(g(n)); return Number.isFinite(v) ? v : d; };
+    C = {
+      land: g('--map-land'), water: g('--map-water'), waterEdge: g('--map-water-edge'), road: g('--map-road'), roadMinor: g('--map-road-minor'),
+      county: g('--map-county'), city: g('--map-city'), cityFill: g('--map-city-fill'), c: g('--air-c'), d: g('--air-d'), r: g('--air-r'), tfr: g('--air-tfr'),
+      red: g('--s-red'), amber: g('--s-amber'), green: g('--s-green'), blue: g('--s-blue'), ink: g('--ink'), panel: g('--panel'),
+      fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), cityTint: num('--city-tint', 0.14),
+      zoneHatch: num('--zone-hatch', 0.5), zoneRes: num('--zone-res-fill', 0.08), zoneOk: num('--zone-ok-fill', 0.12),
+    };
+  }
+  readColors();
+
+  const G = {};
+  ['counties', 'cities', 'zone', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
+  const styled = []; // [layer, fn] pairs, restyled on theme change
+  function add(group, layer, styleFn) { layer.setStyle(styleFn()); styled.push([layer, styleFn]); group.addLayer(layer); return layer; }
+  const noI = { interactive: false };
+
+  for (const z of counties) add(G.counties, L.polygon(z.polys, { ...noI, renderer: rBase }), () => ({ color: C.county, weight: 1, dashArray: '5 4', opacity: 0.7, fill: false }));
+  for (const z of places) {
+    const tint = (CITY[z.reg] || {}).tint;
+    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rBase }), () => ({ color: C.city, weight: 1, opacity: 0.5, fillColor: C.cityFill, fillOpacity: 0.55 }));
+    if (!tint) continue;
+    // a city that restricts landings gets a wash under its zoning and water and a bold border above them,
+    // so the whole area it covers reads at a glance
+    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ stroke: false, fillColor: C[tint], fillOpacity: C.cityTint }));
+    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[tint], weight: 2.4, opacity: 0.95, dashArray: '9 4', fill: false }));
+  }
+  // Austin zoning, drawn into canvas tiles: residential lots hatched red (no permit possible), the other districts amber
+  let hatchSrc = null;
+  function hatch(dpr) {
+    const key = `${C.red}${C.zoneHatch}${dpr}`;
+    if (hatchSrc && hatchSrc.key === key) return hatchSrc;
+    const n = Math.round(8 * dpr), c = document.createElement('canvas'); // 8 px divides the 256 px tile, so lines meet across tiles
+    c.width = c.height = n;
+    const g = c.getContext('2d');
+    g.strokeStyle = C.red; g.globalAlpha = C.zoneHatch; g.lineWidth = 1.3 * dpr;
+    g.beginPath(); g.moveTo(0, n); g.lineTo(n, 0); g.moveTo(-n / 2, n / 2); g.lineTo(n / 2, -n / 2); g.moveTo(n / 2, n * 1.5); g.lineTo(n * 1.5, n / 2); g.stroke();
+    c.key = key;
+    return (hatchSrc = c);
+  }
+  const ZoneTiles = L.GridLayer.extend({
+    createTile(coords) {
+      const size = this.getTileSize(), dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 3);
+      const tile = document.createElement('canvas');
+      tile.width = Math.round(size.x * dpr); tile.height = Math.round(size.y * dpr);
+      const k = 2 ** coords.z * dpr, ox = coords.x * size.x * dpr, oy = coords.y * size.y * dpr;
+      const x0 = ox / k, y0 = oy / k, x1 = (ox + tile.width) / k, y1 = (oy + tile.height) / k;
+      const res = new Path2D(), ok = new Path2D();
+      let n = 0;
+      for (const z of zLots) {
+        const b = z.bb;
+        if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1 || z.t.cls === 'unz') continue;
+        const path = z.t.cls === 'res' ? res : ok;
+        for (const a of z.rings) {
+          path.moveTo(a[0] * k - ox, a[1] * k - oy);
+          for (let i = 2; i < a.length; i += 2) path.lineTo(a[i] * k - ox, a[i + 1] * k - oy);
+          path.closePath();
+        }
+        n++;
+      }
+      if (!n) return tile;
+      const g = tile.getContext('2d');
+      g.fillStyle = C.amber; g.globalAlpha = C.zoneOk; g.fill(ok);
+      g.fillStyle = C.red; g.globalAlpha = C.zoneRes; g.fill(res);
+      g.globalAlpha = 1; g.fillStyle = g.createPattern(hatch(dpr), 'repeat'); g.fill(res);
+      return tile;
+    },
+  });
+  const zoneLayer = zLots.length ? (() => {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const { bb } of zLots) { x0 = Math.min(x0, bb[0]); y0 = Math.min(y0, bb[1]); x1 = Math.max(x1, bb[2]); y1 = Math.max(y1, bb[3]); }
+    return new ZoneTiles({ pane: 'p-zone', updateWhenZooming: false, keepBuffer: 3, bounds: L.latLngBounds([fromWorld(x0, y1), fromWorld(x1, y0)]) });
+  })() : null;
+  if (zoneLayer) G.zone.addLayer(zoneLayer);
+  for (const z of water) add(G.water, L.polygon(z.polys, { ...noI, renderer: rWater }), () => ({ color: C.waterEdge, weight: 0.8, opacity: 0.9, fillColor: C.water, fillOpacity: 1 }));
+  for (const r of roads) {
+    const p = r.c === 'P';
+    add(G.roads, L.polyline(r.line, { ...noI, renderer: rRoad }), () => ({ color: p ? C.road : C.roadMinor, weight: p ? 2.4 : 1.4, opacity: 0.9, lineCap: 'round' }));
+  }
+  for (const z of lands) {
+    if (z.def.s !== 'red' && z.def.s !== 'amber') continue;
+    add(z.def.s === 'red' ? G.red : G.amber, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[z.def.s], weight: 0.9, opacity: 0.9, fillColor: C[z.def.s], fillOpacity: z.def.s === 'red' ? C.fillRed : C.fillAmber }));
+  }
+  for (const z of airspace) {
+    const c = z.c === 'C';
+    add(G.airspace, L.polygon(z.polys, { ...noI, renderer: rAir }), () => ({ color: c ? C.c : C.d, weight: c ? (z.sfc ? 2.6 : 1.6) : 2, dashArray: c ? null : '7 5', opacity: 0.95, fill: c && z.sfc, fillColor: C.c, fillOpacity: 0.05 }));
+  }
+  for (const z of sua) {
+    const r = z.t === 'R';
+    add(G.sua, L.polygon(z.polys, { ...noI, renderer: rAir }), () => ({ color: r ? C.r : C.c, weight: r ? 2.2 : 1.6, dashArray: r ? '2 4' : '1 5', opacity: 0.95, fillColor: r ? C.r : C.c, fillOpacity: r ? 0.12 : 0.05 }));
+  }
+  for (const s of D.stadiums) {
+    add(G.tfr, L.circle([s.lat, s.lon], { ...noI, radius: 3 * NM, renderer: rAir }), () => ({ color: C.tfr, weight: 2, dashArray: '8 6', opacity: 0.95, fillColor: C.tfr, fillOpacity: 0.05 }));
+  }
+
+  // labels
+  const label = (lat, lon, cls, text) => L.marker([lat, lon], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl ${cls}">${esc(text)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' });
+  for (const z of counties) if (!z.ic) G.labels.addLayer(label(z.l[0], z.l[1], 'lbl-county', `${z.n} Co.`));
+  for (const z of places) G.labels.addLayer(label(z.l[0], z.l[1], `lbl-city${MAJOR.has(z.n) ? ' major' : ''}`, z.n));
+  for (const [n, la, lo, m] of WATER_LABELS) G.labels.addLayer(label(la, lo, `lbl-water ${m}`, n));
+  const hideAir = new Set(REGION.hideAirspaceLabels || []);
+  for (const z of airspace) {
+    if (hideAir.has(z.id)) continue;
+    const top = z.bb[2] - (z.bb[2] - z.bb[0]) * 0.07;
+    const mid = (z.bb[1] + z.bb[3]) / 2;
+    const ceil = String(parseInt(z.hi, 10) / 100 | 0);
+    const floor = z.sfc ? 'SFC' : String(parseInt(z.lo, 10) / 100 | 0);
+    const txt = z.c === 'C' ? `${ceil}/${floor}` : `[${ceil}]`;
+    G.labels.addLayer(L.marker([top, mid], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.c === 'C' ? 'var(--air-c)' : 'var(--air-d)'}">${txt}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
+  }
+  for (const z of sua) {
+    const p = insidePoint(z);
+    G.labels.addLayer(L.marker(p, { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.t === 'R' ? 'var(--air-r)' : 'var(--air-c)'}">${esc(z.n)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
+  }
+  for (const s of D.stadiums) {
+    G.labels.addLayer(L.marker([s.lat + 3 * NM / 110574 * 0.86, s.lon], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl lbl-tfr" style="position:absolute;transform:translate(-50%,-50%);font:600 11px var(--font-mono);color:var(--air-tfr)">TFR ${esc(s.short)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
+  }
+
+  // airport and infrastructure symbols (SVG colored by CSS variables, so they follow the theme)
+  function apIcon(a) {
+    let svg;
+    if (a.pub && a.t === 'AD') {
+      const col = a.tw ? 'var(--air-d)' : 'var(--air-c)';
+      svg = `<svg width="18" height="18" viewBox="-9 -9 18 18"><circle r="7" style="fill:${col}"/><circle r="2.8" style="fill:var(--panel)"/></svg>`;
+    } else {
+      const ch = a.t === 'HP' ? 'H' : (a.t === 'GL' ? 'G' : (a.t === 'UL' ? 'U' : 'R'));
+      svg = `<svg width="16" height="16" viewBox="-8 -8 16 16"><circle r="6.4" style="fill:var(--panel);stroke:var(--muted)" stroke-width="1.4"/><text y="3.1" text-anchor="middle" font-size="8.5" font-weight="700" style="font-family:var(--font-body);fill:var(--muted)">${ch}</text></svg>`;
+    }
+    const lbl = a.pub && a.t === 'AD' ? `<span class="lbl lbl-ap">${esc(a.id)}</span>` : '';
+    return L.divIcon({ className: a.pub && a.t === 'AD' ? 'ap-ic' : 'ap-ic ap-priv', iconSize: [18, 18], iconAnchor: [9, 9], html: svg + lbl });
+  }
+  for (const a of airports) {
+    const m = L.marker([a.lat, a.lon], { icon: apIcon(a), keyboard: false, title: `${a.n} (${a.id})` });
+    m.on('click', () => setSpot(a.lat, a.lon));
+    (a.pub && a.t === 'AD' ? G.ap : G.priv).addLayer(m);
+  }
+  for (const i of infra) {
+    const svg = i.k === 'power'
+      ? '<svg width="14" height="14" viewBox="0 0 14 14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" style="fill:var(--panel);stroke:var(--s-red)" stroke-width="2"/></svg>'
+      : '<svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 10 L7 3 L12 10 Z" style="fill:var(--panel);stroke:var(--s-red)" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+    const m = L.marker([i.lat, i.lon], { icon: L.divIcon({ className: 'infra-ic', iconSize: [14, 14], iconAnchor: [7, 7], html: svg }), keyboard: false, title: i.n });
+    m.on('click', () => setSpot(i.lat, i.lon));
+    G.infra.addLayer(m);
+  }
+
+  const ORDER = ['counties', 'cities', 'zone', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
+  ORDER.forEach((k) => G[k].addTo(map));
+  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-city': ['cities'], 't-zone': ['zone'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
+  for (const [id, groups] of Object.entries(TOGGLES)) {
+    const el = document.getElementById(id);
+    el.addEventListener('change', () => groups.forEach((g) => (el.checked ? map.addLayer(G[g]) : map.removeLayer(G[g]))));
+  }
+  const layersEl = document.getElementById('layers');
+  const layersHint = document.getElementById('layersHint');
+  const syncHint = () => { layersHint.textContent = layersEl.open ? 'hide' : 'show'; };
+  if (matchMedia('(max-width: 860px)').matches) layersEl.open = false;
+  syncHint();
+  layersEl.addEventListener('toggle', syncHint);
+
+  function zoomClass() {
+    const z = map.getZoom();
+    const el = map.getContainer();
+    el.classList.toggle('map-z-lo', z < 10);
+    el.classList.toggle('map-z-mid', z >= 10 && z < 12);
+    el.classList.toggle('map-z-hi', z >= 12);
+  }
+  map.on('zoomend', zoomClass);
+
+  // theme changes repaint the canvas layers
+  function restyle() { readColors(); for (const [l, f] of styled) l.setStyle(f()); if (zoneLayer) zoneLayer.redraw(); drawHighlight(); }
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', restyle);
+  new MutationObserver(restyle).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class', 'style'] });
+
+  // ---------- the spot check ----------
+  // rough size of a plant's or dam's grounds around its mapped point
+  function infraRadius(i) { return i.k === 'power' ? (i.mw >= 300 ? 350 : i.mw >= 50 ? 200 : 90) : (i.h >= 80 ? 250 : 120); }
+  const AP_RADIUS = REGION.airportRadius || {};
+  function airportRadius(a) { return AP_RADIUS[a.id] || 700; }
+  function nearestRoad(la, lo, maxM) {
+    const dLa = maxM / 110574, dLo = maxM / (111320 * Math.cos(la * Math.PI / 180));
+    let best = null;
+    for (const r of roads) {
+      const b = r.bb;
+      if (la < b[0] - dLa || la > b[2] + dLa || lo < b[1] - dLo || lo > b[3] + dLo) continue;
+      for (let i = 1; i < r.line.length; i++) {
+        const m = segMeters(la, lo, r.line[i - 1], r.line[i]);
+        if (m <= maxM && (!best || m < best.d)) best = { r, d: m };
+      }
+    }
+    return best;
+  }
+  function austinLakeName(lo) { return lo < -97.7855 ? 'Lake Austin' : 'Lady Bird Lake'; }
+  const HOSPITAL = /hospital|medical|health|children|seton|baylor|st david|heart|starflight|air rescue|9-1-1|carilion|lewisgale|clinic/i;
+
+  function check(la, lo) {
+    const hits = [];
+    const add = (id, where) => {
+      const r = RULES[id];
+      if (!r) return;
+      const h = hits.find((x) => x.id === id);
+      if (h) { if (where && !h.where.includes(where)) h.where.push(where); return; }
+      hits.push({ id, r, level: r.level, where: where ? [where] : [] });
+    };
+    const res = { la, lo };
+    res.place = places.find((z) => inZone(z, la, lo)) || null;
+    res.county = counties.find((z) => inZone(z, la, lo)) || null;
+    res.lands = lands.filter((z) => z.def.s !== 'none' && inZone(z, la, lo)).sort((a, b) => a.area - b.area);
+    res.water = water.filter((z) => inZone(z, la, lo)).map((z) => {
+      if (z.k === 'lake_austin_city' && lo > -97.7135) return { ...z, n: 'Colorado River (below Longhorn Dam)', def: WATER.river };
+      if (z.k === 'lake_austin_city') return { ...z, n: austinLakeName(lo) };
+      return z;
+    });
+    res.air = airspace.filter((z) => inZone(z, la, lo));
+    res.sua = sua.filter((z) => inZone(z, la, lo));
+    res.tfr = D.stadiums.filter((s) => meters(la, lo, s.lat, s.lon) <= 3 * NM);
+    const aps = airports.map((a) => ({ a, d: meters(la, lo, a.lat, a.lon) }));
+    res.atPub = aps.filter((x) => x.a.pub && x.a.t === 'AD' && x.d <= airportRadius(x.a)).sort((p, q) => p.d - q.d)[0] || null;
+    res.atPriv = res.atPub ? null : (aps.filter((x) => !x.a.pub && x.d <= (x.a.t === 'HP' ? 150 : 600)).sort((p, q) => p.d - q.d)[0] || null);
+    res.nearPub = aps.filter((x) => x.a.pub && x.a.t === 'AD').sort((p, q) => p.d - q.d)[0] || null;
+    res.infra = infra.map((i) => ({ i, d: meters(la, lo, i.lat, i.lon) })).filter((x) => x.d <= infraRadius(x.i)).sort((p, q) => p.d - q.d);
+    res.road = res.atPub ? null : nearestRoad(la, lo, 40);
+    // Austin zones every lot but not its streets, so a spot between lots is almost always a street, alley or rail line
+    res.lot = zoned(res.place) ? lotAt(la, lo) : null;
+    res.lotGap = zoned(res.place) && !res.lot && !res.water.length && !res.lands.length && !res.road && !res.atPub ? nearLot(la, lo, 20) : null;
+
+    // land and water
+    for (const z of res.lands) for (const id of z.def.rules) add(id, `${z.n}${z.m && z.m !== z.n ? ` · ${z.m}` : ''}`);
+    for (const z of res.water) for (const id of z.def.rules) add(id, z.n);
+    for (const x of res.infra) add(x.i.k === 'power' ? 'critical_infra' : 'dam', `${x.i.n}${x.i.k === 'power' ? ` (${x.i.op}, ${x.i.mw} MW)` : ` (${x.i.h} ft)`}, ${nmStr(x.d)} away`);
+    if (res.road) add('roadway', `${res.road.r.n || 'Highway'}, about ${Math.round(res.road.d / 0.3048 / 10) * 10} ft away (map roads are simplified)`);
+    // airspace
+    for (const z of res.sua) add(z.t === 'R' ? 'restricted' : 'alert', `${z.n}, SFC to ${z.hi} · ${z.tm}`);
+    for (const z of res.air) {
+      if (z.c === 'C') add(z.sfc ? 'class_c' : 'class_c_shelf', `${(REGION.airspaceNames || {})[z.id] || airportName(z.id)} Class C, ${z.lo} to ${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`);
+      else add('class_d', `${airportName(z.id)} (${z.id}) Class D, SFC to ${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`);
+    }
+    for (const s of res.tfr) add('tfr_stadium', `${s.n}: ${s.ev}`);
+    // landing facilities
+    if (res.atPub) add('airport_public', `${res.atPub.a.n} (${res.atPub.a.id})`);
+    if (res.atPriv) {
+      const a = res.atPriv.a;
+      add(a.mil ? 'heliport_military' : HOSPITAL.test(a.n) ? 'heliport_hospital' : (a.t === 'HP' ? 'heliport_private' : 'private_strip'), `${a.n} (${a.id})`);
+    }
+    // Austin zoning decides whether the city can permit a landing site here (an existing heliport already has its answer)
+    if (res.lot && !res.atPub && !res.atPriv) {
+      const t = res.lot.t;
+      const offLimits = res.lands.some((z) => z.def.s === 'red') || res.water.some((z) => z.def.s === 'red');
+      const extra = t.base === 'PUD' ? '. A PUD’s own ordinance can rule out uses the district otherwise allows' : t.base === 'AV' ? '. Aviation facilities are a permitted use in this district' : '';
+      if (t.cls === 'res') add('austin_res', `${t.code}: ${t.name}`);
+      else if (!offLimits) add(t.cls === 'unz' ? 'austin_unzoned' : 'austin_permit', `${t.code}: ${t.name}${extra}`);
+    } else if (res.lotGap) add('roadway', `Between zoning lots (${Math.round(res.lotGap.d / 0.3048)} ft from the nearest), so most likely a street, alley or rail line`);
+    // jurisdiction
+    if (res.place) {
+      const cr = CITY[res.place.reg];
+      const note = CITY_NOTES[res.place.n];
+      add(cr ? cr.rule : 'city_other', note ? `${res.place.n}: ${note}` : `${placeKind(res.place)} of ${res.place.n}`);
+    } else add('unincorporated', `${res.county ? countyName(res.county) : 'County'}, outside city and town limits`);
+    if (res.county && !res.place && (REGION.countyRules || {})[res.county.n]) add(REGION.countyRules[res.county.n], countyName(res.county));
+    add('baseline_faa');
+    add('baseline_consent');
+    add('baseline_conduct');
+
+    const lv = (l) => hits.some((h) => h.level === l);
+    res.verdict = lv('red') ? 'red' : res.atPub ? 'blue' : lv('amber') ? 'amber' : 'green';
+    const rank = { red: 0, amber: 1, blue: 2, green: 3, info: 4 };
+    res.hits = hits.sort((a, b) => rank[a.level] - rank[b.level]);
+    return res;
+  }
+  function airportName(id) { const a = airports.find((x) => x.id === id); return a ? a.n : id; }
+
+  function spotName(res) {
+    if (res.atPub) return res.atPub.a.n;
+    if (res.atPriv) return res.atPriv.a.n;
+    if (res.lands.length) return res.lands[0].n;
+    if (res.water.length) return res.water[0].n;
+    if (res.infra.length) return res.infra[0].i.n;
+    if (res.road) return `Beside ${res.road.r.n || 'a highway'}`;
+    if (res.lotGap) return `Street or alley in ${res.place.n}`;
+    if (res.lot) return `${LOT_NAME[res.lot.t.base] || LOT_NAME[res.lot.t.cls]} in ${res.place.n}`;
+    return res.place ? `Private land in ${res.place.n}` : `Private land, ${res.county ? (res.county.ic ? `City of ${res.county.n}` : `unincorporated ${res.county.n} County`) : 'unincorporated area'}`;
+  }
+  const LOT_NAME = {
+    res: 'Residential lot', com: 'Commercial lot', ind: 'Industrial lot', unz: 'Unzoned land', sp: 'Special district', UNK: 'Lot',
+    P: 'Public land', PUD: 'Planned development', DR: 'Reserve land', AV: 'Aviation district', AG: 'Farmland',
+    TOD: 'Transit district', NBG: 'North Burnet/Gateway district', ERC: 'East Riverside district', TND: 'Neighborhood district',
+  };
+
+  const ICON = {
+    red: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M5 15 L15 5"/></svg>',
+    amber: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 5v6"/><circle cx="10" cy="14.6" r="0.6" fill="currentColor"/></svg>',
+    green: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10.5 L8.5 14 L15 6.5"/></svg>',
+    blue: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v12M14 4v12M6 10h8"/></svg>',
+  };
+  const VERDICT = {
+    red: ['Off-limits', (n) => `A landing here breaks ${n === 1 ? 'a rule that applies' : `${n} rules that apply`} to this spot. What it can cost is listed below.`],
+    amber: ['Ask first', () => 'Legal only with the owner’s permission, a permit or an ATC clearance, as listed below.'],
+    green: ['OK with the landowner’s permission', () => 'No park, preserve, airspace or local rule on this map blocks this spot. You still need the owner’s consent and a safe site.'],
+    blue: ['Airport: land here', () => 'A public-use airport. Follow its procedures and any ATC instructions.'],
+  };
+  const LEVEL_WORD = { red: 'Prohibited', amber: 'Condition', green: 'OK', blue: 'Airport', info: 'Applies' };
+
+  function ruleCard(h) {
+    const r = h.r;
+    const where = h.where.length ? `<div class="where">${h.where.map(esc).join('<br>')}</div>` : '';
+    const who = r.who ? `<dt>Enforced by</dt><dd>${esc(r.who)}</dd>` : '';
+    const pen = r.pen && r.pen.length ? `<dt>${r.level === 'red' ? 'Max penalty' : 'If ignored'}</dt><dd><ul>${r.pen.map((p) => `<li>${esc(p)}</li>`).join('')}</ul></dd>` : '';
+    const cites = r.cites && r.cites.length ? `<div class="cites">${r.cites.map((c) => (c.u ? `<a class="cite" href="${esc(c.u)}" target="_blank" rel="noopener">${esc(c.t)}</a>` : `<span class="cite">${esc(c.t)}</span>`)).join('')}</div>` : '';
+    const note = r.note ? `<p class="hint">${esc(r.note)}</p>` : '';
+    return `<article class="rule lv-${h.level}"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>${esc(r.title)}</h3><span class="badge lv-${h.level}">${LEVEL_WORD[h.level]}</span></div>${where}<p>${esc(r.text)}</p>${note}${who || pen ? `<dl class="meta">${who}${pen}</dl>` : ''}${cites}</article>`;
+  }
+
+  // a shareable link to the spot, when the page is its own tab (inside a frame the address isn't the page's)
+  const canLink = (() => { try { return window.self === window.top && /^https?:/.test(location.protocol); } catch { return false; } })();
+  const spotPane = document.getElementById('pane-spot');
+  let current = null;
+  function render(res, opts) {
+    const [vt, vs] = VERDICT[res.verdict];
+    const main = res.hits.filter((h) => !RULES[h.id].always);
+    const always = res.hits.filter((h) => RULES[h.id].always);
+    const nRed = main.filter((h) => h.level === 'red').length;
+    const air = res.air.filter((z) => z.sfc || z.c === 'D');
+    const airTxt = air.length
+      ? air.map((z) => (z.c === 'C' ? `Class C surface area, SFC–${z.hi}` : `Class D (${z.id}), SFC–${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`)).join('; ')
+      : (res.air.length ? `Under the Class C shelf (floor ${res.air[0].lo})` : 'Class G (uncontrolled) near the ground');
+    const jur = res.place
+      ? `${placeKind(res.place)} of ${res.place.n}${res.county && !res.county.ic ? `, ${res.county.n} County` : ''}`
+      : res.county ? (res.county.ic ? `City of ${res.county.n}` : `Unincorporated ${res.county.n} County`) : 'Unincorporated';
+    const np = res.nearPub && !res.atPub ? `${esc(res.nearPub.a.n)} (<span class="mono">${esc(res.nearPub.a.id)}</span>), ${nmStr(res.nearPub.d)} ${compass(bearing(res.la, res.lo, res.nearPub.a.lat, res.nearPub.a.lon))}` : '';
+    const zoneTxt = res.lot ? `<span class="mono">${esc(res.lot.t.code)}</span> · ${esc(res.lot.t.name)}` : res.lotGap ? 'None (between lots)' : '';
+    spotPane.innerHTML = `
+      <div class="spot-head">
+        <div class="coords"><span>${fmtLL(res.la, res.lo)}</span>${opts && opts.example ? '<span class="example-tag">Example spot</span>' : ''}${canLink && !(opts && opts.example) ? '<button type="button" class="linkbtn" id="copyLink">Copy link</button>' : ''}</div>
+        <h2 class="spot-name">${esc(spotName(res))}</h2>
+        ${opts && opts.addr ? `<div class="addr">${esc(opts.addr)}</div>` : ''}
+      </div>
+      <div class="verdict lv-${res.verdict}" role="status">
+        <div class="v-icon" aria-hidden="true">${ICON[res.verdict]}</div>
+        <div class="v-title">${vt}</div>
+        <div class="v-sub">${esc(vs(nRed))}</div>
+      </div>
+      <dl class="facts">
+        <dt>Jurisdiction</dt><dd>${esc(jur)}</dd>
+        ${zoneTxt ? `<dt>Zoning</dt><dd>${zoneTxt}</dd>` : ''}
+        <dt>Airspace</dt><dd>${esc(airTxt)}</dd>
+        ${np ? `<dt>Nearest airport</dt><dd>${np}</dd>` : ''}
+      </dl>
+      <div class="group-title"><span class="eyebrow">What applies here</span><span class="hint">${main.length} ${main.length === 1 ? 'rule' : 'rules'}</span></div>
+      <div class="rules">${main.map(ruleCard).join('')}</div>
+      <details class="baseline" style="margin-top:14px">
+        <summary class="group-title" style="margin:0"><span class="eyebrow"><span class="chev">›</span> Applies everywhere</span><span class="hint">${always.length} rules</span></summary>
+        <div class="rules" style="margin-top:10px">${always.map(ruleCard).join('')}</div>
+      </details>
+      <div class="group-title"><span class="eyebrow">Try another spot</span></div>
+      <div class="examples">${EXAMPLES.map((e, i) => `<button class="chip lv-${e.lv}" data-ex="${i}"><span class="dot"></span>${esc(e.n)}</button>`).join('')}</div>
+      <p class="foot">This map is a planning aid, not legal advice or a substitute for a preflight briefing. Boundaries are simplified and can be off by a few hundred feet; check NOTAMs, TFRs and the owner's rules before any landing. Rules and penalty figures were checked in ${esc(RB.checked)}.</p>`;
+    spotPane.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { const e = EXAMPLES[+b.dataset.ex]; goTo(e.la, e.lo, e.z || 13); }));
+    const cl = document.getElementById('copyLink');
+    if (cl) {
+      cl.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(location.href); cl.textContent = 'Link copied'; } catch { cl.textContent = 'Copy the address bar'; }
+        setTimeout(() => { cl.textContent = 'Copy link'; }, 2200);
+      });
+    }
+  }
+
+  // highlight the zones that produced the verdict
+  function drawHighlight() {
+    G.hl.clearLayers();
+    if (!current) return;
+    const res = current;
+    const col = (s) => C[s] || C.ink;
+    for (const z of res.lands) G.hl.addLayer(L.polygon(z.polys, { interactive: false, renderer: rHl, color: col(z.def.s), weight: 3, opacity: 1, fill: false }));
+    for (const z of res.water) G.hl.addLayer(L.polygon(z.polys, { interactive: false, renderer: rHl, color: C.waterEdge, weight: 2.5, opacity: 1, fill: false }));
+    if (res.lands.length || res.water.length) return;
+    if (res.lot) {
+      const rings = res.lot.rings.map((a) => { const o = []; for (let i = 0; i < a.length; i += 2) o.push(fromWorld(a[i], a[i + 1])); return o; });
+      G.hl.addLayer(L.polygon(rings, { interactive: false, renderer: rHl, color: res.lot.t.cls === 'res' ? C.red : res.lot.t.cls === 'unz' ? C.ink : C.amber, weight: 2.5, opacity: 1, fill: false }));
+    } else if (res.place) G.hl.addLayer(L.polygon(res.place.polys, { interactive: false, renderer: rHl, color: C.city, weight: 2.4, opacity: 0.9, fill: false, dashArray: '6 4' }));
+  }
+
+  const pinIcon = L.divIcon({ className: 'pin', iconSize: [30, 30], iconAnchor: [15, 15], html: '<svg viewBox="0 0 30 30"><circle class="ring" cx="15" cy="15" r="11" fill="none" style="stroke:var(--accent)" stroke-width="2"/><circle cx="15" cy="15" r="6.5" style="fill:var(--accent)" /><circle cx="15" cy="15" r="2.4" style="fill:var(--panel)"/><path d="M15 0v6M15 24v6M0 15h6M24 15h6" style="stroke:var(--accent)" stroke-width="2"/></svg>' });
+  const pin = L.marker([0, 0], { icon: pinIcon, interactive: false, keyboard: false, pane: 'p-pin' });
+  function setSpot(la, lo, opts) {
+    current = check(la, lo);
+    pin.setLatLng([la, lo]);
+    if (!G.pin.hasLayer(pin)) G.pin.addLayer(pin);
+    drawHighlight();
+    if (!(opts && opts.example)) {
+      try { history.replaceState(null, '', `#${REGION.key}/${la.toFixed(5)},${lo.toFixed(5)}`); } catch { /* a sandboxed frame can refuse */ }
+    }
+    render(current, opts);
+    selectTab('spot');
+    document.getElementById('scroller').scrollTop = 0;
+  }
+  function goTo(la, lo, z, opts) {
+    map.flyTo([la, lo], Math.max(map.getZoom(), z), { duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8 });
+    setSpot(la, lo, opts);
+  }
+  window.__heliGoTo = (la, lo) => { if (inBounds(REGION.bounds, la, lo)) goTo(la, lo, 15); };
+  map.on('click', (e) => setSpot(e.latlng.lat, e.latlng.lng));
+
+  // hover readout
+  const readout = document.getElementById('readout');
+  let raf = 0, lastMove = null;
+  map.on('mousemove', (e) => { lastMove = e.latlng; if (!raf) raf = requestAnimationFrame(updateReadout); });
+  map.on('mouseout', () => { readout.innerHTML = '<span class="z">Move over the map</span>'; });
+  function updateReadout() {
+    raf = 0;
+    if (!lastMove) return;
+    const la = lastMove.lat, lo = lastMove.lng;
+    let best = null;
+    for (const z of lands) if (z.def.s !== 'none' && (!best || z.area < best.area) && inZone(z, la, lo)) best = z;
+    let txt;
+    if (best) txt = `${esc(best.n)} <span class="z">· ${best.def.s === 'red' ? 'off-limits' : 'ask first'}</span>`;
+    else {
+      const w = water.find((z) => inZone(z, la, lo));
+      const p = places.find((z) => inZone(z, la, lo));
+      const lot = zoned(p) && !w ? lotAt(la, lo) : null;
+      const cityNote = p && CITY[p.reg] && CITY[p.reg].tint ? ` <span class="z">· ${CITY[p.reg].tint === 'red' ? 'landings banned' : 'permit needed'}</span>` : '';
+      txt = w ? `${esc(w.k === 'lake_austin_city' ? (lo > -97.7135 ? 'Colorado River' : austinLakeName(lo)) : w.n)}`
+        : lot ? `${esc(p.n)} · ${esc(lot.t.code)} <span class="z">· ${lotNote(lot.t)}</span>`
+        : p ? `${esc(p.n)} ${p.lsad === 'town' ? 'town' : 'city'} limits${cityNote}` : '<span class="z">Unincorporated</span>';
+    }
+    readout.innerHTML = `${fmtLL(la, lo)} · ${txt}`;
+  }
+
+  // ---------- search: places on the map as you type, street addresses on Enter ----------
+  const qEl = document.getElementById('q');
+  const resEl = document.getElementById('results');
+  const index = [];
+  {
+    const seen = new Map();
+    for (const z of lands) {
+      if (z.def.s === 'none' || /^Unnamed/.test(z.n)) continue;
+      const key = z.n.toLowerCase();
+      if (!seen.has(key) || seen.get(key).z.area < z.area) seen.set(key, { n: z.n, k: z.def.label, z });
+    }
+    index.push(...seen.values());
+    for (const z of places) index.push({ n: z.n, k: `${placeKind(z)} limits`, z, zoom: 12 });
+    for (const z of counties) if (!z.ic) index.push({ n: `${z.n} County`, k: 'County', z, zoom: 10 });
+    for (const [n, la, lo] of WATER_LABELS) index.push({ n, k: 'Lake', la, lo, zoom: 12 });
+    for (const a of airports) index.push({ n: `${a.n} (${a.id})`, k: a.pub && a.t === 'AD' ? 'Public-use airport' : a.t === 'HP' ? 'Private heliport' : 'Private airfield', la: a.lat, lo: a.lon, zoom: 14 });
+    for (const i of infra) if (i.k === 'power' || i.h >= 40) index.push({ n: i.n, k: i.k === 'power' ? 'Power plant' : 'High-hazard dam', la: i.lat, lo: i.lon, zoom: 14 });
+    for (const s of D.stadiums) index.push({ n: s.n, k: 'Stadium TFR on event days', la: s.lat, lo: s.lon, zoom: 12 });
+    for (const e of index) e.l = e.n.toLowerCase();
+  }
+  // rows: local matches, then one row that searches addresses; geo rows replace them once an address search returns
+  let rows = [], sel = -1;
+  const looksLikeAddress = (q) => /^\d+\s+\S/.test(q) || /,/.test(q);
+  function showRows(html) {
+    resEl.innerHTML = html;
+    resEl.hidden = false;
+    resEl.querySelectorAll('button[data-i]').forEach((b) => b.addEventListener('mousedown', (ev) => { ev.preventDefault(); choose(rows[+b.dataset.i]); }));
+  }
+  function rowsHtml() {
+    return rows.map((r, i) => `<button role="option" data-i="${i}" aria-selected="${i === sel}"${r.geo === 'ask' ? ' class="geo-ask"' : ''}><span>${r.html || esc(r.n)}</span><span class="rk">${esc(r.k)}</span></button>`).join('');
+  }
+  function search() {
+    const raw = qEl.value.trim(), q = raw.toLowerCase();
+    if (q.length < 2) { resEl.hidden = true; rows = []; return; }
+    const local = index.filter((e) => e.l.includes(q))
+      .map((e) => ({ e, s: (e.l.startsWith(q) ? 0 : e.l.includes(' ' + q) ? 1 : 2) + e.l.length / 200 }))
+      .sort((a, b) => a.s - b.s).slice(0, 8).map((x) => x.e);
+    rows = [...local];
+    if (raw.length >= 3) rows.push({ geo: 'ask', q: raw, n: `Find the address “${raw}”`, html: `Find the address “${esc(raw)}”`, k: 'Press Enter' });
+    sel = rows.length ? (looksLikeAddress(raw) || !local.length ? rows.length - 1 : 0) : -1;
+    if (!rows.length) { showRows('<div class="hint" style="padding:10px 12px">No match on the map. Try a park, town, lake or airport name, or a street address.</div>'); return; }
+    showRows(rowsHtml());
+  }
+  // OpenStreetMap's Nominatim, with Photon (also OpenStreetMap data) if Nominatim is busy. Only on an explicit
+  // search, never per keystroke, as Nominatim's usage policy asks.
+  let geoBusy = false, geoLast = 0;
+  const shortAddr = (a, fallback) => {
+    if (!a) return fallback;
+    const street = [a.house_number || a.housenumber, a.road || a.street].filter(Boolean).join(' ');
+    const town = a.city || a.town || a.village || a.hamlet || a.county || a.locality;
+    return [street || a.name || a.amenity, town, a.state].filter(Boolean).filter((v, i, s) => s.indexOf(v) === i).join(', ') || fallback;
+  };
+  async function geocode(q) {
+    const [w, s, e, n] = REGION.bounds;
+    try {
+      const u = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=us&viewbox=${w},${n},${e},${s}&q=${encodeURIComponent(q)}`;
+      const r = await fetch(u);
+      if (!r.ok) throw new Error(`Nominatim ${r.status}`);
+      return (await r.json()).map((x) => ({ la: +x.lat, lo: +x.lon, n: shortAddr(x.address, x.display_name.split(', ').slice(0, 3).join(', ')) }));
+    } catch (err) {
+      const u = `https://photon.komoot.io/api/?limit=6&lat=${(s + n) / 2}&lon=${(w + e) / 2}&q=${encodeURIComponent(q)}`;
+      const r = await fetch(u);
+      if (!r.ok) throw err;
+      return (await r.json()).features.filter((f) => f.properties.countrycode === 'US')
+        .map((f) => ({ la: f.geometry.coordinates[1], lo: f.geometry.coordinates[0], n: shortAddr(f.properties, f.properties.name || q) }));
+    }
+  }
+  async function addressSearch(q) {
+    if (geoBusy || Date.now() - geoLast < 1100) return;
+    geoBusy = true; geoLast = Date.now();
+    showRows('<div class="hint" style="padding:10px 12px">Searching addresses…</div>');
+    try {
+      const found = await geocode(q);
+      rows = found.map((g) => {
+        const home = Object.values(REGIONS).find((r) => inBounds(r.bounds, g.la, g.lo));
+        return { geo: 'hit', ...g, region: home ? home.key : null, k: home ? (home.key === REGION.key ? 'Address' : `Address · ${home.label} map`) : 'Outside the mapped areas' };
+      });
+      sel = rows.findIndex((r) => r.region);
+      if (!rows.length) showRows('<div class="hint" style="padding:10px 12px">No address found. Add the city, like “… Austin TX”.</div>');
+      else showRows(rowsHtml());
+    } catch {
+      showRows('<div class="hint" style="padding:10px 12px">Address search isn’t reachable right now. Try again in a moment.</div>');
+    } finally { geoBusy = false; }
+  }
+  function choose(r) {
+    if (!r) return;
+    if (r.geo === 'ask') { addressSearch(r.q); return; }
+    if (r.geo === 'hit') {
+      if (!r.region) return;
+      resEl.hidden = true; qEl.value = r.n; qEl.blur();
+      if (r.region !== REGION.key) { location.hash = `${r.region}/${r.la.toFixed(5)},${r.lo.toFixed(5)}`; return; }
+      goTo(r.la, r.lo, 16, { addr: r.n });
+      return;
+    }
+    pick(r);
+  }
+  function pick(e) {
+    resEl.hidden = true;
+    qEl.value = e.n;
+    qEl.blur();
+    let la = e.la, lo = e.lo, zoom = e.zoom || 13;
+    if (e.z) {
+      [la, lo] = insidePoint(e.z);
+      const b = e.z.bb;
+      if (!e.zoom) {
+        const span = Math.max(b[2] - b[0], b[3] - b[1]);
+        zoom = span > 0.3 ? 10 : span > 0.1 ? 11.5 : span > 0.03 ? 13 : 14.5;
+      }
+      map.flyToBounds([[b[0], b[1]], [b[2], b[3]]], { maxZoom: zoom, duration: 0.8, padding: [30, 30] });
+      setSpot(la, lo);
+      return;
+    }
+    goTo(la, lo, zoom);
+  }
+  qEl.addEventListener('input', search);
+  qEl.addEventListener('focus', search);
+  qEl.addEventListener('blur', () => setTimeout(() => { resEl.hidden = true; }, 150));
+  qEl.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') { resEl.hidden = true; return; }
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      const q = qEl.value.trim();
+      if (resEl.hidden && q.length >= 3) { addressSearch(q); return; }
+      choose(rows[sel] || (q.length >= 3 ? { geo: 'ask', q } : null));
+      return;
+    }
+    if (resEl.hidden || !rows.length) return;
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      sel = (sel + (ev.key === 'ArrowDown' ? 1 : rows.length - 1)) % rows.length;
+      resEl.querySelectorAll('button[data-i]').forEach((b, i) => b.setAttribute('aria-selected', i === sel));
+    }
+  });
+
+  // ---------- tabs and reference panes ----------
+  const TABS = ['spot', 'pen', 'check'];
+  function selectTab(t) {
+    for (const k of TABS) {
+      document.getElementById(`tab-${k}`).setAttribute('aria-selected', String(k === t));
+      document.getElementById(`pane-${k}`).hidden = k !== t;
+    }
+  }
+  for (const k of TABS) document.getElementById(`tab-${k}`).addEventListener('click', () => { selectTab(k); document.getElementById('scroller').scrollTop = 0; });
+
+  const asOf = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  document.getElementById('pane-pen').innerHTML = `
+    <h2>Who enforces what</h2>
+    <p class="hint">Maximums under current law for one landing by an individual. Several can stack: an FAA certificate action, a state trespass charge and a park citation can all come from the same landing. Most first cases end in far less than the maximum.</p>
+    <div class="pen-list">${RB.penalties.map((p) => `<article class="pen"><h3>${esc(p.t)}</h3><div class="agency">${esc(p.who)}</div><ul>${p.items.map((i) => `<li>${esc(i[0])}: <span class="amt">${esc(i[1])}</span>${i[2] ? `<span class="pcite">${esc(i[2])}</span>` : ''}</li>`).join('')}</ul></article>`).join('')}</div>
+    <p class="foot">Not legal advice. Penalty amounts are statutory maximums as checked in ${esc(RB.checked)}; FAA figures are adjusted for inflation each year.</p>`;
+  document.getElementById('pane-check').innerHTML = `
+    <h2>Before an off-airport landing</h2>
+    <ol class="checklist">${RB.checklist.map((c) => `<li><div><strong>${esc(c[0])}</strong>${esc(c[1])}</div></li>`).join('')}</ol>
+    <h2>Sources</h2>
+    <ul class="sources">${RB.sources.map((s) => `<li><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('')}</ul>
+    <p class="foot">Map data: ${esc(REGION.dataNote)}${D.zoning ? `; zoning as of ${esc(asOf(D.zoning.date))}` : ''}. Address search uses OpenStreetMap data through Nominatim and Photon. Event TFRs are drawn where the standing stadium TFR would apply; live TFRs are at tfr.faa.gov.</p>`;
+
+  // ---------- examples and first view ----------
+  const findLand = (n) => lands.filter((z) => z.n === n).sort((a, b) => b.area - a.area)[0];
+  const EXAMPLES = [];
+  for (const [n, where, z, lv] of REGION.examples || []) {
+    const pt = Array.isArray(where) ? where : (() => { const l = findLand(where.land); return l ? insidePoint(l) : null; })();
+    if (pt) EXAMPLES.push({ n, la: pt[0], lo: pt[1], z, lv });
+  }
+
+  const small = matchMedia('(max-width: 860px)').matches;
+  zoomClass();
+  if (startAt && inBounds(REGION.bounds, startAt[0], startAt[1])) {
+    map.setView(startAt, 15);
+    zoomClass();
+    setSpot(startAt[0], startAt[1]);
+  } else {
+    map.setView(REGION.view, small ? REGION.zoomSmall : REGION.zoom);
+    zoomClass();
+    const first = EXAMPLES[0];
+    if (first) setSpot(first.la, first.lo, { example: true });
+  }
+}
+
+</script>
+</body>
+</html>

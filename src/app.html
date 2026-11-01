@@ -1,0 +1,328 @@
+<title>Helicopter Landing Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/*__LEAFLET_CSS__*/
+</style>
+<style>
+/* Layout: an EFB-style split, the chart on the left and a briefing panel on the right (stacked on phones). */
+:root {
+  --bg: #f1f3ee;
+  --panel: #fbfcf9;
+  --raise: #ffffff;
+  --ink: #16212b;
+  --muted: #56636e;
+  --faint: #8a949c;
+  --line: #d6dbd3;
+  --accent: #1d4f9c;
+  --accent-ink: #ffffff;
+  --map-land: #e8ebe1;
+  --map-water: #b7d3e6;
+  --map-water-edge: #86b2d0;
+  --map-road: #b99a6c;
+  --map-road-minor: #cdb895;
+  --map-county: #8f998f;
+  --map-city: #57616a;
+  --map-city-fill: #dfe3d8;
+  --air-c: #b3247b;
+  --air-d: #2457b5;
+  --air-r: #2457b5;
+  --air-tfr: #cf2f2a;
+  --s-red: #c63a2f;
+  --s-amber: #c98200;
+  --s-green: #2d8a4e;
+  --s-blue: #1f6db0;
+  --fill-red: 0.26;
+  --fill-amber: 0.22;
+  --zone-hatch: 0.5;
+  --zone-res-fill: 0.09;
+  --zone-ok-fill: 0.1;
+  --city-tint: 0.15;
+  --s-red-bg: #fbe9e6;
+  --s-amber-bg: #fdf1d9;
+  --s-green-bg: #e3f3e8;
+  --s-blue-bg: #e2eef9;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1318; --panel: #121a21; --raise: #18222b; --ink: #e5eaee; --muted: #9ba7b1; --faint: #6c7883; --line: #26323c;
+    --accent: #86acf0; --accent-ink: #0d1318;
+    --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
+    --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+    --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
+    --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
+    --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
+    --fill-red: 0.2; --fill-amber: 0.16;
+    --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1318; --panel: #121a21; --raise: #18222b; --ink: #e5eaee; --muted: #9ba7b1; --faint: #6c7883; --line: #26323c;
+  --accent: #86acf0; --accent-ink: #0d1318;
+  --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
+  --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+  --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
+  --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
+  --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
+  --fill-red: 0.2; --fill-amber: 0.16;
+  --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.45; }
+*, *::before, *::after { box-sizing: border-box; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+
+.app { display: flex; height: 100%; min-height: 0; }
+.map-wrap { position: relative; flex: 1 1 auto; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--map-land); }
+.panel { flex: 0 0 420px; width: 420px; display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-left: 1px solid var(--line); }
+.panel-scroll { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 28px; }
+
+/* Panel header */
+.brand { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.brand h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.05; letter-spacing: 0.01em; text-wrap: balance; }
+.brand p { margin: 6px 0 0; color: var(--muted); font-size: 13px; max-width: 60ch; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.regions { display: inline-flex; flex: 0 0 auto; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--raise); }
+.regions[hidden] { display: none; }
+.regions button { border: 0; background: none; padding: 4px 10px; border-radius: 999px; font: 600 12.5px var(--font-body); color: var(--muted); cursor: pointer; white-space: nowrap; }
+.regions button:hover { color: var(--ink); }
+.regions button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+.search { position: relative; padding: 12px 20px 0; }
+.search input { width: 100%; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); color: var(--ink); font: inherit; }
+.search svg { position: absolute; left: 31px; top: 23px; width: 15px; height: 15px; color: var(--faint); pointer-events: none; }
+.results { position: absolute; left: 20px; right: 20px; top: calc(100% + 4px); z-index: 1200; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); max-height: 320px; overflow-y: auto; }
+.results button { display: flex; width: 100%; gap: 10px; justify-content: space-between; align-items: baseline; padding: 8px 12px; border: 0; background: none; text-align: left; cursor: pointer; }
+.results button:hover, .results button[aria-selected="true"] { background: var(--s-blue-bg); }
+.results .rk { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.results .geo-ask > span:first-child { color: var(--accent); font-weight: 600; }
+
+.tabs { display: flex; gap: 4px; padding: 12px 20px 0; border-bottom: 1px solid var(--line); }
+.tabs button { padding: 8px 10px 9px; border: 0; background: none; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: 0.02em; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 12px; }
+.hint { color: var(--muted); font-size: 13px; }
+
+/* Spot check */
+.spot-head { padding-top: 16px; display: grid; gap: 6px; }
+.coords { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.linkbtn { margin-left: auto; border: 1px solid var(--line); background: var(--raise); border-radius: 4px; padding: 1px 8px; font: 500 12px var(--font-body); color: var(--ink); cursor: pointer; }
+.linkbtn:hover { border-color: var(--accent); color: var(--accent); }
+.addr { font-size: 13px; color: var(--muted); }
+.example-tag { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 1px 6px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+.spot-name { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.1; text-wrap: balance; }
+.verdict { margin-top: 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 8px; background: var(--vbg); border: 1px solid color-mix(in srgb, var(--vc) 35%, transparent); }
+.verdict .v-icon { grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--vc); color: var(--panel); display: grid; place-items: center; }
+.verdict .v-icon svg { width: 20px; height: 20px; }
+.verdict .v-title { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.05; color: var(--vc); }
+.verdict .v-sub { font-size: 13px; color: var(--ink); }
+.lv-red { --vc: var(--s-red); --vbg: var(--s-red-bg); }
+.lv-amber { --vc: var(--s-amber); --vbg: var(--s-amber-bg); }
+.lv-green { --vc: var(--s-green); --vbg: var(--s-green-bg); }
+.lv-blue { --vc: var(--s-blue); --vbg: var(--s-blue-bg); }
+.lv-info { --vc: var(--muted); --vbg: var(--raise); }
+
+.facts { margin: 14px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; font-size: 13px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; min-width: 0; }
+
+.group-title { margin: 22px 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.rules { display: grid; gap: 10px; }
+.rule { position: relative; padding: 12px 14px 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); overflow: hidden; }
+.rule::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--vc); }
+.rule h3 { margin: 0; font-size: 14.5px; line-height: 1.3; font-weight: 700; }
+.rule .where { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+.rule p { margin: 8px 0 0; }
+.rule .meta { margin-top: 10px; display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13px; }
+.rule .meta dt { color: var(--muted); font-family: var(--font-display); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px; padding-top: 1px; }
+.rule .meta dd { margin: 0; min-width: 0; }
+.rule .meta ul { margin: 0; padding-left: 16px; }
+.cites { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cite { font-family: var(--font-mono); font-size: 11.5px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: var(--panel); }
+a.cite:hover { border-color: var(--accent); color: var(--accent); }
+.badge { display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; color: var(--vc); background: var(--vbg); white-space: nowrap; }
+details.baseline > summary { cursor: pointer; list-style: none; }
+details.baseline > summary::-webkit-details-marker { display: none; }
+details.baseline > summary .chev { display: inline-block; transition: transform .15s; }
+details.baseline[open] > summary .chev { transform: rotate(90deg); }
+.examples { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); cursor: pointer; font-size: 12.5px; }
+.chip:hover { border-color: var(--accent); }
+.chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--vc); margin-right: 6px; vertical-align: 1px; }
+
+/* Reference tabs */
+.ref h2 { margin: 18px 0 6px; font-family: var(--font-display); font-weight: 700; font-size: 20px; }
+.ref p { margin: 6px 0; }
+.pen-list { display: grid; gap: 10px; margin-top: 12px; }
+.pen { border: 1px solid var(--line); border-radius: 8px; background: var(--raise); padding: 12px 14px; }
+.pen h3 { margin: 0; font-size: 14.5px; }
+.pen .agency { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.pen ul { margin: 8px 0 0; padding-left: 18px; }
+.pen li { margin: 3px 0; }
+.pen .amt { font-variant-numeric: tabular-nums; font-weight: 600; }
+.pen .pcite { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.checklist { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 10px; }
+.checklist li { counter-increment: step; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+.checklist li::before { content: counter(step); font-family: var(--font-display); font-weight: 700; font-size: 15px; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center; }
+.checklist strong { display: block; }
+.sources { margin-top: 10px; padding-left: 18px; font-size: 13px; }
+.sources li { margin: 4px 0; }
+.foot { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+
+/* Map overlays */
+.map-card { position: absolute; z-index: 800; background: color-mix(in srgb, var(--panel) 94%, transparent); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 4px 16px rgb(0 0 0 / 0.12); backdrop-filter: blur(6px); }
+.layers-card { top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; width: 236px; max-height: calc(100% - 80px); overflow-y: auto; }
+.layers-card summary { padding: 9px 12px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: 0.03em; }
+.layers-card summary::-webkit-details-marker { display: none; }
+.layers-card .body { padding: 0 12px 12px; display: grid; gap: 10px; }
+.legend-sec { display: grid; gap: 5px; }
+.lg { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; font-size: 12.5px; line-height: 1.25; }
+.sw { width: 22px; height: 14px; border-radius: 3px; }
+.sw.red { background: color-mix(in srgb, var(--s-red) 38%, transparent); border: 1.5px solid var(--s-red); }
+.sw.amber { background: color-mix(in srgb, var(--s-amber) 38%, transparent); border: 1.5px solid var(--s-amber); }
+.sw.green { background: color-mix(in srgb, var(--s-green) 22%, transparent); border: 1.5px dashed var(--s-green); }
+.sw.cityline { border: 1.5px solid var(--map-city); background: var(--map-city-fill); }
+.sw.c { border: 2.5px solid var(--air-c); border-radius: 50%; width: 18px; height: 18px; }
+.sw.d { border: 2.5px dashed var(--air-d); border-radius: 50%; width: 18px; height: 18px; }
+.sw.r { border: 2px solid var(--air-r); background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--air-r) 45%, transparent) 0 2px, transparent 2px 6px); }
+.sw.tfr { border: 2px dashed var(--air-tfr); border-radius: 50%; width: 18px; height: 18px; }
+.sw.zres { border: 1px solid color-mix(in srgb, var(--s-red) 45%, transparent); background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--s-red) 65%, transparent) 0 1.5px, color-mix(in srgb, var(--s-red) 8%, transparent) 1.5px 5px); }
+.sw.zok { border: 1px solid color-mix(in srgb, var(--s-amber) 45%, transparent); background: color-mix(in srgb, var(--s-amber) 28%, transparent); }
+.sw.cban { border: 2px dashed var(--s-red); background: color-mix(in srgb, var(--s-red) 20%, transparent); }
+.sw.cpermit { border: 2px dashed var(--s-amber); background: color-mix(in srgb, var(--s-amber) 20%, transparent); }
+.legend-sub { display: grid; gap: 5px; }
+.legend-sub[hidden] { display: none; }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; cursor: pointer; }
+.toggle input { accent-color: var(--accent); margin: 0; }
+.sym { display: inline-grid; place-items: center; }
+
+.readout { left: 12px; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); padding: 6px 10px; font-family: var(--font-mono); font-size: 11.5px; max-width: calc(100% - 24px); color: var(--ink); pointer-events: none; }
+.readout .z { color: var(--muted); }
+
+/* Leaflet theming */
+.leaflet-container { font-family: var(--font-body); background: var(--map-land); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted) !important; font-size: 10.5px; }
+.leaflet-control-attribution a { color: var(--muted) !important; }
+.leaflet-bar a { background: var(--raise); color: var(--ink); border-bottom-color: var(--line); }
+.leaflet-bar a:hover { background: var(--panel); color: var(--accent); }
+.leaflet-bar { border: 1px solid var(--line) !important; box-shadow: 0 2px 8px rgb(0 0 0 / 0.12) !important; }
+.lbl { white-space: nowrap; pointer-events: none; text-shadow: 0 0 3px var(--map-land), 0 0 3px var(--map-land), 0 0 6px var(--map-land); }
+.lbl-city { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: 0.04em; color: var(--map-city); text-transform: uppercase; transform: translate(-50%, -50%); position: absolute; }
+.lbl-city.major { font-size: 16px; font-weight: 700; color: var(--ink); }
+.lbl-water { font-family: var(--font-body); font-style: italic; font-size: 12px; color: color-mix(in srgb, var(--map-water-edge) 55%, var(--ink)); transform: translate(-50%, -50%); position: absolute; }
+.lbl-county { font-family: var(--font-display); font-weight: 500; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--map-county); transform: translate(-50%, -50%); position: absolute; }
+.lbl-ap { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--ink); position: absolute; left: 9px; top: -7px; }
+.map-z-lo .lbl-city:not(.major), .map-z-lo .lbl-ap, .map-z-lo .infra-ic, .map-z-lo .ap-priv, .map-z-lo .lbl-tfr { display: none; }
+.map-z-mid .lbl-county { display: none; }
+.map-z-hi .lbl-county { display: none; }
+.map-z-lo .lbl-water.minor { display: none; }
+.ap-ic svg { display: block; overflow: visible; }
+.pin svg { width: 30px; height: 30px; overflow: visible; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.4)); }
+@media (prefers-reduced-motion: no-preference) {
+  .pin .ring { animation: pulse 1.8s ease-out 2; transform-origin: 15px 15px; }
+  @keyframes pulse { from { transform: scale(0.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+}
+.leaflet-div-icon { background: none; border: 0; }
+
+/* Phones: map on top, panel below, each scrolling on its own */
+@media (max-width: 860px) {
+  .app { flex-direction: column; }
+  .map-wrap { flex: 0 0 52%; }
+  .panel { flex: 1 1 auto; width: auto; border-left: 0; border-top: 1px solid var(--line); }
+  .brand { padding: 12px 16px 8px; }
+  .brand h1 { font-size: 21px; }
+  .brand p { display: none; }
+  .search { padding: 10px 16px 0; }
+  .search svg { left: 27px; top: 21px; }
+  .results { left: 16px; right: 16px; }
+  .tabs { padding: 8px 16px 0; }
+  .panel-scroll { padding: 0 16px 24px; }
+  .layers-card { width: 200px; left: 8px; top: calc(8px + env(safe-area-inset-top, 0px)); }
+  .readout { display: none; }
+  .brand-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+</style>
+<!--__BODY__-->
+<div class="app">
+  <div class="map-wrap">
+    <div id="map" role="application" aria-label="Map of the area. Click or tap a spot to check it."></div>
+    <details class="map-card layers-card" id="layers" open>
+      <summary>Map layers <span class="hint" id="layersHint">hide</span></summary>
+      <div class="body">
+        <div class="legend-sec">
+          <div class="eyebrow">Ground</div>
+          <label class="toggle"><input type="checkbox" id="t-red" checked> <span class="lg"><span class="sw red"></span>Off-limits land</span></label>
+          <label class="toggle"><input type="checkbox" id="t-amber" checked> <span class="lg"><span class="sw amber"></span>Private or managed land: ask first</span></label>
+          <label class="toggle"><input type="checkbox" id="t-city" checked> <span class="lg"><span class="sw cityline"></span>City limits</span></label>
+          <div class="lg" style="padding-left:21px"><span class="sw cban"></span>City bans landings</div>
+          <div class="lg" style="padding-left:21px"><span class="sw cpermit"></span>City permit needed</div>
+          <div class="legend-sub" id="zoneLegend">
+            <label class="toggle"><input type="checkbox" id="t-zone" checked> <span class="lg"><span class="sw zres"></span>Austin residential zoning: no permit possible</span></label>
+            <div class="lg" style="padding-left:21px"><span class="sw zok"></span>Other Austin zoning: permit possible</div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="t-infra" checked> <span class="lg"><span class="sym"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" transform="rotate(45 7 7)" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--s-red)"/></svg></span>Power plants and high-hazard dams</span></label>
+        </div>
+        <div class="legend-sec">
+          <div class="eyebrow">Airspace</div>
+          <label class="toggle"><input type="checkbox" id="t-airspace" checked> <span class="lg"><span class="sym" style="gap:2px;display:inline-flex"><span class="sw c" style="width:10px;height:10px;border-width:2px"></span><span class="sw d" style="width:10px;height:10px;border-width:2px"></span></span>Class C and D</span></label>
+          <label class="toggle"><input type="checkbox" id="t-sua" checked> <span class="lg"><span class="sw r"></span>Restricted and alert areas</span></label>
+          <label class="toggle"><input type="checkbox" id="t-tfr" checked> <span class="lg"><span class="sw tfr"></span>Game and race day TFRs (3 NM)</span></label>
+        </div>
+        <div class="legend-sec">
+          <div class="eyebrow">Landing sites</div>
+          <label class="toggle"><input type="checkbox" id="t-ap" checked> <span class="lg"><span class="sym" style="display:inline-flex;gap:1px"><svg width="10" height="10" viewBox="-5 -5 10 10"><circle r="4.6" style="fill:var(--air-d)"/><circle r="1.7" style="fill:var(--panel)"/></svg><svg width="10" height="10" viewBox="-5 -5 10 10"><circle r="4.6" style="fill:var(--air-c)"/><circle r="1.7" style="fill:var(--panel)"/></svg></span>Public-use airports (blue has a tower)</span></label>
+          <label class="toggle"><input type="checkbox" id="t-priv" checked> <span class="lg"><span class="sym"><svg width="16" height="16" viewBox="-8 -8 16 16"><circle r="6" fill="var(--panel)" stroke="var(--muted)" stroke-width="1.5"/><text y="3.2" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Public Sans, sans-serif" fill="var(--muted)">H</text></svg></span>Private heliports and strips</span></label>
+        </div>
+      </div>
+    </details>
+    <div class="map-card readout" id="readout" aria-hidden="true">Move over the map</div>
+  </div>
+
+  <aside class="panel" aria-label="Landing briefing">
+    <div class="brand">
+      <div class="brand-row">
+        <h1 id="title">Helicopter Landing Map</h1>
+        <nav class="regions" id="regions" aria-label="Region"></nav>
+      </div>
+      <p id="tagline">Where a private helicopter can and can't put down, and what a prohibited landing can cost. Click any spot on the map, or search an address.</p>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+      <input id="q" type="search" placeholder="Search an address, park, town or airport" autocomplete="off" aria-label="Search an address or a place on the map" aria-controls="results" enterkeyhint="search">
+      <div class="results" id="results" role="listbox" hidden></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-spot" aria-selected="true" aria-controls="pane-spot">Spot check</button>
+      <button role="tab" id="tab-pen" aria-selected="false" aria-controls="pane-pen">Penalties</button>
+      <button role="tab" id="tab-check" aria-selected="false" aria-controls="pane-check">Before you land</button>
+    </div>
+    <div class="panel-scroll" id="scroller">
+      <section id="pane-spot" role="tabpanel" aria-labelledby="tab-spot"></section>
+      <section id="pane-pen" class="ref" role="tabpanel" aria-labelledby="tab-pen" hidden></section>
+      <section id="pane-check" class="ref" role="tabpanel" aria-labelledby="tab-check" hidden></section>
+    </div>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+/*__REGIONS__*/
+</script>
+<script>
+/*__RULES__*/
+</script>
+<script>
+/*__APP__*/
+</script>
