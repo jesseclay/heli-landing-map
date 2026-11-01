@@ -812,7 +812,11 @@ function heliStart(REGION, startAt) {
       if (!rows.length) showRows('<div class="hint" style="padding:10px 12px">No address found. Add the city, like “… Austin TX”.</div>');
       else showRows(rowsHtml());
     } catch {
-      showRows('<div class="hint" style="padding:10px 12px">Address search isn’t reachable right now. Try again in a moment.</div>');
+      // a preview that blocks outside requests (a claude.ai artifact) can't search; the public site can
+      const site = 'https://jesseclay.github.io/heli-landing-map/';
+      showRows(location.hostname === 'jesseclay.github.io'
+        ? '<div class="hint" style="padding:10px 12px">Address search isn’t reachable right now. Try again in a moment.</div>'
+        : `<div class="hint" style="padding:10px 12px">Address search can’t run in this preview. <a href="${site}" target="_blank" rel="noopener">Open the website</a> to search addresses.</div>`);
     } finally { geoBusy = false; }
   }
   function choose(r) {
