@@ -1636,14 +1636,15 @@ function heliStart(REGION, startAt) {
   }
   // one server-drawn image per view (so owner names aren't cut at tile edges), kept until the next one has loaded
   const ParcelView = L.Layer.extend({
-    onAdd(m) { this._seq = 0; m.on('moveend', this.refresh, this); this.refresh(); },
-    onRemove(m) { m.off('moveend', this.refresh, this); this._seq++; if (this._img) m.removeLayer(this._img); this._img = null; },
+    onAdd(m) { this._seq = 0; m.on('moveend resize', this.refresh, this); this.refresh(); },
+    onRemove(m) { m.off('moveend resize', this.refresh, this); this._seq++; if (this._img) m.removeLayer(this._img); this._img = null; },
     refresh() {
       const m = this._map, src = PARCELS.lines;
       if (!m) return;
       const seq = ++this._seq;
-      if (m.getZoom() < src.minZoom || parcelsBlocked) { if (this._img) m.removeLayer(this._img); this._img = null; return; }
       const b = m.getBounds(), size = m.getSize(), dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 2);
+      if (m.getZoom() < src.minZoom || parcelFails >= 3) { if (this._img) m.removeLayer(this._img); this._img = null; return; }
+      if (size.x < 2 || size.y < 2) return; // a hidden page has no size yet; its resize brings it back here
       const sw = L.CRS.EPSG3857.project(b.getSouthWest()), ne = L.CRS.EPSG3857.project(b.getNorthEast());
       const url = `${src.url}/export?${new URLSearchParams({
         f: 'image', format: 'png32', transparent: 'true', bboxSR: '3857', imageSR: '3857', bbox: [sw.x, sw.y, ne.x, ne.y].map((v) => v.toFixed(1)).join(','),
@@ -1651,28 +1652,29 @@ function heliStart(REGION, startAt) {
       })}`;
       const img = L.imageOverlay(url, b, { pane: 'p-parcel', interactive: false, opacity: 0 });
       img.once('load', () => {
+        parcelsReached();
         if (seq !== this._seq) { m.removeLayer(img); return; }
         img.setOpacity(1);
         if (this._img) m.removeLayer(this._img);
         this._img = img;
       });
-      img.once('error', () => { m.removeLayer(img); if (seq === this._seq) parcelsUnreachable(); });
+      img.once('error', () => { m.removeLayer(img); if (seq === this._seq) parcelFailed(); });
       img.addTo(m);
     },
   });
-  let parcelsBlocked = false;
+  // three failures in a row with nothing drawn means the page can't reach the service (a sandboxed preview); one
+  // failure on the website is just a slow or busy server
+  let parcelFails = 0, parcelsSeen = false;
+  const parcelHint = (t) => { const h = document.getElementById('parcelHint'); if (h) h.textContent = t; };
+  function parcelsReached() { parcelsSeen = true; if (parcelFails) { parcelFails = 0; parcelHint('zoom in'); } }
+  function parcelFailed() { if (!parcelsSeen && ++parcelFails === 3) parcelHint('only on the website'); }
   const parcelLayer = !PARCELS ? null : PARCELS.lines.kind === 'tiles'
     ? L.tileLayer(`${PARCELS.lines.url}/tile/{z}/{y}/{x}`, { pane: 'p-parcel', minZoom: PARCELS.lines.minZoom, maxZoom: 18, maxNativeZoom: 19, className: 'parcel-tiles' })
     : new ParcelView();
-  function parcelsUnreachable() {
-    parcelsBlocked = true;
-    const h = document.getElementById('parcelHint');
-    if (h) h.textContent = 'only on the website';
-  }
   if (parcelLayer) {
     G.parcel.addLayer(parcelLayer);
-    let fails = 0;
-    if (PARCELS.lines.kind === 'tiles') parcelLayer.on('tileerror', () => { if (++fails === 4) parcelsUnreachable(); });
+    // a cached tile layer is missing tiles past its state's edge, so only failures before any tile loads count
+    if (PARCELS.lines.kind === 'tiles') parcelLayer.on('tileload', parcelsReached).on('tileerror', parcelFailed);
   }
 
   // labels
