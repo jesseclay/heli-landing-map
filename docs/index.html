@@ -419,7 +419,39 @@ window.HELI_REGIONS = (() => {
           state: 'TX', op: 'identify', url: TXGIO, layer: 0,
           f: { owner: 'OWNER_NAME', care: 'NAME_CARE', mail: ['MAIL_LINE1', 'MAIL_LINE2'], mailCity: 'MAIL_CITY', mailState: 'MAIL_STAT', mailZip: 'MAIL_ZIP', mailFull: 'MAIL_ADDR', situs: 'SITUS_ADDR', id: 'PROP_ID', legal: 'LEGAL_DESC', county: 'COUNTY', year: 'TAX_YEAR' },
           // each appraisal district's page for one property, by its property ID
-          records: {},
+          linkLabel: 'Appraisal record',
+          records: {
+            travis: 'https://travis.prodigycad.com/property-detail/{id}',
+            williamson: 'https://search.wcad.org/Property-Detail/PropertyQuickRefID/{id}',
+            hays: 'https://esearch.hayscad.com/Property-Detail/PropertyQuickRefID/R{id}',
+            bastrop: 'https://search.bastropcad.org/parcel/{id}',
+            caldwell: 'https://esearch.caldwellcad.org/Property/View/{id}',
+            burnet: 'https://esearch.burnet-cad.org/Property/View/{id}',
+            blanco: 'https://esearch.blancocad.com/Property/View/{id}',
+            llano: 'https://www.llanocad.net/property-detail/{id}',
+            lee: 'https://esearch.lee-cad.org/Property/View/{id}',
+            bell: 'https://belltx-search.gsacorp.io/parcel/{id}',
+            milam: 'https://www.milamad.org/property-detail/{id}',
+            comal: 'https://esearch.comalad.org/Property/View/{id}',
+            guadalupe: 'https://esearch.guadalupead.org/Property/View/{id}',
+            gillespie: 'https://esearch.gillespiecad.org/Property/View/{id}',
+            kendall: 'https://esearch.kendallad.org/Property/View/{id}',
+            bexar: 'https://hgo.harrisgovern.com/bexar/property/{year}-{id}',
+            lampasas: 'https://esearch.lampasascad.com/Property/View/{id}',
+            coryell: 'https://esearch.coryellcad.org/Property/View/{id}',
+            fayette: 'https://esearch.fayettecad.org/Property/View/{id}',
+            gonzales: 'https://www.gonzalescad.org/Home/Details?parcelId={id}',
+            burleson: 'https://esearch.burlesonappraisal.com/Property/View/{id}',
+            falls: 'https://esearch.fallscad.net/Property/View/{id}',
+            mclennan: 'https://www.mclennancad.org/property-detail/{id}',
+            mills: 'https://esearch.millscad.org/Property/View/R{id9}',
+            'san saba': 'https://www.sansabacad.org/Home/Details?parcelId={id}',
+            lavaca: 'https://esearch.lavacacad.com/Property/View/{id}',
+            colorado: 'https://esearch.coloradocad.org/Property/View/{id}',
+            medina: 'https://esearch.medinacad.org/Property/View/{id}',
+            kerr: 'https://esearch.kerrcad.org/Property/View/{id}',
+            bandera: 'https://esearch.bancad.org/Property/View/{id}',
+          },
         }],
         business: { TX: ['Texas business records', 'https://comptroller.texas.gov/taxes/franchise/account-status/search'] },
         note: 'Property lines and owners are looked up live from TxGIO’s statewide parcel layer, which the state compiles from each county appraisal district’s roll',
@@ -2001,7 +2033,7 @@ function heliStart(REGION, startAt) {
     return arcgis(`${src.url}/${src.layer}/query`, { ...at, inSR: '4326', outSR: '4326', spatialRel: 'esriSpatialRelIntersects', outFields: fieldNames(src) })
       .then((j) => (j.features || []).map((x) => ({ a: x.attributes, g: x.geometry })));
   }
-  const blank = (v) => v == null || /^\s*(null|none)?\s*$/i.test(String(v));
+  const blank = (v) => v == null || /^\s*(null|none|0)?\s*$/i.test(String(v)); // the Texas layer fills gaps with "Null" or "0"
   const tidy = (v) => (blank(v) ? '' : String(v).replace(/\s+/g, ' ').replace(/\s+,/g, ',').replace(/,(\s*,)+/g, ',').replace(/^[\s,]+|[\s,]+$/g, ''));
   // a field list's entries are joined with commas; an entry that is itself a list (a house number and its street)
   // is joined with spaces
@@ -2125,18 +2157,26 @@ function heliStart(REGION, startAt) {
     if (o.src.title) return o.src.title.replace('{loc}', o.loc);
     return `${o.county ? `${capWords(o.county)} County` : o.loc} appraisal roll${o.year ? `, ${o.year}` : ''}`;
   }
-  // the parcel's official record: a Texas appraisal district's page by property ID, a link pattern filled from the
-  // parcel's fields ({id} or {FIELD}), or a link the record carries itself
+  // the parcel's official record: a Texas appraisal district's page, a link pattern filled from the parcel ({id}, {id9}
+  // for the ID zero-padded to 9 digits, {year}, or any {FIELD}), or a link the record carries itself
+  function fillLink(tpl, o) {
+    let ok = true;
+    const u = tpl.replace(/\{(\w+)\}/g, (m, k) => {
+      const pad = /^id(\d+)$/.exec(k);
+      const v = k === 'id' ? o.id : pad ? o.id.padStart(+pad[1], '0') : k === 'year' ? o.year : tidy(o.attrs[k]);
+      if (!v) ok = false;
+      return encodeURIComponent(v);
+    });
+    return ok ? u : null;
+  }
   function recordUrl(o) {
     const s = o.src;
     if (!s || !o.id) return null;
-    if (s.records) { const r = s.records[(o.county || '').toLowerCase()]; return r ? [r[0], r[1].replace('{id}', encodeURIComponent(o.id))] : null; }
     const label = s.linkLabel || 'County record';
     if (s.linkField) { const u = tidy(o.attrs[s.linkField]); return /^https?:\/\//i.test(u) ? [label, u] : null; }
-    if (!s.link) return null;
-    let ok = true;
-    const u = s.link.replace(/\{(\w+)\}/g, (m, k) => { const v = k === 'id' ? o.id : tidy(o.attrs[k]); if (!v) ok = false; return encodeURIComponent(v); });
-    return ok ? [label, u] : null;
+    const tpl = s.records ? s.records[(o.county || '').toLowerCase()] : s.link;
+    const u = tpl && fillLink(tpl, o);
+    return u ? [label, u] : null;
   }
   const extLink = (label, u) => `<a class="cite" href="${esc(u)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`;
   function ownerHtml(res) {

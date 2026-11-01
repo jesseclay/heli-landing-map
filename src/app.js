@@ -781,7 +781,7 @@ function heliStart(REGION, startAt) {
     return arcgis(`${src.url}/${src.layer}/query`, { ...at, inSR: '4326', outSR: '4326', spatialRel: 'esriSpatialRelIntersects', outFields: fieldNames(src) })
       .then((j) => (j.features || []).map((x) => ({ a: x.attributes, g: x.geometry })));
   }
-  const blank = (v) => v == null || /^\s*(null|none)?\s*$/i.test(String(v));
+  const blank = (v) => v == null || /^\s*(null|none|0)?\s*$/i.test(String(v)); // the Texas layer fills gaps with "Null" or "0"
   const tidy = (v) => (blank(v) ? '' : String(v).replace(/\s+/g, ' ').replace(/\s+,/g, ',').replace(/,(\s*,)+/g, ',').replace(/^[\s,]+|[\s,]+$/g, ''));
   // a field list's entries are joined with commas; an entry that is itself a list (a house number and its street)
   // is joined with spaces
@@ -905,18 +905,26 @@ function heliStart(REGION, startAt) {
     if (o.src.title) return o.src.title.replace('{loc}', o.loc);
     return `${o.county ? `${capWords(o.county)} County` : o.loc} appraisal roll${o.year ? `, ${o.year}` : ''}`;
   }
-  // the parcel's official record: a Texas appraisal district's page by property ID, a link pattern filled from the
-  // parcel's fields ({id} or {FIELD}), or a link the record carries itself
+  // the parcel's official record: a Texas appraisal district's page, a link pattern filled from the parcel ({id}, {id9}
+  // for the ID zero-padded to 9 digits, {year}, or any {FIELD}), or a link the record carries itself
+  function fillLink(tpl, o) {
+    let ok = true;
+    const u = tpl.replace(/\{(\w+)\}/g, (m, k) => {
+      const pad = /^id(\d+)$/.exec(k);
+      const v = k === 'id' ? o.id : pad ? o.id.padStart(+pad[1], '0') : k === 'year' ? o.year : tidy(o.attrs[k]);
+      if (!v) ok = false;
+      return encodeURIComponent(v);
+    });
+    return ok ? u : null;
+  }
   function recordUrl(o) {
     const s = o.src;
     if (!s || !o.id) return null;
-    if (s.records) { const r = s.records[(o.county || '').toLowerCase()]; return r ? [r[0], r[1].replace('{id}', encodeURIComponent(o.id))] : null; }
     const label = s.linkLabel || 'County record';
     if (s.linkField) { const u = tidy(o.attrs[s.linkField]); return /^https?:\/\//i.test(u) ? [label, u] : null; }
-    if (!s.link) return null;
-    let ok = true;
-    const u = s.link.replace(/\{(\w+)\}/g, (m, k) => { const v = k === 'id' ? o.id : tidy(o.attrs[k]); if (!v) ok = false; return encodeURIComponent(v); });
-    return ok ? [label, u] : null;
+    const tpl = s.records ? s.records[(o.county || '').toLowerCase()] : s.link;
+    const u = tpl && fillLink(tpl, o);
+    return u ? [label, u] : null;
   }
   const extLink = (label, u) => `<a class="cite" href="${esc(u)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`;
   function ownerHtml(res) {
