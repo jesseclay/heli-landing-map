@@ -230,7 +230,7 @@ const REGION_CFG = {
     landKind: vaLandKind,
     extraLands: [],
     publicCampus: /Virginia Polytechnic|Virginia Tech|Radford Univ|Concord Univ|Virginia Western|New River Community/,
-    towerHours: {},
+    towerHours: { ROA: 'tower and approach continuous' },
     towered: { ROA: 'C' },
     stadiums: [
       { n: 'Lane Stadium (Virginia Tech)', short: 'Lane', ev: 'Virginia Tech football home games (standing TFR)', cap: 65632, lat: 37.21995, lon: -80.41803 },

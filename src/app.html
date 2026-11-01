@@ -35,6 +35,7 @@
   --s-blue: #1f6db0;
   --fill-red: 0.26;
   --fill-amber: 0.22;
+  --fill-green: 0.13;
   --zone-hatch: 0.5;
   --zone-res-fill: 0.09;
   --zone-ok-fill: 0.1;
@@ -56,7 +57,7 @@
     --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
     --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
     --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
-    --fill-red: 0.2; --fill-amber: 0.16;
+    --fill-red: 0.2; --fill-amber: 0.16; --fill-green: 0.11;
     --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
     color-scheme: dark;
   }
@@ -69,7 +70,7 @@
   --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
   --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
   --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
-  --fill-red: 0.2; --fill-amber: 0.16;
+  --fill-red: 0.2; --fill-amber: 0.16; --fill-green: 0.11;
   --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
   color-scheme: dark;
 }
@@ -91,7 +92,7 @@ button { font: inherit; color: inherit; }
 .brand { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
 .brand h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.05; letter-spacing: 0.01em; text-wrap: balance; }
 .brand p { margin: 6px 0 0; color: var(--muted); font-size: 13px; max-width: 60ch; }
-.brand-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand-row { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .regions { display: inline-flex; flex: 0 0 auto; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--raise); }
 .regions[hidden] { display: none; }
 .regions button { border: 0; background: none; padding: 4px 10px; border-radius: 999px; font: 600 12.5px var(--font-body); color: var(--muted); cursor: pointer; white-space: nowrap; }
@@ -192,7 +193,7 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
 .sw { width: 22px; height: 14px; border-radius: 3px; }
 .sw.red { background: color-mix(in srgb, var(--s-red) 38%, transparent); border: 1.5px solid var(--s-red); }
 .sw.amber { background: color-mix(in srgb, var(--s-amber) 38%, transparent); border: 1.5px solid var(--s-amber); }
-.sw.green { background: color-mix(in srgb, var(--s-green) 22%, transparent); border: 1.5px dashed var(--s-green); }
+.sw.green { background: color-mix(in srgb, var(--s-green) 22%, transparent); border: 1.5px solid var(--s-green); }
 .sw.cityline { border: 1.5px solid var(--map-city); background: var(--map-city-fill); }
 .sw.c { border: 2.5px solid var(--air-c); border-radius: 50%; width: 18px; height: 18px; }
 .sw.d { border: 2.5px dashed var(--air-d); border-radius: 50%; width: 18px; height: 18px; }
@@ -203,7 +204,7 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
 .sw.cban { border: 2px dashed var(--s-red); background: color-mix(in srgb, var(--s-red) 20%, transparent); }
 .sw.cpermit { border: 2px dashed var(--s-amber); background: color-mix(in srgb, var(--s-amber) 20%, transparent); }
 .legend-sub { display: grid; gap: 5px; }
-.legend-sub[hidden] { display: none; }
+.legend-sub[hidden], .toggle[hidden] { display: none; }
 .toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; cursor: pointer; }
 .toggle input { accent-color: var(--accent); margin: 0; }
 .sym { display: inline-grid; place-items: center; }
@@ -251,7 +252,6 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
   .panel-scroll { padding: 0 16px 24px; }
   .layers-card { width: 200px; left: 8px; top: calc(8px + env(safe-area-inset-top, 0px)); }
   .readout { display: none; }
-  .brand-row { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 </style>
 <!--__BODY__-->
@@ -265,6 +265,7 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
           <div class="eyebrow">Ground</div>
           <label class="toggle"><input type="checkbox" id="t-red" checked> <span class="lg"><span class="sw red"></span>Off-limits land</span></label>
           <label class="toggle"><input type="checkbox" id="t-amber" checked> <span class="lg"><span class="sw amber"></span>Private or managed land: ask first</span></label>
+          <label class="toggle" id="greenLegend"><input type="checkbox" id="t-green" checked> <span class="lg"><span class="sw green"></span>National forest: open outside wilderness</span></label>
           <label class="toggle"><input type="checkbox" id="t-city" checked> <span class="lg"><span class="sw cityline"></span>City limits</span></label>
           <div class="lg" style="padding-left:21px"><span class="sw cban"></span>City bans landings</div>
           <div class="lg" style="padding-left:21px"><span class="sw cpermit"></span>City permit needed</div>

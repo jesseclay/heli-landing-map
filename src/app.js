@@ -101,6 +101,7 @@ function heliStart(REGION, startAt) {
   const nmStr = (m) => (m < 0.2 * NM ? `${Math.round(m / 0.3048).toLocaleString()} ft` : `${(m / NM).toFixed(m < 10 * NM ? 1 : 0)} NM`);
   // Virginia's independent cities are county-equivalents, so the county list holds them too
   const countyName = (c) => (c.ic ? `City of ${c.n}` : `${c.n} County`);
+  const STATE_NAMES = { TX: 'Texas', VA: 'Virginia', WV: 'West Virginia' };
   const placeKind = (p) => ({ town: 'Town', village: 'Village' }[p.lsad] || 'City');
 
   // ---------- what each kind of zone means (kinds come from the build; rule ids from the region's state) ----------
@@ -111,8 +112,10 @@ function heliStart(REGION, startAt) {
     nps: { s: 'red', label: 'National Park Service land', rules: ['nps'] },
     usace: { s: 'red', label: 'Army Corps of Engineers lake land', rules: ['usace'] },
     federal_other: { s: 'red', label: 'Federal land', rules: ['federal_land'] },
-    usfs: { s: 'amber', label: 'National forest', rules: ['usfs'] },
+    usfs: { s: 'green', label: 'National forest', rules: ['usfs'] },
     wilderness: { s: 'red', label: 'National forest wilderness', rules: ['wilderness'] },
+    state_nap: { s: 'red', label: 'State natural area preserve', rules: ['state_nap'] },
+    other_state: { s: 'amber', label: 'Public land in another state', rules: ['other_state'] },
     state_park: { s: 'red', label: 'State park or natural area', rules: ['state_park'] },
     state_wma: { s: 'red', label: 'State wildlife area or hatchery', rules: ['state_wma'] },
     state_forest: { s: 'amber', label: 'State forest', rules: ['state_forest'] },
@@ -153,8 +156,11 @@ function heliStart(REGION, startAt) {
 
   // ---------- decode the bundle ----------
   const zone = (o) => { const polys = decG(o.g); const bb = bbOf(polys); return { ...o, polys, bb, area: (bb[2] - bb[0]) * (bb[3] - bb[1]) }; };
-  const lands = D.lands.map(zone).map((z) => ({ ...z, def: LAND[z.k] || LAND.unknown }));
-  const water = D.water.map(zone).map((z) => ({ ...z, def: WATER[z.k] || WATER.lake_other }));
+  // a zone's map color follows the level of its main rule in this state, so a kind can be off-limits in one state
+  // and ask-first in another
+  const withLevel = (d) => { const r = RULES[d.rules[0]]; return d.s === 'none' || !r ? d : { ...d, s: r.level === 'info' ? 'none' : r.level }; };
+  const lands = D.lands.map(zone).map((z) => ({ ...z, def: withLevel(LAND[z.k] || LAND.unknown) }));
+  const water = D.water.map(zone).map((z) => ({ ...z, def: withLevel(WATER[z.k] || WATER.lake_other) }));
   const places = D.places.map(zone);
   const counties = D.counties.map(zone);
   const airspace = D.airspace.map(zone);
@@ -266,6 +272,7 @@ function heliStart(REGION, startAt) {
     regionsEl.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { if (b.dataset.region !== REGION.key) location.hash = b.dataset.region; }));
   } else regionsEl.hidden = true;
   if (!zLots.length) document.getElementById('zoneLegend').hidden = true;
+  if (!lands.some((l) => l.def.s === 'green')) document.getElementById('greenLegend').hidden = true;
 
   // ---------- map ----------
   const map = L.map('map', {
@@ -292,14 +299,14 @@ function heliStart(REGION, startAt) {
       land: g('--map-land'), water: g('--map-water'), waterEdge: g('--map-water-edge'), road: g('--map-road'), roadMinor: g('--map-road-minor'),
       county: g('--map-county'), city: g('--map-city'), cityFill: g('--map-city-fill'), c: g('--air-c'), d: g('--air-d'), r: g('--air-r'), tfr: g('--air-tfr'),
       red: g('--s-red'), amber: g('--s-amber'), green: g('--s-green'), blue: g('--s-blue'), ink: g('--ink'), panel: g('--panel'),
-      fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), cityTint: num('--city-tint', 0.14),
+      fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), fillGreen: num('--fill-green', 0.12), cityTint: num('--city-tint', 0.14),
       zoneHatch: num('--zone-hatch', 0.5), zoneRes: num('--zone-res-fill', 0.08), zoneOk: num('--zone-ok-fill', 0.12),
     };
   }
   readColors();
 
   const G = {};
-  ['counties', 'cities', 'zone', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
+  ['counties', 'cities', 'zone', 'water', 'roads', 'green', 'red', 'amber', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
   const styled = []; // [layer, fn] pairs, restyled on theme change
   function add(group, layer, styleFn) { layer.setStyle(styleFn()); styled.push([layer, styleFn]); group.addLayer(layer); return layer; }
   const noI = { interactive: false };
@@ -367,6 +374,7 @@ function heliStart(REGION, startAt) {
     add(G.roads, L.polyline(r.line, { ...noI, renderer: rRoad }), () => ({ color: p ? C.road : C.roadMinor, weight: p ? 2.4 : 1.4, opacity: 0.9, lineCap: 'round' }));
   }
   for (const z of lands) {
+    if (z.def.s === 'green') { add(G.green, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ color: C.green, weight: 1.1, opacity: 0.8, fillColor: C.green, fillOpacity: C.fillGreen })); continue; }
     if (z.def.s !== 'red' && z.def.s !== 'amber') continue;
     add(z.def.s === 'red' ? G.red : G.amber, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[z.def.s], weight: 0.9, opacity: 0.9, fillColor: C[z.def.s], fillOpacity: z.def.s === 'red' ? C.fillRed : C.fillAmber }));
   }
@@ -432,9 +440,9 @@ function heliStart(REGION, startAt) {
     G.infra.addLayer(m);
   }
 
-  const ORDER = ['counties', 'cities', 'zone', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
+  const ORDER = ['counties', 'cities', 'zone', 'green', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
   ORDER.forEach((k) => G[k].addTo(map));
-  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-city': ['cities'], 't-zone': ['zone'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
+  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-green': ['green'], 't-city': ['cities'], 't-zone': ['zone'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
   for (const [id, groups] of Object.entries(TOGGLES)) {
     const el = document.getElementById(id);
     el.addEventListener('change', () => groups.forEach((g) => (el.checked ? map.addLayer(G[g]) : map.removeLayer(G[g]))));
@@ -493,9 +501,11 @@ function heliStart(REGION, startAt) {
     const res = { la, lo };
     res.place = places.find((z) => inZone(z, la, lo)) || null;
     res.county = counties.find((z) => inZone(z, la, lo)) || null;
+    // an independent city is its own county-equivalent; near its edge the simplified limits can miss the spot
+    if (!res.place && res.county && res.county.ic) res.place = places.find((p) => p.n === res.county.n) || null;
     res.lands = lands.filter((z) => z.def.s !== 'none' && inZone(z, la, lo)).sort((a, b) => a.area - b.area);
     res.water = water.filter((z) => inZone(z, la, lo)).map((z) => {
-      if (z.k === 'lake_austin_city' && lo > -97.7135) return { ...z, n: 'Colorado River (below Longhorn Dam)', def: WATER.river };
+      if (z.k === 'lake_austin_city' && lo > -97.7135) return { ...z, n: 'Colorado River (below Longhorn Dam)', def: withLevel(WATER.river) };
       if (z.k === 'lake_austin_city') return { ...z, n: austinLakeName(lo) };
       return z;
     });
@@ -512,8 +522,9 @@ function heliStart(REGION, startAt) {
     res.lot = zoned(res.place) ? lotAt(la, lo) : null;
     res.lotGap = zoned(res.place) && !res.lot && !res.water.length && !res.lands.length && !res.road && !res.atPub ? nearLot(la, lo, 20) : null;
 
-    // land and water
-    for (const z of res.lands) for (const id of z.def.rules) add(id, `${z.n}${z.m && z.m !== z.n ? ` · ${z.m}` : ''}`);
+    // land and water (wilderness lies inside the national forest, and its ban wins)
+    const inWilderness = res.lands.some((z) => z.k === 'wilderness');
+    for (const z of res.lands) if (!(inWilderness && z.k === 'usfs')) for (const id of z.def.rules) add(id, `${z.n}${z.m && z.m !== z.n ? ` · ${z.m}` : ''}`);
     for (const z of res.water) for (const id of z.def.rules) add(id, z.n);
     for (const x of res.infra) add(x.i.k === 'power' ? 'critical_infra' : 'dam', `${x.i.n}${x.i.k === 'power' ? ` (${x.i.op}, ${x.i.mw} MW)` : ` (${x.i.h} ft)`}, ${nmStr(x.d)} away`);
     if (res.road) add('roadway', `${res.road.r.n || 'Highway'}, about ${Math.round(res.road.d / 0.3048 / 10) * 10} ft away (map roads are simplified)`);
@@ -538,13 +549,18 @@ function heliStart(REGION, startAt) {
       if (t.cls === 'res') add('austin_res', `${t.code}: ${t.name}`);
       else if (!offLimits) add(t.cls === 'unz' ? 'austin_unzoned' : 'austin_permit', `${t.code}: ${t.name}${extra}`);
     } else if (res.lotGap) add('roadway', `Between zoning lots (${Math.round(res.lotGap.d / 0.3048)} ft from the nearest), so most likely a street, alley or rail line`);
-    // jurisdiction
-    if (res.place) {
+    // jurisdiction (the region's rules are one state's; a spot over the state line only gets a pointer)
+    res.outOfState = !!(res.county && res.county.st && res.county.st !== REGION.state);
+    if (res.outOfState) add('other_state', `${countyName(res.county)}, ${STATE_NAMES[res.county.st] || res.county.st}`);
+    else if (res.place) {
       const cr = CITY[res.place.reg];
       const note = CITY_NOTES[res.place.n];
       add(cr ? cr.rule : 'city_other', note ? `${res.place.n}: ${note}` : `${placeKind(res.place)} of ${res.place.n}`);
     } else add('unincorporated', `${res.county ? countyName(res.county) : 'County'}, outside city and town limits`);
-    if (res.county && !res.place && (REGION.countyRules || {})[res.county.n]) add(REGION.countyRules[res.county.n], countyName(res.county));
+    const offLimitsLand = res.lands.some((z) => z.def.s === 'red');
+    if (res.county && !res.place && !res.outOfState && !offLimitsLand && (REGION.countyRules || {})[countyName(res.county)]) add(REGION.countyRules[countyName(res.county)], countyName(res.county));
+    const parkRule = res.county && (REGION.countyParkRules || {})[countyName(res.county)];
+    if (parkRule) for (const z of res.lands) if (z.k === 'park_county') add(parkRule, z.n);
     add('baseline_faa');
     add('baseline_consent');
     add('baseline_conduct');
@@ -614,6 +630,7 @@ function heliStart(REGION, startAt) {
     const jur = res.place
       ? `${placeKind(res.place)} of ${res.place.n}${res.county && !res.county.ic ? `, ${res.county.n} County` : ''}`
       : res.county ? (res.county.ic ? `City of ${res.county.n}` : `Unincorporated ${res.county.n} County`) : 'Unincorporated';
+    const jurAll = res.outOfState ? `${jur}, ${STATE_NAMES[res.county.st] || res.county.st}` : jur;
     const np = res.nearPub && !res.atPub ? `${esc(res.nearPub.a.n)} (<span class="mono">${esc(res.nearPub.a.id)}</span>), ${nmStr(res.nearPub.d)} ${compass(bearing(res.la, res.lo, res.nearPub.a.lat, res.nearPub.a.lon))}` : '';
     const zoneTxt = res.lot ? `<span class="mono">${esc(res.lot.t.code)}</span> · ${esc(res.lot.t.name)}` : res.lotGap ? 'None (between lots)' : '';
     spotPane.innerHTML = `
@@ -628,7 +645,7 @@ function heliStart(REGION, startAt) {
         <div class="v-sub">${esc(vs(nRed))}</div>
       </div>
       <dl class="facts">
-        <dt>Jurisdiction</dt><dd>${esc(jur)}</dd>
+        <dt>Jurisdiction</dt><dd>${esc(jurAll)}</dd>
         ${zoneTxt ? `<dt>Zoning</dt><dd>${zoneTxt}</dd>` : ''}
         <dt>Airspace</dt><dd>${esc(airTxt)}</dd>
         ${np ? `<dt>Nearest airport</dt><dd>${np}</dd>` : ''}
@@ -700,7 +717,7 @@ function heliStart(REGION, startAt) {
     let best = null;
     for (const z of lands) if (z.def.s !== 'none' && (!best || z.area < best.area) && inZone(z, la, lo)) best = z;
     let txt;
-    if (best) txt = `${esc(best.n)} <span class="z">· ${best.def.s === 'red' ? 'off-limits' : 'ask first'}</span>`;
+    if (best) txt = `${esc(best.n)} <span class="z">· ${{ red: 'off-limits', amber: 'ask first', green: 'open to landing' }[best.def.s]}</span>`;
     else {
       const w = water.find((z) => inZone(z, la, lo));
       const p = places.find((z) => inZone(z, la, lo));
@@ -785,7 +802,8 @@ function heliStart(REGION, startAt) {
     geoBusy = true; geoLast = Date.now();
     showRows('<div class="hint" style="padding:10px 12px">Searching addresses…</div>');
     try {
-      const found = await geocode(q);
+      // the same address often comes back as both the building and a business inside it
+      const found = (await geocode(q)).filter((g, i, all) => !all.slice(0, i).some((o) => o.n === g.n && meters(o.la, o.lo, g.la, g.lo) < 80));
       rows = found.map((g) => {
         const home = Object.values(REGIONS).find((r) => inBounds(r.bounds, g.la, g.lo));
         return { geo: 'hit', ...g, region: home ? home.key : null, k: home ? (home.key === REGION.key ? 'Address' : `Address · ${home.label} map`) : 'Outside the mapped areas' };

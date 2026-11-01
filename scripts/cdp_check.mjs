@@ -1,6 +1,6 @@
 // Loads the built page in a throwaway headless Chrome profile, reports console errors,
 // runs a few interaction checks and saves screenshots.
-// Usage: node cdp_check.mjs <htmlFile> <outDir> [--shots]
+// Usage: node cdp_check.mjs <htmlFile> <outDir> [--shots] [--region <key>]
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,6 +8,10 @@ import path from 'node:path';
 const file = path.resolve(process.argv[2]);
 const outDir = path.resolve(process.argv[3]);
 const shots = process.argv.includes('--shots');
+const ri = process.argv.indexOf('--region');
+const region = ri > 0 ? process.argv[ri + 1] : '';
+const url = 'file://' + file + (region ? `#${region}` : '');
+const tag = region ? `${region}-` : '';
 const port = 9339;
 const prof = path.join(outDir, 'chrome-profile');
 fs.mkdirSync(prof, { recursive: true });
@@ -53,7 +57,7 @@ try {
   await send('Runtime.enable'); await send('Log.enable'); await send('Page.enable'); await send('Network.enable');
   await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
-  await send('Page.navigate', { url: 'file://' + file });
+  await send('Page.navigate', { url });
   await sleep(4500);
 
   const report = await evaluate(`(() => {
@@ -74,15 +78,15 @@ try {
   if (shots) {
     await evaluate(`document.querySelectorAll('.chip')[0].click()`);
     await sleep(1500);
-    await shot('desktop-light.png');
+    await shot(`${tag}desktop-light.png`);
     await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
     await sleep(800);
-    await shot('desktop-dark.png');
+    await shot(`${tag}desktop-dark.png`);
     await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
     await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
     await send('Page.reload');
     await sleep(4500);
-    await shot('phone-light.png');
+    await shot(`${tag}phone-light.png`);
     const ov = await evaluate(`({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth })`);
     console.log('phone overflow check', JSON.stringify(ov));
   }
