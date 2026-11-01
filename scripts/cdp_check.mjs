@@ -5,12 +5,13 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const file = path.resolve(process.argv[2]);
+// the page can be a file or an http(s) address (a local server, so the page can call outside services)
+const file = /^https?:/.test(process.argv[2]) ? process.argv[2] : path.resolve(process.argv[2]);
 const outDir = path.resolve(process.argv[3]);
 const shots = process.argv.includes('--shots');
 const ri = process.argv.indexOf('--region');
 const region = ri > 0 ? process.argv[ri + 1] : '';
-const url = 'file://' + file + (region ? `#${region}` : '');
+const url = (/^https?:/.test(file) ? file : 'file://' + file) + (region ? `#${region}` : '');
 const tag = region ? `${region}-` : '';
 const port = 9339;
 const prof = path.join(outDir, 'chrome-profile');
@@ -90,7 +91,8 @@ try {
     const ov = await evaluate(`({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth })`);
     console.log('phone overflow check', JSON.stringify(ov));
   }
-  const errs = events.filter((e) => (e.method === 'Runtime.exceptionThrown') || (e.method === 'Runtime.consoleAPICalled' && /error|warn/.test(e.params.type)) || (e.method === 'Log.entryAdded' && /error|warning/.test(e.params.entry.level)) || e.method === 'Network.loadingFailed');
+  const errs = events.filter((e) => (e.method === 'Runtime.exceptionThrown') || (e.method === 'Runtime.consoleAPICalled' && /error|warn/.test(e.params.type)) || (e.method === 'Log.entryAdded' && /error|warning/.test(e.params.entry.level)) || (e.method === 'Network.loadingFailed' && e.params.errorText !== 'net::ERR_ABORTED'));
+  // (an aborted load is a map tile Leaflet cancelled while flying between spots, not a failure)
   for (const e of errs) {
     if (e.method === 'Runtime.exceptionThrown') console.log('EXCEPTION', e.params.exceptionDetails.exception?.description || e.params.exceptionDetails.text);
     else if (e.method === 'Runtime.consoleAPICalled') console.log('CONSOLE', e.params.type, e.params.args.map((a) => a.value ?? a.description).join(' '));

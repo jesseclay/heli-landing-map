@@ -47,6 +47,13 @@ node scripts/cdp_check.mjs build/test.html build --shots
 - EIA power plants; USACE National Inventory of Dams (high-hazard dams)
 - City of Austin open data: zoning for every lot
 - Address search runs in the browser against OpenStreetMap's Nominatim, falling back to Photon
+- Landowners: clicking a spot asks a public parcel service, live, for the parcel under the pin (owner of record, mailing
+  address, size, parcel ID) and outlines it; zoomed in, the map draws property lines (and, in Texas, owner names on
+  tracts big enough to hold them). Nothing about owners is stored in the site. Texas uses TxGIO's statewide StratMap
+  parcels, compiled from every county appraisal district's roll; Virginia uses VGIN's statewide parcels for lines and
+  parcel IDs, and each county's or city's own service for owners where it publishes one. A spot that no parcel covers
+  is treated as road or other right-of-way. These lookups run only where the page can reach the services (the
+  website, not a sandboxed preview); `scripts/cdp_owner.mjs` tests them against a local server with names masked
 
 The rules and penalties come from the statutes, regulations and local codes cited on each card and listed under
 "Before you land".

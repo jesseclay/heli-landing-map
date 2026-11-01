@@ -273,10 +273,12 @@ function heliStart(REGION, startAt) {
   } else regionsEl.hidden = true;
   if (!zLots.length) document.getElementById('zoneLegend').hidden = true;
   if (!lands.some((l) => l.def.s === 'green')) document.getElementById('greenLegend').hidden = true;
+  if (REGION.parcels) document.getElementById('parcelText').textContent = REGION.parcels.lines.legend;
+  else document.getElementById('parcelLegend').hidden = true;
 
   // ---------- map ----------
   const map = L.map('map', {
-    minZoom: 8, maxZoom: 16, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
+    minZoom: 8, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
     maxBounds: REGION.maxBounds, maxBoundsViscosity: 0.7, attributionControl: true,
   });
   map.zoomControl.setPosition('topright');
@@ -298,7 +300,8 @@ function heliStart(REGION, startAt) {
     C = {
       land: g('--map-land'), water: g('--map-water'), waterEdge: g('--map-water-edge'), road: g('--map-road'), roadMinor: g('--map-road-minor'),
       county: g('--map-county'), city: g('--map-city'), cityFill: g('--map-city-fill'), c: g('--air-c'), d: g('--air-d'), r: g('--air-r'), tfr: g('--air-tfr'),
-      red: g('--s-red'), amber: g('--s-amber'), green: g('--s-green'), blue: g('--s-blue'), ink: g('--ink'), panel: g('--panel'),
+      red: g('--s-red'), amber: g('--s-amber'), green: g('--s-green'), blue: g('--s-blue'), ink: g('--ink'), panel: g('--panel'), accent: g('--accent'),
+      parcel: g('--map-parcel'), parcelLabel: g('--map-parcel-label'),
       fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), fillGreen: num('--fill-green', 0.12), cityTint: num('--city-tint', 0.14),
       zoneHatch: num('--zone-hatch', 0.5), zoneRes: num('--zone-res-fill', 0.08), zoneOk: num('--zone-ok-fill', 0.12),
     };
@@ -306,7 +309,7 @@ function heliStart(REGION, startAt) {
   readColors();
 
   const G = {};
-  ['counties', 'cities', 'zone', 'water', 'roads', 'green', 'red', 'amber', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
+  ['counties', 'cities', 'zone', 'water', 'roads', 'green', 'red', 'amber', 'parcel', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
   const styled = []; // [layer, fn] pairs, restyled on theme change
   function add(group, layer, styleFn) { layer.setStyle(styleFn()); styled.push([layer, styleFn]); group.addLayer(layer); return layer; }
   const noI = { interactive: false };
@@ -390,6 +393,68 @@ function heliStart(REGION, startAt) {
     add(G.tfr, L.circle([s.lat, s.lon], { ...noI, radius: 3 * NM, renderer: rAir }), () => ({ color: C.tfr, weight: 2, dashArray: '8 6', opacity: 0.95, fillColor: C.tfr, fillOpacity: 0.05 }));
   }
 
+  // property lines from the region's public parcel service, above the land fills and under the airspace; they only
+  // draw where the page can reach that service (the website, not a sandboxed preview)
+  const PARCELS = REGION.parcels || null;
+  map.createPane('p-parcel').style.zIndex = 245;
+  map.getPane('p-parcel').style.pointerEvents = 'none';
+  const rgba = (hex, a = 255) => { const h = hex.replace('#', ''); const n = parseInt(h.length === 3 ? h.replace(/./g, '$&$&') : h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255, a]; };
+  // owner names go only on tracts big enough to hold them at the zoom: 60+ acres from zoom 15, 15+ from 16, 4+ from 17,
+  // 1+ from 18 (town lots stay unlabeled; a click shows their owner)
+  const LABEL_STEPS = [[60, Infinity, 20000], [15, 60, 10000], [4, 15, 5000], [1, 4, 2500]];
+  function parcelStyle(src) {
+    const di = { renderer: { type: 'simple', symbol: { type: 'esriSFS', style: 'esriSFSNull', outline: { type: 'esriSLS', style: 'esriSLSSolid', color: rgba(C.parcel, 220), width: 0.7 } } } };
+    if (src.label) {
+      const symbol = { type: 'esriTS', color: rgba(C.parcelLabel), haloColor: rgba(C.land), haloSize: 1.2, font: { family: 'Arial', size: 7.5 } };
+      di.showLabels = true;
+      di.labelingInfo = LABEL_STEPS.map(([lo, hi, minScale]) => ({
+        labelExpression: `[${src.label}]`, labelPlacement: 'esriServerPolygonPlacementAlwaysHorizontal', useCodedValues: false, symbol, minScale, maxScale: 0,
+        where: `${src.labelArea} >= ${lo}${hi < Infinity ? ` AND ${src.labelArea} < ${hi}` : ''}`,
+      }));
+    }
+    return { id: src.layer, source: { type: 'mapLayer', mapLayerId: src.layer }, drawingInfo: di };
+  }
+  // one server-drawn image per view (so owner names aren't cut at tile edges), kept until the next one has loaded
+  const ParcelView = L.Layer.extend({
+    onAdd(m) { this._seq = 0; m.on('moveend', this.refresh, this); this.refresh(); },
+    onRemove(m) { m.off('moveend', this.refresh, this); this._seq++; if (this._img) m.removeLayer(this._img); this._img = null; },
+    refresh() {
+      const m = this._map, src = PARCELS.lines;
+      if (!m) return;
+      const seq = ++this._seq;
+      if (m.getZoom() < src.minZoom || parcelsBlocked) { if (this._img) m.removeLayer(this._img); this._img = null; return; }
+      const b = m.getBounds(), size = m.getSize(), dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1), 2);
+      const sw = L.CRS.EPSG3857.project(b.getSouthWest()), ne = L.CRS.EPSG3857.project(b.getNorthEast());
+      const url = `${src.url}/export?${new URLSearchParams({
+        f: 'image', format: 'png32', transparent: 'true', bboxSR: '3857', imageSR: '3857', bbox: [sw.x, sw.y, ne.x, ne.y].map((v) => v.toFixed(1)).join(','),
+        size: `${Math.round(size.x * dpr)},${Math.round(size.y * dpr)}`, dpi: String(Math.round(96 * dpr)), dynamicLayers: JSON.stringify([parcelStyle(src)]),
+      })}`;
+      const img = L.imageOverlay(url, b, { pane: 'p-parcel', interactive: false, opacity: 0 });
+      img.once('load', () => {
+        if (seq !== this._seq) { m.removeLayer(img); return; }
+        img.setOpacity(1);
+        if (this._img) m.removeLayer(this._img);
+        this._img = img;
+      });
+      img.once('error', () => { m.removeLayer(img); if (seq === this._seq) parcelsUnreachable(); });
+      img.addTo(m);
+    },
+  });
+  let parcelsBlocked = false;
+  const parcelLayer = !PARCELS ? null : PARCELS.lines.kind === 'tiles'
+    ? L.tileLayer(`${PARCELS.lines.url}/tile/{z}/{y}/{x}`, { pane: 'p-parcel', minZoom: PARCELS.lines.minZoom, maxZoom: 18, maxNativeZoom: 19, className: 'parcel-tiles' })
+    : new ParcelView();
+  function parcelsUnreachable() {
+    parcelsBlocked = true;
+    const h = document.getElementById('parcelHint');
+    if (h) h.textContent = 'only on the website';
+  }
+  if (parcelLayer) {
+    G.parcel.addLayer(parcelLayer);
+    let fails = 0;
+    if (PARCELS.lines.kind === 'tiles') parcelLayer.on('tileerror', () => { if (++fails === 4) parcelsUnreachable(); });
+  }
+
   // labels
   const label = (lat, lon, cls, text) => L.marker([lat, lon], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl ${cls}">${esc(text)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' });
   for (const z of counties) if (!z.ic) G.labels.addLayer(label(z.l[0], z.l[1], 'lbl-county', `${z.n} Co.`));
@@ -440,9 +505,9 @@ function heliStart(REGION, startAt) {
     G.infra.addLayer(m);
   }
 
-  const ORDER = ['counties', 'cities', 'zone', 'green', 'water', 'roads', 'red', 'amber', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
+  const ORDER = ['counties', 'cities', 'zone', 'green', 'water', 'roads', 'red', 'amber', 'parcel', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
   ORDER.forEach((k) => G[k].addTo(map));
-  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-green': ['green'], 't-city': ['cities'], 't-zone': ['zone'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
+  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-green': ['green'], 't-city': ['cities'], 't-zone': ['zone'], 't-parcel': ['parcel'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
   for (const [id, groups] of Object.entries(TOGGLES)) {
     const el = document.getElementById(id);
     el.addEventListener('change', () => groups.forEach((g) => (el.checked ? map.addLayer(G[g]) : map.removeLayer(G[g]))));
@@ -464,7 +529,7 @@ function heliStart(REGION, startAt) {
   map.on('zoomend', zoomClass);
 
   // theme changes repaint the canvas layers
-  function restyle() { readColors(); for (const [l, f] of styled) l.setStyle(f()); if (zoneLayer) zoneLayer.redraw(); drawHighlight(); }
+  function restyle() { readColors(); for (const [l, f] of styled) l.setStyle(f()); if (zoneLayer) zoneLayer.redraw(); if (parcelLayer && parcelLayer.refresh) parcelLayer.refresh(); drawHighlight(); }
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', restyle);
   new MutationObserver(restyle).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class', 'style'] });
 
@@ -489,7 +554,8 @@ function heliStart(REGION, startAt) {
   function austinLakeName(lo) { return lo < -97.7855 ? 'Lake Austin' : 'Lady Bird Lake'; }
   const HOSPITAL = /hospital|medical|health|children|seton|baylor|st david|heart|starflight|air rescue|9-1-1|carilion|lewisgale|clinic/i;
 
-  function check(la, lo) {
+  // known: what a parcel lookup found, when it has answered ({ parcelGap: true } where no parcel covers the spot)
+  function check(la, lo, known) {
     const hits = [];
     const add = (id, where) => {
       const r = RULES[id];
@@ -549,6 +615,9 @@ function heliStart(REGION, startAt) {
       if (t.cls === 'res') add('austin_res', `${t.code}: ${t.name}`);
       else if (!offLimits) add(t.cls === 'unz' ? 'austin_unzoned' : 'austin_permit', `${t.code}: ${t.name}${extra}`);
     } else if (res.lotGap) add('roadway', `Between zoning lots (${Math.round(res.lotGap.d / 0.3048)} ft from the nearest), so most likely a street, alley or rail line`);
+    // the same reading from the county's parcel map: land outside every parcel is almost always right-of-way
+    res.parcelGap = !!(known && known.parcelGap) && !res.lot && !res.lotGap && !res.road && !res.water.length && !res.lands.length && !res.infra.length && !res.atPub && !res.atPriv;
+    if (res.parcelGap) add('roadway', 'No parcel on the county’s parcel map here, so most likely a road, rail line or other right-of-way');
     // jurisdiction (the region's rules are one state's; a spot over the state line only gets a pointer)
     res.outOfState = !!(res.county && res.county.st && res.county.st !== REGION.state);
     if (res.outOfState) add('other_state', `${countyName(res.county)}, ${STATE_NAMES[res.county.st] || res.county.st}`);
@@ -581,6 +650,7 @@ function heliStart(REGION, startAt) {
     if (res.infra.length) return res.infra[0].i.n;
     if (res.road) return `Beside ${res.road.r.n || 'a highway'}`;
     if (res.lotGap) return `Street or alley in ${res.place.n}`;
+    if (res.parcelGap) return 'Road or other right-of-way';
     if (res.lot) return `${LOT_NAME[res.lot.t.base] || LOT_NAME[res.lot.t.cls]} in ${res.place.n}`;
     return res.place ? `Private land in ${res.place.n}` : `Private land, ${res.county ? (res.county.ic ? `City of ${res.county.n}` : `unincorporated ${res.county.n} County`) : 'unincorporated area'}`;
   }
@@ -616,6 +686,8 @@ function heliStart(REGION, startAt) {
 
   // a shareable link to the spot, when the page is its own tab (inside a frame the address isn't the page's)
   const canLink = (() => { try { return window.self === window.top && /^https?:/.test(location.protocol); } catch { return false; } })();
+  // the public site, where address search and owner lookups can reach their outside services
+  const SITE = 'https://jesseclay.github.io/heli-landing-map/', SITE_HOST = 'jesseclay.github.io';
   const spotPane = document.getElementById('pane-spot');
   let current = null;
   function render(res, opts) {
@@ -650,6 +722,7 @@ function heliStart(REGION, startAt) {
         <dt>Airspace</dt><dd>${esc(airTxt)}</dd>
         ${np ? `<dt>Nearest airport</dt><dd>${np}</dd>` : ''}
       </dl>
+      ${PARCELS ? `<section class="owner" id="owner" aria-live="polite">${ownerHtml(res)}</section>` : ''}
       <div class="group-title"><span class="eyebrow">What applies here</span><span class="hint">${main.length} ${main.length === 1 ? 'rule' : 'rules'}</span></div>
       <div class="rules">${main.map(ruleCard).join('')}</div>
       <details class="baseline" style="margin-top:14px">
@@ -660,6 +733,7 @@ function heliStart(REGION, startAt) {
       <div class="examples">${EXAMPLES.map((e, i) => `<button class="chip lv-${e.lv}" data-ex="${i}"><span class="dot"></span>${esc(e.n)}</button>`).join('')}</div>
       <p class="foot">This map is a planning aid, not legal advice or a substitute for a preflight briefing. Boundaries are simplified and can be off by a few hundred feet; check NOTAMs, TFRs and the owner's rules before any landing. Rules and penalty figures were checked in ${esc(RB.checked)}.</p>`;
     spotPane.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { const e = EXAMPLES[+b.dataset.ex]; goTo(e.la, e.lo, e.z || 13); }));
+    if (PARCELS) wireOwner(res);
     const cl = document.getElementById('copyLink');
     if (cl) {
       cl.addEventListener('click', async () => {
@@ -675,6 +749,7 @@ function heliStart(REGION, startAt) {
     if (!current) return;
     const res = current;
     const col = (s) => C[s] || C.ink;
+    if (res.owner && res.owner.rings) G.hl.addLayer(L.polygon(res.owner.rings, { interactive: false, renderer: rHl, color: C.accent, weight: 2.6, opacity: 1, fill: false }));
     for (const z of res.lands) G.hl.addLayer(L.polygon(z.polys, { interactive: false, renderer: rHl, color: col(z.def.s), weight: 3, opacity: 1, fill: false }));
     for (const z of res.water) G.hl.addLayer(L.polygon(z.polys, { interactive: false, renderer: rHl, color: C.waterEdge, weight: 2.5, opacity: 1, fill: false }));
     if (res.lands.length || res.water.length) return;
@@ -684,10 +759,227 @@ function heliStart(REGION, startAt) {
     } else if (res.place) G.hl.addLayer(L.polygon(res.place.polys, { interactive: false, renderer: rHl, color: C.city, weight: 2.4, opacity: 0.9, fill: false, dashArray: '6 4' }));
   }
 
+  // ---------- landowners ----------
+  // The owner of record for the parcel under the pin, asked live from the public parcel service that covers the spot
+  // (a statewide parcel layer or the county's own), one parcel per click, as the county's own map does. Nothing is stored.
+  async function arcgis(url, params) {
+    const r = await fetch(`${url}?${new URLSearchParams({ f: 'json', ...params })}`, { credentials: 'omit' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const j = await r.json();
+    if (j.error) throw new Error(j.error.message || 'service error');
+    return j;
+  }
+  function parcelsAt(src, la, lo) {
+    const at = { geometry: `${lo},${la}`, geometryType: 'esriGeometryPoint', returnGeometry: 'true', maxAllowableOffset: '0.000005', geometryPrecision: '6' };
+    if (src.op === 'identify') {
+      const d = 0.001;
+      return arcgis(`${src.url}/identify`, { ...at, sr: '4326', layers: `all:${src.layer}`, tolerance: '0', mapExtent: `${lo - d},${la - d},${lo + d},${la + d}`, imageDisplay: '400,400,96' })
+        .then((j) => (j.results || []).map((x) => ({ a: x.attributes, g: x.geometry })));
+    }
+    return arcgis(`${src.url}/${src.layer}/query`, { ...at, inSR: '4326', outSR: '4326', spatialRel: 'esriSpatialRelIntersects', outFields: fieldNames(src) })
+      .then((j) => (j.features || []).map((x) => ({ a: x.attributes, g: x.geometry })));
+  }
+  const blank = (v) => v == null || /^\s*(null|none)?\s*$/i.test(String(v));
+  const tidy = (v) => (blank(v) ? '' : String(v).replace(/\s+/g, ' ').replace(/\s+,/g, ',').replace(/,(\s*,)+/g, ',').replace(/^[\s,]+|[\s,]+$/g, ''));
+  // a field list's entries are joined with commas; an entry that is itself a list (a house number and its street)
+  // is joined with spaces
+  const fieldsOf = (a, f) => [].concat(f || []).map((k) => (Array.isArray(k) ? k.map((x) => tidy(a[x])).filter(Boolean).join(' ') : tidy(a[k]))).filter(Boolean);
+  // every field a source's settings name, so a query asks for only those (Roanoke County's layer has 347)
+  function fieldNames(src) {
+    const out = new Set();
+    const walk = (v) => { if (Array.isArray(v)) v.forEach(walk); else if (typeof v === 'string') out.add(v); };
+    Object.values(src.f).forEach(walk);
+    for (const m of (src.link || '').matchAll(/\{(\w+)\}/g)) if (m[1] !== 'id') out.add(m[1]);
+    if (src.linkField) out.add(src.linkField);
+    return [...out].join(',');
+  }
+  const ringsOf = (g) => (g && g.rings && g.rings.length ? g.rings.map((r) => r.map(([x, y]) => [y, x])) : null);
+  function acresOf(rings) {
+    const [la0, lo0] = rings[0][0], kx = 111320 * Math.cos(la0 * Math.PI / 180), ky = 110574;
+    let s = 0;
+    for (const r of rings) {
+      for (let i = 0, j = r.length - 1; i < r.length; j = i++) s += (r[j][1] - lo0) * kx * (r[i][0] - la0) * ky - (r[i][1] - lo0) * kx * (r[j][0] - la0) * ky;
+    }
+    return Math.abs(s / 2) / 4046.86;
+  }
+  const fmtAcres = (a) => (a < 1 ? `${a.toFixed(2)} acres` : a < 10 ? `${a.toFixed(1)} acres` : `${Math.round(a).toLocaleString()} acres`);
+  // a rough read of who the owner is, to suggest how to reach them
+  const CO_SUFFIX = /\b(L ?L ?C|INC|CORP|CORPORATION|CO(?!-)|COMPANY|L ?P|LTD|L ?L ?P|PLLC|LIMITED)\b/;
+  const GOV = /\b(CITY OF|[A-Z]+ COUNTY|COUNTY OF|STATE OF|COMMONWEALTH|UNITED STATES|U ?S ?A|TOWN OF|VILLAGE OF|I ?S ?D|SCHOOL DIST(RICT)?|SCHOOL BOARD|PUBLIC SCHOOLS|UNIVERSITY|COLLEGE|AUTHORITY|LCRA|LOWER COLORADO RIVER|TXDOT|VDOT|DEPT OF|DEPARTMENT OF|FEDERAL|NATIONAL PARK|REGENTS|MUNICIPAL|WATER CONTROL|BOARD OF SUPERVISORS|GOVERNMENT|GOVT|STATE HIGHWAY|VPI|V P I|VA TECH|VIRGINIA TECH)\b/;
+  const ORG = /\b(CHURCH|MINISTRY|MINISTRIES|DIOCESE|ASSOCIATION|ASSN|ASSOC|HOA|OWNERS ASSOC|FOUNDATION|CLUB|COOPERATIVE|COOP|RAILROAD|RAILWAY|BANK|HOLDINGS|PROPERTIES|INVESTMENTS|PARTNERS|PARTNERSHIP|VENTURES|DEVELOPMENT|ENTERPRISES|GROUP|REALTY|ELECTRIC|ENERGY|PIPELINE|UTILITY|UTILITIES|CEMETERY)\b/;
+  const TRUSTY = /\b(TRUST|TRUSTS|TRUSTEE|TRUSTEES|TR|TRS|ESTATE|EST OF)\b/;
+  function ownerKind(names) {
+    const s = names.join(' ').toUpperCase();
+    if (/CONFIDENTIAL/.test(s)) return 'hidden';
+    if (CO_SUFFIX.test(s)) return 'company';
+    if (GOV.test(s)) return 'public';
+    if (ORG.test(s)) return 'company';
+    if (TRUSTY.test(s)) return 'trust';
+    return 'person';
+  }
+  // the house number and first street word, so "403 E LESTER ST NE" and "403 LESTER ST" read as the same address
+  const DIRECTION = /^(N|S|E|W|NE|NW|SE|SW|NORTH|SOUTH|EAST|WEST)$/;
+  function streetKey(line) {
+    const m = line.toUpperCase().match(/^(\d+)\s+(.*)$/);
+    const word = m && m[2].split(/[\s,.]+/).find((w) => w && !DIRECTION.test(w));
+    return word ? `${m[1]} ${word}` : null;
+  }
+  function mailsHere(o) {
+    const k = streetKey(o.situs);
+    return !!k && o.parts[0].mail.some((l) => streetKey(l) === k);
+  }
+  function ownerRecord(src, hits) {
+    const f = src.f, parts = [], seen = new Set();
+    for (const { a } of hits) {
+      let owners = fieldsOf(a, f.owner);
+      if (!owners.length) continue;
+      // an owner the locality shields (Roanoke County flags them) is treated like a Texas confidential owner
+      const shielded = f.shielded && /^(y|yes|true|1)$/i.test(tidy(a[f.shielded]));
+      if (shielded) owners = ['CONFIDENTIAL'];
+      const care = fieldsOf(a, f.care).filter((c) => !owners.includes(c));
+      const lines = [...care, ...fieldsOf(a, f.mail).filter((l) => !owners.includes(l))];
+      const place = [tidy(a[f.mailCity]), tidy(a[f.mailState])].filter(Boolean).join(', ');
+      const zip = /^\d{5}/.test(tidy(a[f.mailZip])) ? tidy(a[f.mailZip]) : '';
+      let mail = !lines.length ? fieldsOf(a, f.mailFull)
+        : place ? [...lines, zip ? `${place} ${zip}` : place]
+        : zip ? [...lines.slice(0, -1), `${lines[lines.length - 1]} ${zip}`] // the city is already in the last line
+        : lines;
+      if (shielded) mail = [];
+      const key = `${owners.join('|')}#${mail.join('|')}`;
+      if (!seen.has(key)) { seen.add(key); parts.push({ owners, mail }); }
+    }
+    const { a, g } = hits[0], rings = ringsOf(g);
+    return {
+      parts, rings, acres: rings ? acresOf(rings) : null, situs: fieldsOf(a, f.situs).join(', '), id: tidy(a[f.id]), legal: fieldsOf(a, f.legal).join(' '),
+      alt: tidy(a[f.alt]), county: tidy(a[f.county]), year: tidy(a[f.year]), attrs: a,
+    };
+  }
+  async function lookupOwner(res) {
+    const st = res.county && res.county.st ? res.county.st : REGION.state, loc = res.county ? countyName(res.county) : '';
+    // a county's own service first where it has one, then the statewide layer
+    const srcs = PARCELS.sources.filter((s) => s.state === st && (!s.only || s.only.includes(loc)));
+    if (!srcs.length) return { state: 'none', st, loc };
+    let err = null;
+    for (const src of srcs) {
+      try {
+        const hits = await parcelsAt(src, res.la, res.lo);
+        if (!hits.length) { if (src.only) continue; return { state: 'gap', src, st, loc }; }
+        const rec = ownerRecord(src, hits);
+        // failed: the locality's own service didn't answer, so this came from the statewide layer
+        return { ...rec, state: rec.parts.length ? 'ok' : 'noowner', src, st, loc, failed: !!err };
+      } catch (e) { err = err || e; }
+    }
+    if (err) throw err;
+    return { state: 'gap', src: srcs[srcs.length - 1], st, loc };
+  }
+  let ownerSeq = 0;
+  function loadOwner(res) {
+    const seq = ++ownerSeq;
+    res.owner = { state: 'loading' };
+    lookupOwner(res)
+      // a sandboxed preview refuses outside requests; the website can make them
+      .catch((e) => ({ state: e instanceof TypeError && location.hostname !== SITE_HOST ? 'blocked' : 'error' }))
+      .then((o) => {
+        if (seq !== ownerSeq || current !== res) return;
+        res.owner = o;
+        if (o.state === 'gap') {
+          // no parcel: recheck the spot as right-of-way, which can change the verdict
+          const next = check(res.la, res.lo, { parcelGap: true });
+          if (next.parcelGap) {
+            next.owner = o; next.opts = res.opts; current = next;
+            render(next, next.opts);
+            drawHighlight();
+            return;
+          }
+        }
+        const el = document.getElementById('owner');
+        if (el) { el.innerHTML = ownerHtml(res); wireOwner(res); }
+        drawHighlight();
+      });
+  }
+  const capWords = (s) => s.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  function rollTitle(o) {
+    if (!o.src) return '';
+    if (o.src.title) return o.src.title.replace('{loc}', o.loc);
+    return `${o.county ? `${capWords(o.county)} County` : o.loc} appraisal roll${o.year ? `, ${o.year}` : ''}`;
+  }
+  // the parcel's official record: a Texas appraisal district's page by property ID, a link pattern filled from the
+  // parcel's fields ({id} or {FIELD}), or a link the record carries itself
+  function recordUrl(o) {
+    const s = o.src;
+    if (!s || !o.id) return null;
+    if (s.records) { const r = s.records[(o.county || '').toLowerCase()]; return r ? [r[0], r[1].replace('{id}', encodeURIComponent(o.id))] : null; }
+    const label = s.linkLabel || 'County record';
+    if (s.linkField) { const u = tidy(o.attrs[s.linkField]); return /^https?:\/\//i.test(u) ? [label, u] : null; }
+    if (!s.link) return null;
+    let ok = true;
+    const u = s.link.replace(/\{(\w+)\}/g, (m, k) => { const v = k === 'id' ? o.id : tidy(o.attrs[k]); if (!v) ok = false; return encodeURIComponent(v); });
+    return ok ? [label, u] : null;
+  }
+  const extLink = (label, u) => `<a class="cite" href="${esc(u)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`;
+  function ownerHtml(res) {
+    const o = res.owner || { state: 'idle' };
+    const head = (right) => `<div class="group-title"><span class="eyebrow">Landowner</span>${right ? `<span class="hint">${esc(right)}</span>` : ''}</div>`;
+    const box = (inner) => `<div class="owner-card">${inner}</div>`;
+    const viewer = o.src && o.src.viewer ? extLink(o.src.viewerName || 'County parcel map', o.src.viewer) : '';
+    if (o.state === 'idle') return head() + box('<p class="hint">Who owns this spot, from the county’s parcel records.</p><div class="cites"><button type="button" class="cite" data-owner="load">Look up the owner</button></div>');
+    if (o.state === 'loading') return head() + box('<p class="hint">Looking up the parcel record…</p>');
+    if (o.state === 'blocked') return head() + box(`<p class="hint">The owner lookup can’t run in this preview. <a href="${SITE}" target="_blank" rel="noopener">Open the website</a> to see who owns a spot.</p>`);
+    if (o.state === 'error') return head() + box(`<p class="hint">The parcel service didn’t answer.</p><div class="cites"><button type="button" class="cite" data-owner="load">Try again</button>${viewer}</div>`);
+    if (o.state === 'none') {
+      const v = (PARCELS.viewers || {})[o.loc] || (PARCELS.viewers || {})[o.st];
+      return head() + box(`<p class="hint">This map has no owner lookup for ${esc(o.loc || STATE_NAMES[o.st] || 'this area')} yet.</p>${v ? `<div class="cites">${extLink(v[0], v[1])}</div>` : ''}`);
+    }
+    if (o.state === 'gap') return head(rollTitle(o)) + box('<p>No parcel at this spot.</p><p class="hint">Gaps between parcels are usually roads, railways or rivers: public right-of-way or railroad land.</p>');
+    const rec = recordUrl(o);
+    const facts = [
+      o.situs ? `<dt>Property</dt><dd>${esc(o.situs)}</dd>` : '',
+      o.acres != null ? `<dt>Size</dt><dd>About ${fmtAcres(o.acres)}</dd>` : '',
+      o.id ? `<dt>Parcel</dt><dd><span class="mono">${esc(o.id)}</span>${o.alt && o.alt !== o.id ? ` · tax map <span class="mono">${esc(o.alt)}</span>` : ''}${o.legal ? `<br><span class="hint">${esc(o.legal)}</span>` : ''}</dd>` : '',
+    ].join('');
+    if (o.state === 'noowner') {
+      const v = (PARCELS.viewers || {})[o.loc];
+      const why = o.failed ? `${o.loc}’s parcel service didn’t answer, so only the statewide parcel record is shown.`
+        : v ? `${o.loc} shows owners only on its own parcel map.` : `This map can’t read owner names for ${o.loc || 'this locality'}.`;
+      return head(rollTitle(o)) + box(`<p>${esc(why)}</p><dl class="meta">${facts}</dl><p class="hint">Look the parcel up by its ID${v ? ' on the county’s parcel map' : ' with the county’s real estate office'}.</p><div class="cites">${o.failed ? '<button type="button" class="cite" data-owner="load">Try again</button>' : ''}${rec ? extLink(rec[0], rec[1]) : ''}${v ? extLink(v[0], v[1]) : ''}</div>`);
+    }
+    const kind = ownerKind(o.parts.flatMap((p) => p.owners));
+    const shown = o.parts.slice(0, 6);
+    const owners = shown.map((p) => `<dt>Owner</dt><dd class="owner-name">${p.owners.map(esc).join('<br>')}</dd>${p.mail.length ? `<dt>Mail to</dt><dd>${p.mail.map(esc).join('<br>')}</dd>` : ''}`).join('');
+    const more = o.parts.length > shown.length ? `<dt></dt><dd class="hint">and ${o.parts.length - shown.length} more owners of record</dd>` : '';
+    const biz = (PARCELS.business || {})[o.st];
+    const how = {
+      hidden: 'The owner’s name and address are confidential by law, so this record can’t say who to ask.',
+      public: 'Public land. Ask the office that manages it; the rules below may name the agency.',
+      company: `Owned by a company or organization. Write to its mailing address, or find its registered agent and officers in ${biz ? biz[0] : 'the state’s business records'}.`,
+      trust: 'Held in a trust or an estate. Write to the trustee or executor at the mailing address.',
+      person: !o.parts[0].mail.length ? 'The record lists no mailing address; the county’s tax office may know how to reach the owner.'
+        : mailsHere(o) ? 'The owner’s mailing address is this property.' : 'The owner gets mail at another address. Write there first.',
+    }[kind];
+    const links = [rec ? extLink(rec[0], rec[1]) : '', kind === 'company' && biz ? extLink(biz[0], biz[1]) : '', kind === 'hidden' ? '' : '<button type="button" class="cite" data-owner="copy">Copy name and address</button>'].join('');
+    return head(rollTitle(o)) + box(`<dl class="meta">${owners}${more}${facts}</dl><p class="owner-how">${esc(how)}</p><div class="cites">${links}</div><p class="hint owner-note">Tax records give a mailing address, not a phone number. They can trail a recent sale, and a tenant or ranch lessee may control access day to day.</p>`);
+  }
+  function wireOwner(res) {
+    const el = document.getElementById('owner');
+    if (!el) return;
+    el.querySelectorAll('[data-owner="load"]').forEach((b) => b.addEventListener('click', () => { loadOwner(res); el.innerHTML = ownerHtml(res); }));
+    const cp = el.querySelector('[data-owner="copy"]');
+    if (cp) {
+      cp.addEventListener('click', async () => {
+        const text = res.owner.parts.map((p) => [...p.owners, ...p.mail].join('\n')).join('\n\n');
+        try { await navigator.clipboard.writeText(text); cp.textContent = 'Copied'; } catch { cp.textContent = 'Copy failed: select the text'; }
+        setTimeout(() => { cp.textContent = 'Copy name and address'; }, 2200);
+      });
+    }
+  }
+
   const pinIcon = L.divIcon({ className: 'pin', iconSize: [30, 30], iconAnchor: [15, 15], html: '<svg viewBox="0 0 30 30"><circle class="ring" cx="15" cy="15" r="11" fill="none" style="stroke:var(--accent)" stroke-width="2"/><circle cx="15" cy="15" r="6.5" style="fill:var(--accent)" /><circle cx="15" cy="15" r="2.4" style="fill:var(--panel)"/><path d="M15 0v6M15 24v6M0 15h6M24 15h6" style="stroke:var(--accent)" stroke-width="2"/></svg>' });
   const pin = L.marker([0, 0], { icon: pinIcon, interactive: false, keyboard: false, pane: 'p-pin' });
   function setSpot(la, lo, opts) {
     current = check(la, lo);
+    // the page's opening example waits for a click before asking the parcel service
+    current.owner = PARCELS && !(opts && opts.initial) ? { state: 'loading' } : { state: 'idle' };
+    current.opts = opts;
     pin.setLatLng([la, lo]);
     if (!G.pin.hasLayer(pin)) G.pin.addLayer(pin);
     drawHighlight();
@@ -695,6 +987,7 @@ function heliStart(REGION, startAt) {
       try { history.replaceState(null, '', `#${REGION.key}/${la.toFixed(5)},${lo.toFixed(5)}`); } catch { /* a sandboxed frame can refuse */ }
     }
     render(current, opts);
+    if (current.owner.state === 'loading') loadOwner(current);
     selectTab('spot');
     document.getElementById('scroller').scrollTop = 0;
   }
@@ -813,10 +1106,9 @@ function heliStart(REGION, startAt) {
       else showRows(rowsHtml());
     } catch {
       // a preview that blocks outside requests (a claude.ai artifact) can't search; the public site can
-      const site = 'https://jesseclay.github.io/heli-landing-map/';
-      showRows(location.hostname === 'jesseclay.github.io'
+      showRows(location.hostname === SITE_HOST
         ? '<div class="hint" style="padding:10px 12px">Address search isn’t reachable right now. Try again in a moment.</div>'
-        : `<div class="hint" style="padding:10px 12px">Address search can’t run in this preview. <a href="${site}" target="_blank" rel="noopener">Open the website</a> to search addresses.</div>`);
+        : `<div class="hint" style="padding:10px 12px">Address search can’t run in this preview. <a href="${SITE}" target="_blank" rel="noopener">Open the website</a> to search addresses.</div>`);
     } finally { geoBusy = false; }
   }
   function choose(r) {
@@ -890,7 +1182,7 @@ function heliStart(REGION, startAt) {
     <ol class="checklist">${RB.checklist.map((c) => `<li><div><strong>${esc(c[0])}</strong>${esc(c[1])}</div></li>`).join('')}</ol>
     <h2>Sources</h2>
     <ul class="sources">${RB.sources.map((s) => `<li><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('')}</ul>
-    <p class="foot">Map data: ${esc(REGION.dataNote)}${D.zoning ? `; zoning as of ${esc(asOf(D.zoning.date))}` : ''}. Address search uses OpenStreetMap data through Nominatim and Photon. Event TFRs are drawn where the standing stadium TFR would apply; live TFRs are at tfr.faa.gov.</p>`;
+    <p class="foot">Map data: ${esc(REGION.dataNote)}${D.zoning ? `; zoning as of ${esc(asOf(D.zoning.date))}` : ''}. ${PARCELS && PARCELS.note ? `${esc(PARCELS.note)}. ` : ''}Address search uses OpenStreetMap data through Nominatim and Photon. Event TFRs are drawn where the standing stadium TFR would apply; live TFRs are at tfr.faa.gov.</p>`;
 
   // ---------- examples and first view ----------
   const findLand = (n) => lands.filter((z) => z.n === n).sort((a, b) => b.area - a.area)[0];
@@ -900,7 +1192,7 @@ function heliStart(REGION, startAt) {
     if (pt) EXAMPLES.push({ n, la: pt[0], lo: pt[1], z, lv });
   }
 
-  window.__heliTest = { check, lotAt, nearLot, zLots, toWorld, fromWorld, map, geocode }; // TEST-ONLY
+  window.__heliTest = { check, lotAt, nearLot, zLots, toWorld, fromWorld, map, geocode, lookupOwner, ownerKind, current: () => current }; // TEST-ONLY
   const small = matchMedia('(max-width: 860px)').matches;
   zoomClass();
   if (startAt && inBounds(REGION.bounds, startAt[0], startAt[1])) {
@@ -911,6 +1203,6 @@ function heliStart(REGION, startAt) {
     map.setView(REGION.view, small ? REGION.zoomSmall : REGION.zoom);
     zoomClass();
     const first = EXAMPLES[0];
-    if (first) setSpot(first.la, first.lo, { example: true });
+    if (first) setSpot(first.la, first.lo, { example: true, initial: true });
   }
 }

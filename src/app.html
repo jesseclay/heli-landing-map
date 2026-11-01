@@ -25,6 +25,9 @@
   --map-county: #8f998f;
   --map-city: #57616a;
   --map-city-fill: #dfe3d8;
+  --map-parcel: #3b4650;
+  --map-parcel-label: #26303a;
+  --parcel-tiles: brightness(0.3);
   --air-c: #b3247b;
   --air-d: #2457b5;
   --air-r: #2457b5;
@@ -54,6 +57,7 @@
     --accent: #86acf0; --accent-ink: #0d1318;
     --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
     --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+    --map-parcel: #aab6bf; --map-parcel-label: #d3dbe1; --parcel-tiles: opacity(0.6);
     --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
     --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
     --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
@@ -67,6 +71,7 @@
   --accent: #86acf0; --accent-ink: #0d1318;
   --map-land: #141c22; --map-water: #183750; --map-water-edge: #23506f; --map-road: #8c7552; --map-road-minor: #5b5040;
   --map-county: #4a5661; --map-city: #a9b4bd; --map-city-fill: #1a242c;
+  --map-parcel: #aab6bf; --map-parcel-label: #d3dbe1; --parcel-tiles: opacity(0.6);
   --air-c: #e463ae; --air-d: #7299ec; --air-r: #7299ec; --air-tfr: #ff6d61;
   --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
   --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
@@ -180,6 +185,16 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
 .checklist strong { display: block; }
 .sources { margin-top: 10px; padding-left: 18px; font-size: 13px; }
 .sources li { margin: 4px 0; }
+.owner-card { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; background: var(--raise); }
+.owner-card p { margin: 0; }
+.owner-card p + p, .owner-card .cites + p, .owner-card dl + p, .owner-card p + dl { margin-top: 8px; }
+.owner-card .meta { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13px; }
+.owner-card .meta dt { color: var(--muted); font-family: var(--font-display); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px; padding-top: 1px; }
+.owner-card .meta dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.owner-card .owner-name { font-weight: 700; font-size: 14px; }
+.owner-card .owner-note { font-size: 12px; }
+button.cite { cursor: pointer; font-family: var(--font-mono); }
+button.cite:hover { border-color: var(--accent); color: var(--accent); }
 .foot { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
 
 /* Map overlays */
@@ -202,6 +217,8 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
 .sw.zres { border: 1px solid color-mix(in srgb, var(--s-red) 45%, transparent); background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--s-red) 65%, transparent) 0 1.5px, color-mix(in srgb, var(--s-red) 8%, transparent) 1.5px 5px); }
 .sw.zok { border: 1px solid color-mix(in srgb, var(--s-amber) 45%, transparent); background: color-mix(in srgb, var(--s-amber) 28%, transparent); }
 .sw.cban { border: 2px dashed var(--s-red); background: color-mix(in srgb, var(--s-red) 20%, transparent); }
+.sw.parcel { border: 1px solid var(--map-parcel); background: linear-gradient(90deg, transparent 47%, var(--map-parcel) 47% 53%, transparent 53%); }
+.parcel-tiles { filter: var(--parcel-tiles); }
 .sw.cpermit { border: 2px dashed var(--s-amber); background: color-mix(in srgb, var(--s-amber) 20%, transparent); }
 .legend-sub { display: grid; gap: 5px; }
 .legend-sub[hidden], .toggle[hidden] { display: none; }
@@ -272,6 +289,9 @@ details.baseline[open] > summary .chev { transform: rotate(90deg); }
           <div class="legend-sub" id="zoneLegend">
             <label class="toggle"><input type="checkbox" id="t-zone" checked> <span class="lg"><span class="sw zres"></span>Austin residential zoning: no permit possible</span></label>
             <div class="lg" style="padding-left:21px"><span class="sw zok"></span>Other Austin zoning: permit possible</div>
+          </div>
+          <div class="legend-sub" id="parcelLegend">
+            <label class="toggle"><input type="checkbox" id="t-parcel" checked> <span class="lg"><span class="sw parcel"></span><span><span id="parcelText">Property lines</span> <span class="hint" id="parcelHint">zoom in</span></span></span></label>
           </div>
           <label class="toggle"><input type="checkbox" id="t-infra" checked> <span class="lg"><span class="sym"><svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" transform="rotate(45 7 7)" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--s-red)"/></svg></span>Power plants and high-hazard dams</span></label>
         </div>

@@ -1,5 +1,5 @@
 // Loads the page in headless Chrome, runs a snippet, then saves a screenshot.
-// Usage: node cdp_shot.mjs <htmlFile> <out.png> <width> <height> <light|dark> <snippet>
+// Usage: node cdp_shot.mjs <htmlFile or http URL> <out.png> <width> <height> <light|dark> <snippet>
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,7 +18,7 @@ try {
   await send('Runtime.enable'); await send('Page.enable');
   await send('Emulation.setDeviceMetricsOverride', { width: +w, height: +h, deviceScaleFactor: 1, mobile: +w < 600 });
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: scheme }] });
-  await send('Page.navigate', { url: 'file://' + path.resolve(file) });
+  await send('Page.navigate', { url: /^https?:/.test(file) ? file : 'file://' + path.resolve(file) });
   await sleep(4000);
   const r = await send('Runtime.evaluate', { expression: `(async () => { ${snippet} })()`, awaitPromise: true, returnByValue: true });
   if (r.result.exceptionDetails) console.log('snippet error', r.result.exceptionDetails.exception?.description);
