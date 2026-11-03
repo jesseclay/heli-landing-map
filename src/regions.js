@@ -41,8 +41,10 @@ window.HELI_REGIONS = (() => {
       hideAirspaceLabels: ['SAT', 'RND'],
       examples: [
         ['Backyard in Hyde Park, Austin', [30.3050, -97.7292], 15, 'red'],
+        ['Backyard in Sugar Land (city ban)', [29.6190, -95.6350], 15, 'red'],
+        ['Backyard in Plano (permit city)', [33.0198, -96.6989], 15, 'amber'],
+        ['Backyard in Rosenberg (no city rule)', [29.5460, -95.8020], 15, 'green'],
         ['Ranch near Marfa', [30.2500, -104.1000], 12, 'green'],
-        ['Ranch land near Dripping Springs', [30.2290, -98.2140], 12, 'green'],
         ['Big Bend National Park', { land: 'Big Bend National Park' }, 10, 'red'],
         ['Sam Houston National Forest', { land: 'Sam Houston National Forest' }, 12, 'green'],
         ['Fort Cavazos', [31.1900, -97.7500], 11, 'red'],

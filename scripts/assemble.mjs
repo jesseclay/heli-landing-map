@@ -11,8 +11,8 @@ const r = (p) => fs.readFileSync(path.join(dir, p), 'utf8');
 const cities = fs.existsSync(path.join(dir, 'src/cities_tx.json'))
   ? Object.fromEntries(JSON.parse(r('src/cities_tx.json')).filter((c) => c.level && c.level !== 'unknown')
     .map((c) => [c.fips, { level: c.level, title: c.title, text: c.text, penalty: c.penalty || '', who: c.who || '', cites: c.cites || [],
-      // a green card rests on the zoning code alone, since the code libraries wouldn't let the rest be searched
-      note: c.level === 'green' ? 'Based on the city’s zoning code. The rest of the city code wasn’t searched, and a separate landing rule could be there.' : '' }]))
+      // a green card means a search of the whole code found nothing, which is weaker than a rule that says yes
+      note: c.level === 'green' ? 'We searched the whole city code for heliport, helicopter, aircraft and landing rules and found none. Codes change, so check with the city before relying on it.' : '' }]))
   : {};
 const rules = [`window.HELI_CITY_RULES = ${JSON.stringify(cities)};`, ...['src/rules.js', 'src/rules_va.js'].filter((f) => fs.existsSync(path.join(dir, f))).map(r)].join('\n');
 const app = r('src/app.js');

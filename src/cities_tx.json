@@ -20,56 +20,68 @@
  {
   "city": "Addison",
   "fips": "4801240",
-  "level": "green",
-  "title": "Addison: no heliport rule found in the zoning code",
-  "text": "The Unified Development Code's use tables don't list heliports, helistops or helicopter landings. Most aviation text concerns Addison Airport and its overlay rules.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Addison: heliports not listed, so need a ruling",
+  "text": "The town's development code doesn't list heliports or helicopter landings in any district. Any use that isn't listed is unlawful unless the Director rules it matches a listed use. The airport rules in Chapter 14 cover only the town airport, and nothing in the code mentions helicopters.",
+  "penalty": "Misdemeanor fine under the development code (UDC §1.7.4)",
+  "who": "Director of Development Services (use classification)",
   "cites": [
    {
-    "t": "Addison Unified Development Code §4.3 (use table)",
-    "u": "https://www.zoneomics.com/code/addison-TX/chapter_4"
+    "t": "Addison UDC §4.2.3 and §4.2.5 (unlisted uses)",
+    "u": "https://library.municode.com/tx/addison/codes/code_of_ordinances?nodeId=PTIICOOR_APXAUNDECO_ARTIVUSRE_S4.2TAALUS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Town with its own airport; its non-zoning ordinances may restrict landings and were not searched. Zoning via Zoneomics."
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text anywhere in the code. Amber rests only on the unlisted-use bar."
  },
  {
   "city": "Alamo",
   "fips": "4801576",
-  "level": "green",
-  "title": "Alamo: no heliport rule found",
-  "text": "Alamo's zoning land use tables (updated March 2026) list no airport, heliport or helicopter use, and any use not marked in a district is not permitted.",
+  "level": "amber",
+  "title": "Alamo: heliports aren't in the zoning use tables",
+  "text": "The code never names heliports, helipads or airports. Zoning says a building or premises may be used only for the purposes listed for its district, and the land use tables show each use as permitted, conditional or not allowed. No unlisted-use procedure was found.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Alamo Zoning Code ch. 22 (Land Use Tables)",
-    "u": "https://www.zoneomics.com/code/alamo-TX/chapter_22"
+    "t": "Alamo Code §10-22 (Land use tables)",
+    "u": "https://codelibrary.amlegal.com/codes/alamo/latest/alamo_tx/0-0-0-34640"
+   },
+   {
+    "t": "Alamo Code §10-11-2 (Permitted uses)",
+    "u": "https://codelibrary.amlegal.com/codes/alamo/latest/alamo_tx/0-0-0-20435"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Searched the zoning code only (full mirror, 22 chapters). The general code was not searchable."
+  "note": "Amber is inferred from the closed use lists. Full current code (American Legal, 2026 S-23) searched: heliport, helipad, helicopter, airport and takeoff return nothing."
  },
  {
   "city": "Alice",
   "fips": "4801852",
-  "level": "unknown",
-  "title": "Alice: code not searchable (Municode blocked)",
-  "text": "Not checked. Alice's zoning (Appendix A) is on Municode, which blocks automated access.",
+  "level": "amber",
+  "title": "Alice: rotorcraft below 500 ft only at designated fields",
+  "text": "Rotorcraft may not fly below 500 ft over the city, except when landing or taking off at an FAA-designated landing field or airport, or under a city manager's permit for exhibition, educational or photographic flights. The city's heliport is part of the airport. Alice's zoning doesn't list heliports.",
   "penalty": "",
-  "who": "",
+  "who": "Airport manager; City Manager (flight permits)",
   "cites": [
    {
-    "t": "Alice Code of Ordinances",
-    "u": "https://library.municode.com/tx/alice/codes/code_of_ordinances"
+    "t": "Alice Code §14-75 (minimum altitude)",
+    "u": "https://library.municode.com/tx/alice/codes/code_of_ordinances?nodeId=PTIICOOR_CH14AV_ARTIIIRE_S14-75MIAL"
+   },
+   {
+    "t": "Alice Code §14-76 (exhibition and photographic flights)",
+    "u": "https://library.municode.com/tx/alice/codes/code_of_ordinances?nodeId=PTIICOOR_CH14AV_ARTIIIRE"
+   },
+   {
+    "t": "Alice Code Art. IV, Heliport (§14-131 to 14-139)",
+    "u": "https://library.municode.com/tx/alice/codes/code_of_ordinances?nodeId=PTIICOOR_CH14AV_ARTIVHE"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": ""
+  "note": "An altitude rule, not an outright landing ban; whether 'authorized and properly designated' covers a private pad is unclear. No penalty stated in ch. 14."
  },
  {
   "city": "Allen",
@@ -92,33 +104,50 @@
  {
   "city": "Alton",
   "fips": "4802212",
-  "level": "unknown",
-  "title": "Alton: code not searchable",
-  "text": "Alton's Code of Ordinances is on Municode, which blocks scripted access, so I couldn't search it for heliport, helicopter or aircraft landing rules.",
-  "penalty": "",
-  "who": "Planning & Zoning Commission",
+  "level": "amber",
+  "title": "Alton: heliports not listed, so not allowed unless approved",
+  "text": "The city's zoning (Unified Development Code) doesn't list heliports or helicopter landings in its land use matrix. Land may be used only for uses specified for its district; an unlisted use needs the planning director's ruling that it matches a listed use, or a code amendment. Nothing in the code mentions helicopters.",
+  "penalty": "Misdemeanor fine under Code of Ordinances §10.99",
+  "who": "Planning Director; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Alton Code of Ordinances (Municode)",
-    "u": "https://library.municode.com/tx/alton/codes/code_of_ordinances"
+    "t": "Alton UDC §3.4.1-3.4.2 (land use, unlisted uses)",
+    "u": "https://www.alton-tx.gov/departments/planning/2025-09-0708%20UDC.pdf?t=202510151000000"
+   },
+   {
+    "t": "Alton Code §52-1 (adopts the UDC)",
+    "u": "https://library.municode.com/tx/alton/codes/code_of_ordinances?nodeId=PTIICOOR_CH52UNDECO"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The city site lists a Planning & Zoning Commission. Municode bot check."
+  "confidence": "medium",
+  "note": "UDC text isn't in Municode; read from the city's PDF (Sept 2025). Municode search of the rest of the code found no aircraft or heliport rule."
  },
  {
   "city": "Alvin",
   "fips": "4802272",
-  "level": "unknown",
-  "title": "Alvin: heliport rule not checked",
-  "text": "The city's code could not be searched: its site and the likely code host block automated access, and no readable copy was found.",
-  "penalty": "",
-  "who": "",
-  "cites": [],
-  "zoning": true,
-  "confidence": "low",
-  "note": "Code host assumed to be Municode (library.municode.com/tx/alvin), unverified."
+  "level": "amber",
+  "title": "Alvin: city sets helicopter landing places and routes",
+  "text": "The city says it will set every place in town where helicopters may land (a 75 ft by 75 ft pad with a 3 ft fence) and the routes flights must follow. Flights that land or take off in the city must keep to those routes at 500 ft or higher; special routes need a city permit. The code never says outright that landing elsewhere is an offense.",
+  "penalty": "Punished under the code's general penalty (§1-5)",
+  "who": "City of Alvin",
+  "cites": [
+   {
+    "t": "Alvin Code §4½-8 (Heliport)",
+    "u": "https://library.municode.com/tx/alvin/codes/code_of_ordinances?nodeId=PTIICOOR_CH4_1-2AV_S4_1-2_-8HE"
+   },
+   {
+    "t": "Alvin Code §4½-6 (Helicopters: minimum altitude, routes)",
+    "u": "https://library.municode.com/tx/alvin/codes/code_of_ordinances?nodeId=PTIICOOR_CH4_1-2AV_S4_1-2_-6HEINALEX"
+   },
+   {
+    "t": "Alvin Code §4½-7 (Special route permits)",
+    "u": "https://library.municode.com/tx/alvin/codes/code_of_ordinances?nodeId=PTIICOOR_CH4_1-2AV"
+   }
+  ],
+  "zoning": false,
+  "confidence": "medium",
+  "note": "1964 aviation chapter. Wording is 'city will prescribe all places of landing', not an express ban; the fee schedule lists a $50 rooftop heliport fee. No zoning chapter in the code."
  },
  {
   "city": "Amarillo",
@@ -199,24 +228,24 @@
  {
   "city": "Arlington",
   "fips": "4804000",
-  "level": "unknown",
-  "title": "Arlington: zoning code couldn't be searched",
-  "text": "Arlington's Unified Development Code (use table 3.1-2 and supplemental standards in 3.2) is online, but the PDF is blocked to scripts and too large to fetch here, so no heliport rule was confirmed. The city's code of ordinances wasn't searched either.",
+  "level": "amber",
+  "title": "Arlington: heliports only by specific use permit",
+  "text": "A heliport needs a specific use permit and is listed in only three districts: downtown business, business park and regional mixed-use. The broader \"airport or landing field\" use, which covers rotary-wing aircraft, can get a permit in residential, general commercial and industrial districts. The code has no other landing rule.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Development Services; City Council (permits)",
   "cites": [
    {
-    "t": "Arlington Unified Development Code (PDF)",
+    "t": "Arlington UDC Table 3.1-2 (non-residential districts) and Table 3.1-1 (resident…",
     "u": "https://www.arlingtontx.gov/files/assets/city/v/8/city-secretary/documents/city-code-of-ordinances/unified-development-code-chapter.pdf"
    },
    {
-    "t": "Arlington UDC page",
+    "t": "Arlington UDC definitions (Heliport; Airport or Landing Field)",
     "u": "https://www.arlingtontx.gov/Business/Development-Resources/Land-Development/Zoning-Unified-Development-Code/Unified-Development-Code"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "arlingtontx.gov returns 'Access Denied' to scripted downloads and the 20 MB PDF exceeds the fetch limit; I didn't work around it. Needs a manual search for heliport/helistop."
+  "confidence": "high",
+  "note": "Read the full UDC PDF (amended through Ord. 25-059) and the Airport, Misc. Offenses, Nuisance, Streets, Transportation, Fire Prevention and other chapters; none has a private landing ban."
  },
  {
   "city": "Athens",
@@ -243,20 +272,20 @@
  {
   "city": "Azle",
   "fips": "4805168",
-  "level": "unknown",
-  "title": "Azle: code not searchable (eCode360 blocked)",
-  "text": "Not checked. Azle's code is on eCode360, which blocks automated access. Its zoning sends unlisted uses to the Planning and Zoning Commission and City Council.",
+  "level": "green",
+  "title": "Azle: no helicopter landing rule found",
+  "text": "Azle's full code on eCode360, including its zoning ordinance (Exhibit 14A), never mentions heliports, helistops, helipads, helicopters or airports. Unlisted land uses go to the Planning and Zoning Commission and City Council for classification.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Azle Code of Ordinances",
+    "t": "Azle Zoning Ord. §4.9 (new and unlisted uses)",
     "u": "https://ecode360.com/AZ6233"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "Searched with eCode360's own search; the zoning ordinance's use tables were not read line by line."
  },
  {
   "city": "Balch Springs",
@@ -283,77 +312,102 @@
  {
   "city": "Bastrop",
   "fips": "4805864",
-  "level": "unknown",
-  "title": "Bastrop: code not found online",
-  "text": "No online copy of Bastrop's development code or city code could be opened, so no heliport rule was confirmed either way.",
+  "level": "green",
+  "title": "Bastrop: no helicopter landing rule found",
+  "text": "Bastrop's zoning is the form-based B3 Code, which sets building types and place types and has no use list, so it has no heliport or landing rule. The city's Code of Ordinances has no helicopter or heliport text; its few aircraft mentions concern abandoned aircraft, noise and cell-tower lighting.",
   "penalty": "",
-  "who": "",
-  "cites": [],
+  "who": "Development Services",
+  "cites": [
+   {
+    "t": "Bastrop B3 Code (April 2025), Ch. 2 and Ch. 6",
+    "u": "https://www.cityofbastrop.org/upload/page/0107/docs/B3/B3%20Code%20-%20April%202025.pdf"
+   },
+   {
+    "t": "Bastrop Code §14 (adopts B3 Code)",
+    "u": "https://library.municode.com/tx/bastrop/codes/code_of_ordinances?nodeId=CH14BABUBLB3CO"
+   }
+  ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoning flag assumed. Municode and similar hosts block automated access; no mirror found; searches exhausted."
+  "confidence": "medium",
+  "note": "B3 Code read from the city's PDF; no heliport/helicopter/airport text and no unlisted-use bar. Municode search found no heli terms. B3 violations: fines up to $2,000 a day (Sec. 2.5.002)."
  },
  {
   "city": "Bay City",
   "fips": "4805984",
   "level": "red",
   "title": "Bay City bans heliports",
-  "text": "No one may establish, build, run or operate a heliport (any place for landing helicopters) in the city. A neighboring section says the city picks where helicopters may land. Helicopter flights also have altitude rules; police and medical flights may fly lower.",
-  "penalty": "Class C misdemeanor, fine up to $500; each day is a separate offense",
-  "who": "City of Bay City; City Council",
+  "text": "No one may build, keep or operate a heliport, which the code defines as any area or place for landing helicopters, or a runway, anywhere in the city. The code also says the city sets all helicopter landing places. It names no exemption from the ban; medical and police helicopters are excused only from the minimum-altitude rule.",
+  "penalty": "",
+  "who": "City of Bay City",
   "cites": [
    {
     "t": "Bay City Code §18-8 (Runways, heliports)",
-    "u": "https://library.municode.com/tx/bay_city/codes/code_of_ordinances?nodeId=PTIICOOR_CH18AV"
+    "u": "https://library.municode.com/tx/bay_city/codes/code_of_ordinances?nodeId=PTIICOOR_CH18AV_ARTIINGE_S18-8RUHE"
    },
    {
-    "t": "Bay City Code ch. 18 text (council packet copy)",
-    "u": "https://mccmeetingspublic.blob.core.usgovcloudapi.net/baycitytx-meet-8270afd4005645bc8297f34a8fc23150/ITEM-Attachment-001-4ecc01abe2d04d03a2457e1bd7fc7c5a.pdf"
+    "t": "Bay City Code §18-7 (Heliports)",
+    "u": "https://library.municode.com/tx/bay_city/codes/code_of_ordinances?nodeId=PTIICOOR_CH18AV_ARTIINGE_S18-7HE"
+   },
+   {
+    "t": "Bay City Code §18-1 (Definitions)",
+    "u": "https://library.municode.com/tx/bay_city/codes/code_of_ordinances?nodeId=PTIICOOR_CH18AV_ARTIINGE_S18-1DE"
    }
   ],
-  "zoning": true,
-  "confidence": "medium",
-  "note": "Read a 2021-era council packet copy plus a search summary of the current Municode text. §18-7 oddly says the city prescribes landing places. No exemption for private flights."
+  "zoning": false,
+  "confidence": "high",
+  "note": "Current Municode text (Ord. 1711, 2023). No citywide zoning chapter in the code, only a downtown one. Penalty not read. The Regional Airport is about six miles east, outside the city."
  },
  {
   "city": "Baytown",
   "fips": "4806128",
-  "level": "green",
-  "title": "Baytown: no heliport or helicopter rule found",
-  "text": "The unified land development code's consolidated use table has no heliport, helipad or airport use, and the text never mentions helicopters (aircraft appear only in a vibration exemption). The rest of the city code couldn't be searched.",
+  "level": "amber",
+  "title": "Baytown: heliports only in some districts",
+  "text": "The land development code treats an airport or heliport as a passenger terminal. That use is allowed in neighborhood, general and freeway commercial and heavy industrial districts, as a limited use in some downtown and San Jacinto districts, and not in residential, light industrial or open-space districts. New heliports are also banned in watershed protection zones.",
   "penalty": "",
-  "who": "",
+  "who": "Planning Department",
   "cites": [
    {
-    "t": "Baytown ULDC Sec. 2.31 (consolidated use table)",
-    "u": "https://www.zoneomics.com/code/baytown-TX/chapter_2"
+    "t": "Baytown ULDC (Ch. 111) Table 2.31-1 and Table 2.32-4-7",
+    "u": "https://online.encodeplus.com/regs/baytown-tx-uldc/doc-viewer.aspx#secid-1"
+   },
+   {
+    "t": "Baytown Code §34-424 (watershed protection zones)",
+    "u": "https://library.municode.com/tx/baytown/codes/code_of_ordinances?nodeId=PTIICOOR_CH34EN_ARTVIIIWAPR_S34-424USRE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning/land development code (Zoneomics copy) was searched; the Baytown code of ordinances wasn't searchable."
+  "confidence": "medium",
+  "note": "Read from the ULDC use table on enCodePlus: light industrial shows no heliport use but heavy industrial allows it. Watershed ban skips existing development. Municode Part II has no other landing rule."
  },
  {
   "city": "Beaumont",
   "fips": "4807000",
   "level": "red",
-  "title": "Beaumont allows landings only at approved heliports",
-  "text": "Helicopters may land only at established heliports and helistops in the city, except for law enforcement or emergency flights. A heliport or helistop is allowed only by specific use permit, unless the city builds it on its own land.",
-  "penalty": "",
-  "who": "City Manager (applications); City Council (specific use permit)",
+  "title": "Beaumont: landings only at approved heliports",
+  "text": "Helicopters may land only at established heliports and helistops in the city, unless the landing is for law enforcement or an emergency. New heliports and helistops need a specific use permit (the city can build its own). Operating any landing field needs the city's written authorization.",
+  "penalty": "Fine $100 to $500; second conviction at least $500",
+  "who": "City of Beaumont (City Council grants specific use permits)",
   "cites": [
    {
-    "t": "Beaumont Code ch. 14, art. 14.02, div. 2 (Heliports and Helistops)",
-    "u": "https://ecode360.com/38653003"
+    "t": "Beaumont Code §14.02.034 (landing requirements for helicopters)",
+    "u": "https://ecode360.com/38653006"
    },
    {
-    "t": "Beaumont Zoning §28.04 (heliports follow art. 14.02, div. 2)",
-    "u": "https://ecode360.com/38657048"
+    "t": "Beaumont Code §14.02.031 (landing fields need written authorization)",
+    "u": "https://ecode360.com/38652995"
+   },
+   {
+    "t": "Beaumont Code §14.02.035 (penalties)",
+    "u": "https://ecode360.com/38653007"
+   },
+   {
+    "t": "Beaumont Code §14.02.061 (specific use permit required)",
+    "u": "https://ecode360.com/38653010"
    }
   ],
   "zoning": true,
-  "confidence": "medium",
-  "note": "ecode360 blocked; wording came from search summaries of ecode360 pages. Exact section numbers and penalty not confirmed."
+  "confidence": "high",
+  "note": "Text read in full on ecode360 (Art. 14.02, Div. 2). Heliports lawfully existing in 1986 may continue."
  },
  {
   "city": "Bedford",
@@ -376,20 +430,20 @@
  {
   "city": "Beeville",
   "fips": "4807192",
-  "level": "unknown",
-  "title": "Beeville: code not found online",
-  "text": "Not checked. I could not find Beeville's code of ordinances on a host that allows automated access. Its zoning has airport-zone rules, which are not landing rules.",
+  "level": "green",
+  "title": "Beeville: no helicopter landing rule found",
+  "text": "Beeville's code has zoning (Chapter 56), but no heliport, helistop, helipad or helicopter text anywhere in the code. Its districts list permitted uses and heliports aren't among them; the aircraft rules in Chapter 56 cover only airport zones around Beeville Municipal Airport.",
   "penalty": "",
-  "who": "",
+  "who": "Zoning Administrator; Building Inspector",
   "cites": [
    {
-    "t": "Beeville city website",
-    "u": "https://www.beevilletx.gov/"
+    "t": "Beeville Code ch. 56 (zoning), Div. 3 airport zones",
+    "u": "https://library.municode.com/tx/beeville/codes/code_of_ordinances?nodeId=PTIICOOR_CH56ZO_ARTIIIDIRE_DIV1GE_S56-60EXDIINVAAR"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "No express bar on unlisted uses found; districts are enumerated lists, so a heliport would be outside every list. Whole code searched on Municode."
  },
  {
   "city": "Bellaire",
@@ -416,38 +470,50 @@
  {
   "city": "Bellmead",
   "fips": "4807408",
-  "level": "green",
-  "title": "Bellmead: no heliport or helicopter rule found",
-  "text": "The zoning ordinance never mentions heliports, helipads, helicopters, airports or aircraft landings. The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Bellmead: heliports not listed in any district",
+  "text": "No building or land may be used for a purpose its district doesn't permit, and the zoning lists no heliport or helipad. A use not listed in the zoning can be approved by specific use permit from the City Council after the planning commission's recommendation. The code has no helicopter landing rule.",
+  "penalty": "Zoning violations: fine up to $100; each day a separate offense",
+  "who": "Building Inspector; Planning and Zoning Commission; City Council",
   "cites": [
    {
-    "t": "Bellmead Zoning Ordinance (sections I-V and district regulations)",
-    "u": "https://www.zoneomics.com/code/bellmead-TX"
+    "t": "Bellmead Zoning (App. A) Sec. IV (districts)",
+    "u": "https://library.municode.com/tx/bellmead/codes/code_of_ordinances?nodeId=PTIICOOR_APXAZO_SIVDI"
+   },
+   {
+    "t": "Bellmead Zoning (App. A) Sec. X (specific use permits)",
+    "u": "https://library.municode.com/tx/bellmead/codes/code_of_ordinances?nodeId=PTIICOOR_APXAZO_SXSPUSPE"
+   },
+   {
+    "t": "Bellmead Zoning (App. A) Sec. XIX (penalty)",
+    "u": "https://library.municode.com/tx/bellmead/codes/code_of_ordinances?nodeId=PTIICOOR_APXAZO_SXIXENPEVI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (Zoneomics copy) was searched; the rest of the Bellmead city code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because zoning bars unlisted uses (BRIEF2 rule). The Municode search covers the whole code with zoning; heliport, helicopter, aircraft and landing field gave nothing relevant."
  },
  {
   "city": "Belton",
   "fips": "4807492",
   "level": "unknown",
-  "title": "Belton: code not searchable",
-  "text": "Belton's Code of Ordinances is on Municode, which blocks scripted access, so I couldn't search it for heliport, helicopter or aircraft landing rules.",
+  "title": "Belton: zoning ordinance couldn't be read",
+  "text": "The Municode code of ordinances has no heliport, helicopter or landing rule, but Belton's zoning ordinance is a separate PDF on the city site and couldn't be read or searched.",
   "penalty": "",
-  "who": "Planning & Zoning Commission",
+  "who": "",
   "cites": [
    {
-    "t": "Belton Code of Ordinances (Municode)",
+    "t": "Belton Code of Ordinances (Municode, May 2025)",
     "u": "https://library.municode.com/tx/belton/codes/code_of_ordinances"
+   },
+   {
+    "t": "Belton Zoning Ordinance (PDF, updated 8-11-26)",
+    "u": "https://www.beltontexas.gov/departments/planning_department/index.php"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "The city site lists a Planning & Zoning Commission. Municode bot check."
+  "note": "The city page lists the zoning PDF, but the browser can only download it, and the code's planning chapter (17) holds no zoning text."
  },
  {
   "city": "Benbrook",
@@ -500,38 +566,46 @@
  {
   "city": "Boerne",
   "fips": "4809160",
-  "level": "green",
-  "title": "Boerne: no heliport or helicopter rule found",
-  "text": "Boerne has zoning (the Unified Development Code), and it says nothing about heliports, helistops, helicopters or aircraft landings.",
+  "level": "amber",
+  "title": "Boerne: heliports aren't a permitted use in any district",
+  "text": "Boerne's use tables allow only the uses they list, and a blank means not permitted. No heliport, helipad or airport row appears, so none is allowed in any district as written. Helicopter landings at the city's plazas and parks (for events) need City Council approval.",
   "penalty": "",
-  "who": "",
+  "who": "City of Boerne",
   "cites": [
    {
-    "t": "Boerne Unified Development Code",
-    "u": "https://www.zoneomics.com/code/boerne-TX"
+    "t": "Boerne UDC §3-7 (permitted use tables)",
+    "u": "https://library.municode.com/tx/boerne/codes/unified_development_code?nodeId=CH3ZO_S3-7PEUSTA"
+   },
+   {
+    "t": "Boerne Code §16-3 (plazas and parks)",
+    "u": "https://library.municode.com/tx/boerne/codes/code_of_ordinances?nodeId=COOR_CH16PARE_S16-3MAPLVEPLRIROPANOPAPAAMLI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the UDC via Zoneomics only; Boerne's general code wasn't searchable, so a landing ban there isn't ruled out."
+  "confidence": "medium",
+  "note": "Amber because uses missing from the tables are barred; no code text names heliports. No outright landing ban found in the general code."
  },
  {
   "city": "Bonham",
   "fips": "4809328",
-  "level": "green",
-  "title": "Bonham: no helicopter landing rule found",
-  "text": "Bonham's zoning ordinance names no heliport or landing-field use in any district; the only mention is a parking requirement for an airport, landing field or heliport. The general code of ordinances couldn't be searched.",
+  "level": "amber",
+  "title": "Bonham: heliports by specific use permit or in industrial",
+  "text": "Bonham's zoning lists heliports and helistops. They need a specific use permit in agricultural, light retail, local business, business and THOR districts, and are allowed outright only in light industrial, heavy industrial and CC districts. They are barred in residential, mobile-home and downtown districts.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Commission (specific use permits)",
   "cites": [
    {
-    "t": "Bonham Zoning Ordinance, parking schedule (airport, landing field or heliport)",
-    "u": "https://www.zoneomics.com/code/bonham-TX/chapter_12"
+    "t": "Bonham Zoning Ord. (Exh. 14A) App. 1, Table 4 Schedule of Uses",
+    "u": "https://ecode360.com/attachment/339263/BO6251-014Aa%20Appendix%201.pdf"
+   },
+   {
+    "t": "Bonham Zoning Ord. App. 2 §4.g (definition)",
+    "u": "https://ecode360.com/attachment/339263/BO6251-014Ab%20Appendix%202.pdf"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy). The parking row suggests the use may exist, but no district lists it."
+  "confidence": "high",
+  "note": "Column mapping read from the PDF table (AG, LR, LB, B, THOR = S; LI, HI, CC = Y); HC overlay has its own use list. No outright landing ban in the rest of the code."
  },
  {
   "city": "Borger",
@@ -559,19 +633,23 @@
   "city": "Brenham",
   "fips": "4810156",
   "level": "green",
-  "title": "Brenham: no heliport or helicopter rule found",
-  "text": "Brenham has zoning, and its zoning text says nothing about heliports, helistops or helicopter landings.",
+  "title": "Brenham: no rule on private helicopter landings",
+  "text": "The code never mentions helicopters, heliports or helipads. Taking off or landing an aircraft is banned only on public roads, parks and other public property (outside the airport), so private land isn't covered. Zoning limits land to uses permitted in each district and lists no heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Brenham Zoning Ord.",
-    "u": "https://www.zoneomics.com/code/brenham-TX"
+    "t": "Brenham Code §17-7 (Aircraft on public property)",
+    "u": "https://ecode360.com/BR6257"
+   },
+   {
+    "t": "Brenham Code, Appendix A Zoning §5 (Compliance)",
+    "u": "https://ecode360.com/BR6257"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; the general code wasn't searchable."
+  "confidence": "medium",
+  "note": "Public-property ban carries a fine of up to $200. Zoning says no land may be used except as permitted in the district; the board of adjustment classifies unnamed uses. Read on eCode360 (BR6257)."
  },
  {
   "city": "Brownsville",
@@ -596,18 +674,18 @@
   "fips": "4810780",
   "level": "green",
   "title": "Brownwood: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "text": "The whole Brownwood code on Municode, including Chapter 98 (Zoning), never mentions heliports, helistops, helipads or helicopters, and has no rule on landing aircraft off the airport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Brownwood zoning ordinance (Ch. 98)",
-    "u": "https://www.zoneomics.com/code/brownwood-TX"
+    "t": "Brownwood Code of Ordinances (searched; ch. 98 Zoning)",
+    "u": "https://library.municode.com/tx/brownwood/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "Zoning lists permitted uses district by district; I found no clause barring unlisted uses, but the district lists weren't read line by line."
  },
  {
   "city": "Bryan",
@@ -652,20 +730,24 @@
  {
   "city": "Burkburnett",
   "fips": "4811368",
-  "level": "unknown",
-  "title": "Burkburnett: code not found online",
-  "text": "Not checked. I could not find Burkburnett's code of ordinances on a host that allows automated access.",
+  "level": "amber",
+  "title": "Burkburnett: heliports by specific use permit only",
+  "text": "Heliports and helistops are allowed only with a specific use permit, and only in agricultural, commercial/business and industrial districts. They are barred in all residential districts. A use not listed in the chart is not allowed in any district.",
   "penalty": "",
-  "who": "",
+  "who": "Board of Commissioners (specific use permits); Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Burkburnett city website",
-    "u": "https://www.burkburnett.org/"
+    "t": "Burkburnett Zoning Ord. Art. IV, §27.7 use chart",
+    "u": "https://codelibrary.amlegal.com/codes/burkburnetttx/latest/burkburnett_tx/0-0-0-10920"
+   },
+   {
+    "t": "Burkburnett Zoning Ord. App. A-1 definitions",
+    "u": "https://codelibrary.amlegal.com/codes/burkburnetttx/latest/burkburnett_tx/0-0-0-11816"
    }
   ],
-  "zoning": null,
-  "confidence": "low",
-  "note": ""
+  "zoning": true,
+  "confidence": "high",
+  "note": "Code read on American Legal. Searches for aircraft/helicopter found only the noise defense for aircraft at airports and definitions. No landing ban outside zoning."
  },
  {
   "city": "Burleson",
@@ -718,20 +800,24 @@
  {
   "city": "Carrollton",
   "fips": "4813024",
-  "level": "unknown",
-  "title": "Carrollton: zoning use chart not searchable",
-  "text": "Not checked. Carrollton's Comprehensive Zoning Ordinance has a use chart (Article V) where S means a special use permit, but the city site blocks automated access, so no heliport row was seen.",
+  "level": "green",
+  "title": "Carrollton: no helicopter landing rule found",
+  "text": "Neither the Comprehensive Zoning Ordinance (April 2026) nor the code of ordinances mentions helicopters, heliports or helipads, and no landing or takeoff ban turned up. Unlisted land uses are sent to the Planning and Zoning Commission and City Council to classify.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Carrollton Comprehensive Zoning Ordinance (city page)",
+    "t": "Carrollton Comprehensive Zoning Ordinance, Art. 5 §B (New and unlisted uses)",
     "u": "https://www.cityofcarrollton.com/departments/departments-g-p/planning/zoning-information/zoning-ordinance"
+   },
+   {
+    "t": "Carrollton Code of Ordinances (eCode360)",
+    "u": "https://ecode360.com/CA6876"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Carrollton also has a private hospital-area heliport (FAA TE79); the city's code text was not readable."
+  "confidence": "medium",
+  "note": "Zoning PDFs read by text extraction (every article searched); code searched on eCode360. A private hospital-area heliport exists (FAA TE79)."
  },
  {
   "city": "Cedar Hill",
@@ -758,20 +844,24 @@
  {
   "city": "Cedar Park",
   "fips": "4813552",
-  "level": "unknown",
-  "title": "Cedar Park: zoning use tables not searchable",
-  "text": "Not checked. Cedar Park's zoning is Chapter 11 on eCode360, which blocks automated access. Its definitions include an \"accessory heliport\", but the land use tables were not visible.",
+  "level": "amber",
+  "title": "Cedar Park: accessory heliports only in three districts",
+  "text": "The zoning code permits an 'accessory' heliport (any area for helicopter landings and takeoffs, with fueling and storage) only in the H, PS and PA districts and prohibits it in the other 17. No general ban on landing helicopters was found.",
   "penalty": "",
-  "who": "",
+  "who": "City of Cedar Park planning staff",
   "cites": [
    {
-    "t": "Cedar Park Code Ch. 11 Zoning (Art. 11.02 land uses; Art. 11.09 definitions)",
-    "u": "https://ecode360.com/38611668"
+    "t": "Cedar Park Code Table 11.02.064 (nonresidential uses by zoning district)",
+    "u": "https://ecode360.com/38612539"
+   },
+   {
+    "t": "Cedar Park Code §11.09.001 (definition of heliport, accessory)",
+    "u": "https://ecode360.com/38613928"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Definition seen only in a search excerpt. Special uses need Planning and Zoning review and a City Council hearing (§11.06.085)."
+  "confidence": "medium",
+  "note": "Columns read from the table header as district codes H, PS, PA; full district names not confirmed."
  },
  {
   "city": "Celina",
@@ -820,60 +910,60 @@
  {
   "city": "Cleburne",
   "fips": "4815364",
-  "level": "unknown",
-  "title": "Cleburne: zoning ordinance not available to search",
-  "text": "Cleburne adopts its zoning ordinance by reference as Appendix A to its code, and I couldn't get the text of Appendix A or the rest of the code (Municode and the city site block scripted access).",
+  "level": "amber",
+  "title": "Cleburne: heliports by permit, with 1,000 ft buffers",
+  "text": "Heliports and helistops are allowed outright only in the agricultural district. The RC, CI and I districts need a specific use permit, and none are allowed in residential, NC, LC, MU or downtown districts. A site can't be within 1,000 ft of a school, church, hospital, library, park or home unless noise and FAA flight-path conditions are met.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Cleburne Code §155.01 (zoning adopted by reference)",
-    "u": "https://www.zoneomics.com/code/cleburne-TX"
+    "t": "Cleburne Code §155.3 (zoning land use chart; heliport standards)",
+    "u": "https://codelibrary.amlegal.com/codes/cleburne/latest/cleburne_tx/0-0-0-63279"
+   },
+   {
+    "t": "Cleburne Code §155.7 (definitions)",
+    "u": "https://codelibrary.amlegal.com/codes/cleburne/latest/cleburne_tx/0-0-0-65411"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "high",
+  "note": "Chart columns read from the page table (A=P; RC, CI, I = S-12). An airport or hospital heliport is exempt from the 1,000 ft rule. Ch. 90 aircraft rules apply only at the airport."
  },
  {
   "city": "Clute",
   "fips": "4815652",
   "level": "green",
-  "title": "Clute: no heliport rule found",
-  "text": "Clute's zoning ordinance lists the uses for each district and says nothing about heliports, helipads or aircraft landings. The only airport mention is in the parking requirements.",
+  "title": "Clute: no helicopter landing rule found",
+  "text": "The full code has no heliport, helipad, helicopter or aircraft landing rule. Aircraft appear only in junked-vehicle rules, and the zoning district use lists don't name a heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Clute Zoning Ordinance appendix (district use lists, parking table)",
-    "u": "https://www.zoneomics.com/code/clute-TX/chapter_21"
+    "t": "Clute Code of Ordinances (Municode, Apr 2026)",
+    "u": "https://library.municode.com/tx/clute/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning code only (mirror of 21 parts). The general code was not searchable."
+  "confidence": "medium",
+  "note": "Zoning requires land to be used in conformity with its district's regulations; no unlisted-use procedure was found."
  },
  {
   "city": "College Station",
   "fips": "4815976",
-  "level": "green",
-  "title": "College Station: no heliport rule found",
-  "text": "The zoning code (UDO) names no heliport, helipad or helicopter use, and any use not listed in the use table is prohibited unless the Administrator rules otherwise. The only aviation rules are height limits near Easterwood Field airport.",
+  "level": "amber",
+  "title": "College Station: heliports aren't a listed use",
+  "text": "The Unified Development Ordinance prohibits any use not expressly listed in its Use Table, and the table has no heliport or helistop row. The Administrator decides whether an unlisted use can be processed. The rest of the code has no rule on landing helicopters.",
   "penalty": "",
-  "who": "Planning & Development Services",
+  "who": "UDO Administrator, City of College Station",
   "cites": [
    {
-    "t": "College Station UDO art. 6 (Use Regulations, §6.3)",
-    "u": "https://www.zoneomics.com/code/college-station-TX/chapter_6"
-   },
-   {
-    "t": "College Station UDO page",
-    "u": "https://www.cstx.gov/departments___city_hall/pds/regulations/udo"
+    "t": "College Station UDO §6.3 (types of use)",
+    "u": "https://library.municode.com/tx/college_station/codes/code_of_ordinances?nodeId=SPBLADEOR_APXAUNDEOR_ART6USRE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Mirror lacks the use table; the city's 2012 table PDF has no heliport row. Current table and non-zoning code not seen."
+  "confidence": "medium",
+  "note": "Heliport/helicopter searches of the whole Municode code returned nothing; the Use Table text was read on the page."
  },
  {
   "city": "Colleyville",
@@ -896,38 +986,46 @@
  {
   "city": "Conroe",
   "fips": "4816432",
-  "level": "unknown",
-  "title": "Conroe: code not searchable",
-  "text": "Conroe's Code of Ordinances is on Municode, which blocks scripted access, so I couldn't search it for heliport, helicopter or aircraft landing rules.",
+  "level": "green",
+  "title": "Conroe: no zoning and no helicopter landing rule found",
+  "text": "Conroe's code has no zoning ordinance (its charter only covers platting and a planning commission), and a search of the whole code found no heliport, helistop, helipad or helicopter text. Aircraft appear only in a noise-ordinance defense.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Conroe Code of Ordinances (Municode)",
+    "t": "Conroe Charter Art. VIII (planning and zoning)",
+    "u": "https://library.municode.com/tx/conroe/codes/code_of_ordinances?nodeId=PTIHORUCH_ARTVIIIMUPLZO"
+   },
+   {
+    "t": "Conroe Code §26-127 (aircraft noise defense)",
     "u": "https://library.municode.com/tx/conroe/codes/code_of_ordinances"
    }
   ],
-  "zoning": null,
-  "confidence": "low",
-  "note": "Couldn't confirm whether Conroe has zoning. Municode bot check."
+  "zoning": false,
+  "confidence": "medium",
+  "note": "Municode code has no zoning chapter; 'no zoning' inferred from the table of contents, not a stated rule. Land development regulations (subpart B) have no heliport rule."
  },
  {
   "city": "Converse",
   "fips": "4816468",
-  "level": "green",
-  "title": "Converse: no heliport rule found",
-  "text": "Converse's zoning chapter (Code ch. 50) lists permitted uses for each district and says nothing about heliports, helipads or aircraft landings.",
+  "level": "amber",
+  "title": "Converse: heliports aren't a listed zoning use",
+  "text": "The code never names heliports or helicopters. Its zoning says no land may be used except for a purpose permitted in the district, and each district lists its uses (some allow special use permits). No procedure for unlisted uses was found.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Converse Code ch. 50, art. IV (district regulations)",
-    "u": "https://www.zoneomics.com/code/converse-TX/chapter_4"
+    "t": "Converse Code §50-4 (Zoning: compliance)",
+    "u": "https://library.municode.com/tx/converse/codes/code_of_ordinances"
+   },
+   {
+    "t": "Converse Code ch. 50 (Zoning: district use regulations)",
+    "u": "https://library.municode.com/tx/converse/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Mirror is an older zoning ordinance (2006 amendments); a newer UDC may exist. Non-zoning code not searched."
+  "note": "Amber is inferred from the zoning's closed use lists; no heliport, helicopter or landing text anywhere in the current Municode code (Aug 2026)."
  },
  {
   "city": "Coppell",
@@ -1136,42 +1234,50 @@
  {
   "city": "Denton",
   "fips": "4819972",
-  "level": "green",
-  "title": "Denton: no helicopter landing rule found",
-  "text": "Denton's Development Code lists no heliport or landing-field use in its base districts; the only city-owned airport is a listed aviation use. The one helicopter use is a hospital helipad, by specific use permit in three districts of the Rayzor Ranch Overlay. The general code of ordinances couldn't be searched.",
+  "level": "amber",
+  "title": "Denton: no heliport use; one hospital helipad overlay",
+  "text": "Denton's Development Code allows only the uses in its table, and a blank cell means prohibited. The table has no heliport or helistop. The only helipad is one accessory to a hospital, by specific use permit, in the Rayzor Ranch Overlay District. City aircraft rules cover the municipal airport only.",
   "penalty": "",
-  "who": "",
+  "who": "Director of Development Services",
   "cites": [
    {
-    "t": "Denton Development Code §5.3.4 Use tables (Airport, City-Owned)",
-    "u": "https://www.zoneomics.com/code/denton-TX/chapter_7"
+    "t": "Denton Development Code §5.2.3 (table of allowed uses)",
+    "u": "https://library.municode.com/tx/denton/codes/development_code?nodeId=CITY_DENTONDECO_SUBCHAPTER_5USRE_5.2TAALUS_5.2.3TAALUS"
    },
    {
-    "t": "Denton Development Code §4.8.6 Rayzor Ranch Overlay uses (helipad accessory to…",
-    "u": "https://www.zoneomics.com/code/denton-TX/chapter_12"
+    "t": "Denton Development Code §5.2.4 (new and unlisted uses)",
+    "u": "https://library.municode.com/tx/denton/codes/development_code?nodeId=CITY_DENTONDECO_SUBCHAPTER_5USRE_5.2TAALUS"
+   },
+   {
+    "t": "Denton Development Code §4.8.6 (Rayzor Ranch Overlay use regulations)",
+    "u": "https://library.municode.com/tx/denton/codes/development_code"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning code was searched (Zoneomics copy). Municode blocks automated access, so a landing rule in the general code can't be ruled out."
+  "confidence": "medium",
+  "note": "Amber because unlisted uses are prohibited unless the Director classifies them; no general landing ban found."
  },
  {
   "city": "DeSoto",
   "fips": "4820092",
-  "level": "unknown",
-  "title": "DeSoto: heliport rule not checked",
-  "text": "The zoning ordinance defines heliports and helistops, but the use chart that says where they're allowed could not be read, and the city's code host blocks automated access.",
+  "level": "amber",
+  "title": "DeSoto: heliports only by specific use permit",
+  "text": "Heliports and helistops are allowed only with a specific use permit, in the agricultural, C-1, C-2, light industrial and industrial districts and a few mixed-use or service districts, or where a planned development ordinance approves them. They aren't allowed in single-family, two-family, multifamily or mobile-home districts.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "DeSoto Zoning Ordinance Part VII (heliport and helistop definitions)",
-    "u": "https://www.zoneomics.com/code/desoto-TX/chapter_7"
+    "t": "DeSoto Zoning Ord. §36.7 (use chart, transportation uses)",
+    "u": "https://ecode360.com/46146324"
+   },
+   {
+    "t": "DeSoto Zoning Ord. App. A-3 (heliport, helistop definitions)",
+    "u": "https://ecode360.com/46147190"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Definitions found; no district use list available in the readable text."
+  "confidence": "medium",
+  "note": "District columns read from the city's PDF use chart (layout text, so the mixed-use column match is approximate). No landing rule found elsewhere in the code."
  },
  {
   "city": "Dickinson",
@@ -1195,14 +1301,19 @@
   "city": "Donna",
   "fips": "4820884",
   "level": "unknown",
-  "title": "Donna: code not found online",
-  "text": "I couldn't find Donna's code of ordinances or zoning ordinance online from the city's website, so I couldn't check it for heliport or aircraft landing rules.",
+  "title": "Donna: zoning ordinance is a scanned image",
+  "text": "Donna's zoning ordinance PDF on the city site is a 49-page scan with no searchable text, and no code of ordinances was found online. No heliport or landing rule could be read.",
   "penalty": "",
   "who": "",
-  "cites": [],
-  "zoning": null,
+  "cites": [
+   {
+    "t": "Donna Zoning Ordinance (scanned PDF)",
+    "u": "https://www.cityofdonna.org/documentcenter/view/191"
+   }
+  ],
+  "zoning": true,
   "confidence": "low",
-  "note": "No code link on the city site; Zoneomics has no data for Donna."
+  "note": "The city site's search finds only single ordinances (health, nuisance, parking, signs); none is a full code."
  },
  {
   "city": "Dripping Springs",
@@ -1225,82 +1336,82 @@
  {
   "city": "Dumas",
   "fips": "4821556",
-  "level": "unknown",
-  "title": "Dumas: code not searchable",
-  "text": "Dumas posts its Code of Ordinances on eCode360 and Franklin Legal, both of which block scripted access, so I couldn't search it for heliport, helicopter or aircraft landing rules.",
-  "penalty": "",
-  "who": "Planning & Zoning Commission",
-  "cites": [
-   {
-    "t": "Dumas Code of Ordinances (eCode360)",
-    "u": "https://ecode360.com/DU6292"
-   },
-   {
-    "t": "Dumas Code of Ordinances (Franklin Legal)",
-    "u": "https://z2codes.franklinlegal.net/franklin/Z2Browser2.html?showset=dumasset"
-   }
-  ],
-  "zoning": true,
-  "confidence": "low",
-  "note": "The city site lists a Planning & Zoning Commission. eCode360 and Franklin Legal bot checks."
- },
- {
-  "city": "Duncanville",
-  "fips": "4821628",
   "level": "green",
-  "title": "Duncanville: no heliport rule found in the zoning code",
-  "text": "The zoning ordinance's permitted-use chart doesn't list heliports, helistops or helicopter landings. Its only aviation reference is an airport flight overlay district around Dallas Executive Airport.",
+  "title": "Dumas: no helicopter landing rule found",
+  "text": "Dumas' code on eCode360, including Chapter 14 (Zoning), never mentions heliports, helistops, helipads or aircraft. The only helicopter reference is a fire-department fee for creating a helicopter landing zone.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Duncanville Zoning Ord. §3.03 (permitted use chart)",
-    "u": "https://www.zoneomics.com/code/duncanville-TX/chapter_3"
+    "t": "Dumas Code of Ordinances (searched; ch. 14 Zoning)",
+    "u": "https://ecode360.com/DU6292"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Heliport is not a listed use. Zoning read on a Zoneomics copy; Municode/AMLegal block fetching, so non-zoning chapters weren't searched."
+  "confidence": "medium",
+  "note": "Fee schedule item A5.002 bills fire-service costs when a helicopter landing zone is created; it is not a landing rule."
+ },
+ {
+  "city": "Duncanville",
+  "fips": "4821628",
+  "level": "amber",
+  "title": "Duncanville: heliports not listed, need a ruling",
+  "text": "Duncanville's zoning chart doesn't list heliports or helicopter landings. An unlisted use goes to the city planner to rule whether it matches a listed use; if not, it takes a zoning text amendment with Planning and Zoning Commission and City Council approval. Nothing else in the code covers helicopters.",
+  "penalty": "",
+  "who": "City Planner; Planning and Zoning Commission; City Council",
+  "cites": [
+   {
+    "t": "Duncanville Zoning Ord. (App. A) §3.02 new and unlisted uses",
+    "u": "https://library.municode.com/tx/duncanville/codes/code_of_ordinances?nodeId=COORDUTE_APXAZOOR_ARTIIILAUS_S3.02CLNEUNUS"
+   }
+  ],
+  "zoning": true,
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text. Amber rests on the unlisted-use process; §3.01 doesn't state an outright bar."
  },
  {
   "city": "Eagle Pass",
   "fips": "4821892",
   "level": "green",
   "title": "Eagle Pass: no helicopter landing rule found",
-  "text": "Eagle Pass's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields, and a search of its Municode code turned up no heliport article. A landing rule elsewhere in the general code couldn't be fully ruled out.",
+  "text": "The full code has no heliport, helipad or helicopter landing rule. Its aviation chapter covers only the airport zoning board and airport hazard zoning. The zoning board of adjustment decides how to classify a use the zoning ordinance doesn't name.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Eagle Pass Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/eagle-pass-TX"
+    "t": "Eagle Pass Code ch. 4 (Airports and aircraft)",
+    "u": "https://library.municode.com/tx/eagle_pass/codes/code_of_ordinances?nodeId=PTIICOOR_CH4AIAI"
    },
    {
-    "t": "Eagle Pass Code of Ordinances (Municode)",
-    "u": "https://library.municode.com/TX/eagle_pass/codes/code_of_ordinances"
+    "t": "Eagle Pass Zoning Ord. §20 (Board of adjustment)",
+    "u": "https://library.municode.com/tx/eagle_pass/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
   "confidence": "medium",
-  "note": "Zoning read from a Zoneomics copy; Municode blocks automated access, so the general code was only checked by title."
+  "note": "Municode search of the whole code (Sept 2026): heliport, helistop and helipad return nothing; 'helicopter' appears only in an EMS definition."
  },
  {
   "city": "Edinburg",
   "fips": "4822660",
   "level": "green",
-  "title": "Edinburg: no heliport rule in its zoning code",
-  "text": "The 2022 Unified Development Code has no heliport, helistop or helicopter entry. Airports are allowed only by special use permit in the industrial (IG) district, and any use the code doesn't list is prohibited unless the Administrator treats it as similar to a listed one.",
+  "title": "Edinburg: no helicopter landing rule found",
+  "text": "Neither the Code of Ordinances nor the Unified Development Code mentions heliports or helicopters. The aircraft rules in Chapter 54 cover the city airport and require other aeronautical activity in the city to follow FAA and other applicable laws.",
   "penalty": "",
-  "who": "Planning and Zoning Department",
+  "who": "",
   "cites": [
    {
-    "t": "Edinburg Unified Development Code (2022) §2.202 Use Tables and Uses Not Listed;…",
+    "t": "Edinburg Code §54.01 (airport general provisions)",
+    "u": "https://library.municode.com/tx/edinburg/codes/code_of_ordinances?nodeId=TITVPUWO_CH54AICO_S54.01GEPR"
+   },
+   {
+    "t": "Edinburg Unified Development Code",
     "u": "https://online.encodeplus.com/regs/edinburg-tx-udc-update/index.aspx"
    }
   ],
   "zoning": true,
   "confidence": "medium",
-  "note": "Searched the full UDC text. The Code of Ordinances on Municode (library.municode.com/tx/edinburg) could not be searched, so a separate aviation rule there is possible."
+  "note": "UDC searched in the first pass; any clause on unlisted uses was not rechecked."
  },
  {
   "city": "El Campo",
@@ -1349,20 +1460,20 @@
  {
   "city": "Elgin",
   "fips": "4823044",
-  "level": "unknown",
-  "title": "Elgin: code not searchable (Municode blocked)",
-  "text": "Not checked. Elgin's zoning (Chapter 46) is on Municode, which blocks automated access.",
+  "level": "amber",
+  "title": "Elgin: landing fields only with a specific use permit",
+  "text": "Elgin's zoning doesn't name heliports. Airports or landing fields for public or private use need a specific use permit in any district, with aviation-agency site approval, and at least 20 acres in residential or agricultural districts. Otherwise each district allows only the uses it lists.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Elgin Code of Ordinances",
-    "u": "https://library.municode.com/tx/elgin/codes/code_of_ordinances"
+    "t": "Elgin Code §46-138(a)(8) (specific use permits)",
+    "u": "https://library.municode.com/tx/elgin/codes/code_of_ordinances?nodeId=PTIICOOR_CH46ZO_ARTIIAD_DIV5SPUSPE_S46-138GEDE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "No heliport/helicopter text in the code; I treated a helicopter landing site as a 'landing field' use, which the code doesn't define. Aircraft noise exempt at airports (§16-88)."
  },
  {
   "city": "Ennis",
@@ -1385,51 +1496,60 @@
  {
   "city": "Euless",
   "fips": "4824768",
-  "level": "green",
-  "title": "Euless: no heliport or helicopter rule found",
-  "text": "Euless has zoning (the Unified Development Control Document), and it says nothing about heliports, helistops or helicopter landings. Its aircraft mentions are limited to airport hazard areas and a noise exemption.",
+  "level": "amber",
+  "title": "Euless: heliports aren't in the zoning use table",
+  "text": "The Unified Development Code allows only the uses listed in its permitted use table, and the table lists no heliport, helipad or airport. Listed uses are either permitted by right ('P') or need a specific use permit ('S'), depending on the district.",
   "penalty": "",
-  "who": "",
+  "who": "City of Euless (zoning; specific use permits)",
   "cites": [
    {
-    "t": "Euless Unified Development Control Document",
-    "u": "https://www.zoneomics.com/code/euless-TX"
+    "t": "Euless UDC §84-84 (Permitted uses table)",
+    "u": "https://ecode360.com/EU6303"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; Euless's general code on eCode360 blocks automated access."
+  "confidence": "medium",
+  "note": "Amber is inferred from the 'only listed uses' rule. eCode360 search of the whole code: heliport, helipad and helistop return nothing; 'helicopter' appears only in an ambulance definition."
  },
  {
   "city": "Fair Oaks Ranch",
   "fips": "4825168",
-  "level": "unknown",
-  "title": "Fair Oaks Ranch: code could not be searched",
-  "text": "Fair Oaks Ranch's code of ordinances and development code could not be found in a form that can be searched, so no heliport or helicopter rule could be checked.",
-  "penalty": "",
-  "who": "",
-  "cites": [],
-  "zoning": true,
-  "confidence": "low",
-  "note": "Zoneomics has no zoning text; the city's code is likely on Municode, which blocks automated access. Zoning status assumed, not confirmed."
- },
- {
-  "city": "Fairview",
-  "fips": "4825224",
   "level": "green",
-  "title": "Fairview: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "title": "Fair Oaks Ranch: no helicopter landing rule found",
+  "text": "A Municode search of the city's code, including the Unified Development Code, finds no heliport, helipad, helicopter or landing-aircraft rule. Uses not listed in the UDC go to the City Manager for a determination.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Fairview zoning ordinance (Ch. 14.02)",
-    "u": "https://www.zoneomics.com/code/fairview-TX"
+    "t": "Fair Oaks Ranch UDC §4.9 (permitted uses)",
+    "u": "https://library.municode.com/tx/fair_oaks_ranch/codes/unified_development_code?nodeId=sec4.9"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "The UDC has a use table (NP = not permitted) with no heliport row; unlisted uses are determined by the City Manager rather than barred."
+ },
+ {
+  "city": "Fairview",
+  "fips": "4825224",
+  "level": "red",
+  "title": "Fairview allows landings only at approved airports",
+  "text": "Taking off or landing any aircraft anywhere in the town except at an airport or heliport approved by the town council and the FAA is unlawful. The council may issue a special permit for an occasional landing for education, an aircraft exhibit or advertising, which requires FAA site clearance, insurance and a hold-harmless agreement. Noise-sensitive-area rules exempt medical evacuation flights.",
+  "penalty": "Fine under the town's general penalty (§1.01.009)",
+  "who": "Town Council (special permits)",
+  "cites": [
+   {
+    "t": "Fairview Code §1.10.003 (takeoff or landing at location other than airport)",
+    "u": "https://ecode360.com/40825984"
+   },
+   {
+    "t": "Fairview Code §1.10.001 (noise-sensitive areas)",
+    "u": "https://ecode360.com/40825978"
+   }
+  ],
+  "zoning": true,
+  "confidence": "high",
+  "note": "§1.10.003 itself has no medical or emergency exemption; the medical-flight carve-out is in the noise rule §1.10.001. Zoning chapter not read for heliports."
  },
  {
   "city": "Farmers Branch",
@@ -1514,20 +1634,28 @@
  {
   "city": "Forney",
   "fips": "4826604",
-  "level": "unknown",
-  "title": "Forney: code couldn't be searched",
-  "text": "Forney's code of ordinances and Unified Development Code are hosted on eCode360, which blocks scripts, and the city site has no copy. No heliport rule was confirmed either way.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Forney: approved heliports or city manager permission",
+  "text": "Helicopters may take off or land only at a heliport the city council has approved, or with the city manager's advance written permission, given case by case with the landowner's written consent. Flying is limited to 7 a.m. to 8 p.m. Police and emergency helicopters are exempt. Landing areas must be fenced, and sites stay 1,000 ft from churches, libraries and parks unless council allows.",
+  "penalty": "Fine up to $500 (general penalty clause, §1.01.009)",
+  "who": "City Manager (permission); City Council (heliport approval)",
   "cites": [
    {
-    "t": "Forney Code of Ordinances on eCode360",
-    "u": "https://ecode360.com/FO6311"
+    "t": "Forney Code §12.08.002 (restrictions on operation)",
+    "u": "https://ecode360.com/40319714"
+   },
+   {
+    "t": "Forney Code §12.08.003 (temporary landing permits)",
+    "u": "https://ecode360.com/40319725"
+   },
+   {
+    "t": "Forney Code §1.01.009 (general penalty)",
+    "u": "https://ecode360.com/40314794"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "eCode360 returned a Cloudflare challenge; I didn't work around it. Zoning is assumed (not read)."
+  "confidence": "high",
+  "note": "Council-approved heliport or case-by-case city manager permission (like Horseshoe Bay), so amber rather than red. The zoning chapter (Ch. 14) has no heliport rule in the ecode360 search."
  },
  {
   "city": "Fort Worth",
@@ -1558,78 +1686,86 @@
  {
   "city": "Fredericksburg",
   "fips": "4827348",
-  "level": "unknown",
-  "title": "Fredericksburg: heliport rule not checked",
-  "text": "The zoning ordinance sends users to a Schedule A of uses that wasn't in the readable text, and the city's code host blocks automated access.",
+  "level": "amber",
+  "title": "Fredericksburg: aviation facilities only in the PF district",
+  "text": "The zoning ordinance doesn't name heliports. It lists 'aviation facilities' (landing fields, aircraft parking and service) as a permitted use only in the PF Public Facilities district. Council can rule that an unlisted use is similar to a listed one.",
   "penalty": "",
-  "who": "",
+  "who": "City of Fredericksburg (zoning; City Council)",
   "cites": [
    {
-    "t": "Fredericksburg Zoning Ordinance (Zoneomics copy)",
-    "u": "https://www.zoneomics.com/code/fredericksburg-TX/chapter_1"
+    "t": "Fredericksburg Zoning Ord. §3.600 (PF district)",
+    "u": "https://library.municode.com/tx/fredericksburg/codes/code_of_ordinances?nodeId=PTIICOOR_APXBZOOR_ENCL_S3.600PFPUFA"
+   },
+   {
+    "t": "Fredericksburg Zoning Ord. §4.700 (Civic use types)",
+    "u": "https://library.municode.com/tx/fredericksburg/codes/code_of_ordinances?nodeId=PTIICOOR_APXBZOOR_ENCL_S4.700GEDECIUSTY"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "No heliport or helicopter text found in what could be read."
+  "confidence": "medium",
+  "note": "Amber relies on a helicopter pad being treated as an 'aviation facility'; the code doesn't say so. Searches for heliport, helipad and helicopter landing found nothing else."
  },
  {
   "city": "Freeport",
   "fips": "4827420",
-  "level": "unknown",
-  "title": "Freeport: code not searchable (Municode blocked)",
-  "text": "Not checked. Freeport's code is on Municode, which blocks automated access. Its zoning definitions include \"heliport\", but no use rule was readable.",
-  "penalty": "",
-  "who": "",
+  "level": "red",
+  "title": "Freeport bans landings outside airports",
+  "text": "No one may land or take off in any aircraft within the city limits, or from any area in it, except at a public or private airport facility that is open and maintained as an airport. The section lists no exemptions.",
+  "penalty": "General penalty: fine up to the state maximum, or $500 if none",
+  "who": "City of Freeport",
   "cites": [
    {
-    "t": "Freeport Code of Ordinances",
+    "t": "Freeport Code §46-3 (landing and takeoff of aircraft restricted)",
+    "u": "https://library.municode.com/tx/freeport/codes/code_of_ordinances?nodeId=PTIICOOR_CH46TRVE_ARTIINGE_S46-3LATAAIRE"
+   },
+   {
+    "t": "Freeport Code §1-16 (general penalty)",
     "u": "https://library.municode.com/tx/freeport/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Definition seen in a Zoneomics index, not in the code text."
+  "confidence": "high",
+  "note": "A 1960 ordinance still in the code."
  },
  {
   "city": "Friendswood",
   "fips": "4827648",
-  "level": "unknown",
-  "title": "Friendswood: code not searchable (Municode blocked)",
-  "text": "Not checked. Friendswood's code is on Municode, which blocks automated access. Searches found no heliport or helicopter-landing section.",
+  "level": "amber",
+  "title": "Friendswood: heliports not listed in zoning",
+  "text": "Friendswood's zoning doesn't list heliports or helicopter landings. Land may be used only for uses specifically permitted in its district; an unlisted use may be allowed where a similar use is permitted if it matches the district's noise, traffic and compatibility tests. Nothing else in the code covers helicopters.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council",
   "cites": [
    {
-    "t": "Friendswood Code of Ordinances",
-    "u": "https://library.municode.com/tx/friendswood"
+    "t": "Friendswood Zoning Ord. (App. C) §7(P) permitted uses, uses not listed",
+    "u": "https://library.municode.com/tx/friendswood/codes/code_of_ordinances?nodeId=PTIICICO_APXCZO_S7SCDIRE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text; zoning has no airport or aviation use. Aircraft appear only in a noise defense and definitions."
  },
  {
   "city": "Frisco",
   "fips": "4827684",
-  "level": "unknown",
-  "title": "Frisco: zoning use chart couldn't be read",
-  "text": "Frisco's zoning ordinance defines 'Airport/Heliport' and 'Helistop' (an accessory use for landing and takeoff only), so its use chart (Subsection 3.02) regulates them. The chart is on eCode360, which blocks scripts, so the districts and permits weren't confirmed.",
+  "level": "amber",
+  "title": "Frisco: heliports and helistops only by permit",
+  "text": "A heliport needs a specific use permit and is listed only in the industrial district. A helistop (an accessory landing spot with no refueling, repair or storage) can get a permit in the O-2 office, C-1 commercial, information-technology and industrial districts. Neither use is listed in residential, retail or highway districts.",
   "penalty": "",
-  "who": "Planning Dept.; City Council",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Frisco Zoning Ord. §3.02 (use chart) on eCode360",
-    "u": "https://ecode360.com/45143963"
+    "t": "Frisco Zoning Ord. (Ch. 63) §3 Use Chart",
+    "u": "https://ecode360.com/45144918"
    },
    {
-    "t": "Frisco Zoning Ord. §7 (definitions: Airport/Heliport, Helistop)",
-    "u": "https://www.zoneomics.com/code/frisco-TX/chapter_7"
+    "t": "Frisco Zoning Ord. §7.01.01 definitions (Airport/Heliport; Helistop)",
+    "u": "https://ecode360.com/45147644"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The use chart is missing from the Zoneomics copy. Likely amber (a listed use), but unconfirmed; needs a manual look at §3.02."
+  "confidence": "high",
+  "note": "Read the use chart on ecode360. Searches of Part II for helicopter, aircraft, helistop and heliport found no other landing rule (parks ban aircraft launches on park land only)."
  },
  {
   "city": "Fulshear",
@@ -1676,18 +1812,18 @@
   "fips": "4827996",
   "level": "green",
   "title": "Galena Park: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "text": "The code never mentions helicopters, heliports, helipads or aircraft. The city has zoning districts, and none names a heliport or any aircraft use.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Galena Park zoning ordinance (Art. 12)",
-    "u": "https://www.zoneomics.com/code/galena-park-TX"
+    "t": "Galena Park Code of Ordinances (Municode, current version July 2017)",
+    "u": "https://library.municode.com/tx/galena_park/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "Municode's current version is dated July 28, 2017; newer ordinances may not be in it."
  },
  {
   "city": "Galveston",
@@ -1736,20 +1872,24 @@
  {
   "city": "Gatesville",
   "fips": "4829168",
-  "level": "unknown",
-  "title": "Gatesville: code couldn't be searched",
-  "text": "Gatesville's code of ordinances is hosted on eCode360, which blocks scripts, and the city site has no copy. No heliport or aircraft landing rule was confirmed either way.",
+  "level": "amber",
+  "title": "Gatesville: heliports not listed in any district",
+  "text": "Zoning (rewritten in June 2026) lists the permitted uses in each district, and none names a heliport or helipad. The industrial/commercial district also accepts other similar uses approved by City Council. The code has no helicopter landing rule; the aviation chapter covers only the municipal airport.",
   "penalty": "",
-  "who": "",
+  "who": "Code Official; City Council (similar-use approval)",
   "cites": [
    {
-    "t": "Gatesville Code of Ordinances on eCode360",
+    "t": "Gatesville Code §49-61 (BC-H/I permitted uses)",
+    "u": "https://ecode360.com/51765135"
+   },
+   {
+    "t": "Gatesville Code Ch. 8 Art. II (municipal airport)",
     "u": "https://ecode360.com/GA6960"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "eCode360 returned a Cloudflare challenge; I didn't work around it. The city runs a municipal airport and a planning and zoning commission; zoning text not read."
+  "note": "Amber on the zoning lists only: Ch. 49 never states that unlisted uses are barred. ecode360 and Municode searches for heliport, helicopter and landing found no landing rule."
  },
  {
   "city": "Georgetown",
@@ -1867,19 +2007,19 @@
   "city": "Groves",
   "fips": "4831328",
   "level": "green",
-  "title": "Groves: no heliport or helicopter rule found",
-  "text": "Groves has zoning, and its zoning text says nothing about heliports, helistops, helicopters or aircraft landings.",
+  "title": "Groves: no helicopter landing rule found",
+  "text": "Groves' full code on Municode, including its zoning appendix, has no mention of heliports, helicopters, aircraft or airports.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Groves Zoning Ord.",
-    "u": "https://www.zoneomics.com/code/groves-TX"
+    "t": "Groves Code of Ordinances (searched; App. A Zoning)",
+    "u": "https://library.municode.com/tx/groves/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; the general code wasn't searchable."
+  "confidence": "medium",
+  "note": "Zero search hits for every aviation term, including 'airport' and 'aircraft'."
  },
  {
   "city": "Haltom City",
@@ -1906,20 +2046,24 @@
  {
   "city": "Harker Heights",
   "fips": "4832312",
-  "level": "green",
-  "title": "Harker Heights: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "level": "amber",
+  "title": "Harker Heights: heliports not listed in zoning districts",
+  "text": "Harker Heights' zoning lists no heliport or helicopter use. Each district may be used only for the purposes it lists, and the Board of Adjustment classifies any use not named in the chapter. The B-5 General Business district also allows any commercial use not included in another district if it isn't noxious.",
   "penalty": "",
-  "who": "",
+  "who": "Board of Adjustment; Planning and Development",
   "cites": [
    {
-    "t": "Harker Heights zoning (Ch. 155)",
-    "u": "https://www.zoneomics.com/code/harker-heights-TX"
+    "t": "Harker Heights Code §155.222 (classifying unnamed uses)",
+    "u": "https://ecode360.com/48321636"
+   },
+   {
+    "t": "Harker Heights Code §155.032(A)(8) (B-5 district)",
+    "u": "https://ecode360.com/48321070"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "eCode360 search found no heliport, helistop, helipad or helicopter text. Chapter 97 (airport) only adopts the Killeen airport hazard zoning. Whether the B-5 catch-all covers a heliport is untested."
  },
  {
   "city": "Harlingen",
@@ -1943,41 +2087,49 @@
   "city": "Heath",
   "fips": "4832984",
   "level": "red",
-  "title": "Heath allows landings only at sites with a city permit",
-  "text": "Landing or taking off an aircraft, helicopters included, anywhere in the city is allowed only at an authorized airport, landing strip or helicopter pad, and each such site needs a specific use permit from the city council. Emergency landings are exempt. The code notes that no site in Heath held such a permit when it was written.",
-  "penalty": "General penalty section (§10.99); amount not checked",
-  "who": "City Council (specific use permits)",
+  "title": "Heath bans landings except at permitted sites",
+  "text": "Landing or taking off in any aircraft, helicopters included, is an offense anywhere in the city except from an authorized airport, landing strip or helicopter pad. The code says no property is authorized now, and a site needs a specific use permit from the City Council. Emergency landings are exempt.",
+  "penalty": "Fine up to $500 (up to $2,000 if treated as zoning); each day separate",
+  "who": "City Council (specific use permits); police",
   "cites": [
    {
-    "t": "Heath Code §132.03 (takeoff and landing) and §132.04 (specific use permit requi…",
+    "t": "Heath Code §132.03 (taking off or landing of aircraft)",
     "u": "https://codelibrary.amlegal.com/codes/heathtx/latest/heath_tx/0-0-0-2955"
    },
    {
-    "t": "Heath Code ch. 132, Aeronautical Devices",
-    "u": "https://codelibrary.amlegal.com/codes/heathtx/latest/heath_tx/0-0-0-2952"
+    "t": "Heath Code §132.04 (specific use permit required)",
+    "u": "https://codelibrary.amlegal.com/codes/heathtx/latest/heath_tx/0-0-0-2955"
+   },
+   {
+    "t": "Heath Code §10.99 (general penalty)",
+    "u": "https://codelibrary.amlegal.com/codes/heathtx/latest/heath_tx/0-0-0-370"
    }
   ],
   "zoning": true,
-  "confidence": "medium",
-  "note": "American Legal blocks scripts, so the wording comes from search-engine excerpts of ch. 132, not a full read; section 132.03's exact text and any current permits weren't confirmed."
+  "confidence": "high",
+  "note": "Read the full text of ch. 132 on American Legal. The $2,000 cap applies only to zoning, fire and health ordinances; ch. 132 sets no penalty of its own."
  },
  {
   "city": "Helotes",
   "fips": "4833146",
-  "level": "unknown",
-  "title": "Helotes: code not searchable (Municode blocked)",
-  "text": "Not checked. Helotes' zoning (Chapter 98) is on Municode, which blocks automated access.",
+  "level": "amber",
+  "title": "Helotes: airports by council permit in B-4 and I-1 only",
+  "text": "The schedule of uses doesn't name heliports. 'Airport (Non-Governmental)' is allowed only with a specific use permit from City Council, and only in the B-4 Central Business and I-1 Industrial districts. Unlisted uses are classified under a set procedure.",
   "penalty": "",
-  "who": "",
+  "who": "City of Helotes (City Council; Planning and Zoning Commission)",
   "cites": [
    {
-    "t": "Helotes Code of Ordinances",
+    "t": "Helotes Code ch. 98, App. A (Schedule of uses)",
+    "u": "https://library.municode.com/tx/helotes/codes/code_of_ordinances?nodeId=CD_ORD_CH98ZO_APXASCUS"
+   },
+   {
+    "t": "Helotes Code §98-34 (Classification of new and unlisted uses)",
     "u": "https://library.municode.com/tx/helotes/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "'CC' in the schedule is a specific use permit approved by City Council (§98-131). Amber relies on a helicopter pad being treated as an airport; the code doesn't say so."
  },
  {
   "city": "Henderson",
@@ -2004,15 +2156,24 @@
  {
   "city": "Hereford",
   "fips": "4833320",
-  "level": "unknown",
-  "title": "Hereford: no searchable code found",
-  "text": "I couldn't find Hereford's code of ordinances or zoning ordinance online in a form that could be searched, so no heliport or aircraft landing rule was confirmed either way.",
-  "penalty": "",
-  "who": "",
-  "cites": [],
-  "zoning": null,
-  "confidence": "low",
-  "note": "The city site (hereford-tx.com) links no code, and Zoneomics has no Hereford page. Whether the city has zoning wasn't confirmed."
+  "level": "amber",
+  "title": "Hereford: heliports not listed in any district",
+  "text": "Zoning allows land to be used only for uses its district permits, and no district lists a heliport or helipad. The CB and light industrial districts accept unlisted uses that are similar and not offensive, and a special use permit covers objectionable unlisted uses. The code of ordinances has no helicopter landing rule.",
+  "penalty": "Zoning violations: fine up to $100 a day (as printed in the posted ordinance)",
+  "who": "City Commission; Building Official",
+  "cites": [
+   {
+    "t": "Hereford Zoning Ord. 1193 §I(C), §XII(27), §XIII(7), §XV",
+    "u": "https://www.herefordtexas.gov/DocumentCenter/View/199/Zoning-Ordinances-pdf"
+   },
+   {
+    "t": "Hereford Code §14.01.001 (zoning ordinance continued)",
+    "u": "https://ecode360.com/40088609"
+   }
+  ],
+  "zoning": true,
+  "confidence": "medium",
+  "note": "The zoning PDF is a scan; I read it by OCR (no heliport, helicopter, aircraft or airport text). The ecode360 code has no hits for heliport or helicopter. Amber because zoning bars unlisted uses."
  },
  {
   "city": "Hewitt",
@@ -2037,49 +2198,62 @@
   "fips": "4833560",
   "level": "unknown",
   "title": "Hidalgo: code not found online",
-  "text": "No online copy of Hidalgo's zoning or city code could be opened, so no heliport rule was confirmed either way.",
+  "text": "Hidalgo's code of ordinances and zoning ordinance weren't found online. The city site's planning and zoning page has only application forms, and Municode, eCode360 and web searches turned up no copy, so no heliport or landing rule could be checked.",
   "penalty": "",
   "who": "",
-  "cites": [],
+  "cites": [
+   {
+    "t": "City of Hidalgo planning and zoning page",
+    "u": "https://cityofhidalgo.net/planning-zoning"
+   }
+  ],
   "zoning": true,
   "confidence": "low",
-  "note": "Zoning flag assumed. Municode and similar hosts block automated access; no mirror found; searches exhausted."
+  "note": "Zoning flag assumed from the city's change-of-zone application. Municode does not carry Hidalgo."
  },
  {
   "city": "Highland Village",
   "fips": "4833848",
-  "level": "unknown",
-  "title": "Highland Village: heliport rule not checked",
-  "text": "The zoning ordinance defines heliports and helistops, but its Section 29 use charts weren't in the readable text, so it's unclear where they're allowed.",
+  "level": "amber",
+  "title": "Highland Village: heliports by conditional use permit only",
+  "text": "Heliports and helistops need a conditional use permit and are allowed only in the C (commercial) and LI (light industrial) districts. They are barred in all residential, office, retail and planned development districts, and the use chart lists airports in no district.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (conditional use permits)",
   "cites": [
    {
-    "t": "Highland Village Zoning Ord. definitions (heliport/helistop)",
-    "u": "https://www.zoneomics.com/code/highland-village-TX/chapter_6"
+    "t": "Highland Village Zoning Ord. (Exh. 28A) §29 use regulations",
+    "u": "https://ecode360.com/38964629"
+   },
+   {
+    "t": "Highland Village Zoning Ord. §39 (heliport, helistop definitions)",
+    "u": "https://ecode360.com/38965424"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Definitions found; district use charts missing from the readable text."
+  "confidence": "high",
+  "note": "Columns read from the HTML table (C and LI = C). A PD district may set its own uses. Airport row is blank in every district."
  },
  {
   "city": "Horizon City",
   "fips": "4834832",
-  "level": "green",
-  "title": "Horizon City: no heliport or helicopter rule found",
-  "text": "The zoning ordinance's use classifications don't include heliports, helipads or airports, and the text never mentions helicopters. The rest of the city code couldn't be searched.",
+  "level": "amber",
+  "title": "Horizon City: heliports not listed in any district",
+  "text": "Zoning prohibits every use a district doesn't permit, and no district lists a heliport or helipad. The industrial districts accept uses compatible with the listed ones under an approved site plan. The code has no helicopter landing rule, and searches for heliport, helicopter, aircraft and airport found nothing.",
   "penalty": "",
-  "who": "",
+  "who": "Town of Horizon City planning staff",
   "cites": [
    {
-    "t": "Horizon City Zoning Ordinance (use classifications)",
-    "u": "https://www.zoneomics.com/code/horizon-city-TX/chapter_12"
+    "t": "Horizon City Zoning Ord. §808.1 (prohibited uses)",
+    "u": "https://ecode360.com/39711213"
+   },
+   {
+    "t": "Horizon City Zoning Ord. §704 (M-2 industrial uses)",
+    "u": "https://ecode360.com/39711042"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (Zoneomics copy) was searched; the rest of the Horizon City code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because zoning bars unlisted uses (BRIEF2 rule). Whole code searched on ecode360 (HO6532) for heliport, helipad, helicopter, aircraft, airport: zero hits."
  },
  {
   "city": "Houston",
@@ -2106,9 +2280,9 @@
  {
   "city": "Humble",
   "fips": "4835348",
-  "level": "unknown",
-  "title": "Humble: heliport rule not checked",
-  "text": "The city's code of ordinances is on eCode360, which blocks automated access, and no readable copy of the zoning code was found.",
+  "level": "green",
+  "title": "Humble: no helicopter landing rule found",
+  "text": "The code has no zoning ordinance and says nothing about helicopters, heliports, helipads or aircraft landings. Searches of the full code for those words and for 'aircraft' found only an unrelated plumbing table.",
   "penalty": "",
   "who": "",
   "cites": [
@@ -2117,9 +2291,9 @@
     "u": "https://ecode360.com/HU6351"
    }
   ],
-  "zoning": true,
-  "confidence": "low",
-  "note": "Link taken from a search result; not opened."
+  "zoning": false,
+  "confidence": "medium",
+  "note": "No zoning chapter found: the planning chapter covers subdivisions and a preservation district only. Searches of 'landing' returned only land-related text."
  },
  {
   "city": "Huntsville",
@@ -2168,24 +2342,24 @@
  {
   "city": "Hutto",
   "fips": "4835624",
-  "level": "unknown",
-  "title": "Hutto: code not searchable",
-  "text": "Hutto has zoning in its Unified Development Code, but the use table could not be opened, so no heliport rule was confirmed either way.",
+  "level": "amber",
+  "title": "Hutto: heliports aren't a permitted use in any district",
+  "text": "Hutto's Unified Development Code prohibits any use not expressly permitted in a zoning district, and it names no heliport, helipad or airport. Staff may consider an undefined use that is similar to a permitted one. The city code on eCode360 has no landing rule.",
   "penalty": "",
-  "who": "",
+  "who": "Hutto Development Services",
   "cites": [
    {
-    "t": "Hutto UDC (updated through March 2024)",
+    "t": "Hutto UDC §10.304.11 (excluded uses; new and undefined uses)",
     "u": "https://www.huttotx.gov/DocumentCenter/View/3779/UDC-Updated-through-March-2024"
    },
    {
-    "t": "Hutto Code of Ordinances",
-    "u": "https://www.huttotx.gov/468/Code-of-Ordinances"
+    "t": "Hutto Code of Ordinances (searched)",
+    "u": "https://ecode360.com/HU6354"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "City site and code hosts blocked automated downloads; no mirror found. Searches exhausted."
+  "confidence": "medium",
+  "note": "UDC read from the city's March 2024 PDF (362 pages); the city is rewriting its UDC."
  },
  {
   "city": "Ingleside",
@@ -2208,20 +2382,24 @@
  {
   "city": "Iowa Colony",
   "fips": "4836092",
-  "level": "green",
-  "title": "Iowa Colony: no helicopter landing rule found",
-  "text": "Iowa Colony's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields. The general code of ordinances couldn't be searched, so a landing rule there can't be ruled out.",
+  "level": "amber",
+  "title": "Iowa Colony: heliports not listed in any zoning district",
+  "text": "Iowa Colony's zoning allows land to be used only for a purpose permitted in its district, and none of the district rules list heliports or helipads. The development code defines heliport/helipad but doesn't allow it anywhere. Aircraft appear in the code only in a noise defense.",
   "penalty": "",
-  "who": "",
+  "who": "Building Official; Planning and Zoning Commission; City Council",
   "cites": [
    {
-    "t": "Iowa Colony Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/iowa-colony-TX"
+    "t": "Iowa Colony Zoning Ord. (App. A) §30(a) use of land",
+    "u": "https://library.municode.com/tx/iowa_colony/codes/code_of_ordinances?nodeId=PTIICOOR_APXAZOOR"
+   },
+   {
+    "t": "Iowa Colony UDC (App. B) §5.1.1.1 definitions",
+    "u": "https://library.municode.com/tx/iowa_colony/codes/code_of_ordinances?nodeId=PTIICOOR_APXBUNDECO_CH5DE_ART1GEAPDE_DIV1GEDE_S5.1.1.1GEDE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy)."
+  "confidence": "medium",
+  "note": "Whole zoning appendix read: no airport, aircraft or heliport use. Amber rests on the 'only a permitted use' rule; the code names no heliport district."
  },
  {
   "city": "Irving",
@@ -2266,24 +2444,28 @@
  {
   "city": "Katy",
   "fips": "4838476",
-  "level": "green",
-  "title": "Katy: no heliport or helicopter rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or airports. The city's only aircraft provisions are airport hazard zoning limits for Houston Executive Airport, which are height and land-use limits, not landing rules. The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Katy: heliports not listed in any zoning district",
+  "text": "Katy's zoning allows land to be used only for the uses a district lists, and no district lists a heliport or helipad. Commercial districts accept a comparable use if the City Planner finds it fits. The code has no other helicopter landing rule; the airport hazard article only limits height and lighting near Houston Executive Airport.",
+  "penalty": "Zoning violations: fine up to $200 a day",
+  "who": "City Planner; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Katy Code art. 14.02, Exhibit 14A zoning ordinance",
-    "u": "https://www.zoneomics.com/code/katy-TX/chapter_4"
+    "t": "Katy Zoning Ord. §5.1 (use of land)",
+    "u": "https://library.municode.com/tx/katy/codes/code_of_ordinances?nodeId=CH14ZO_EXHIBIT14AZOOR_S5REALDI"
    },
    {
-    "t": "Katy Code art. 14.03 (airport hazard zoning)",
-    "u": "https://www.zoneomics.com/code/katy-TX/chapter_3"
+    "t": "Katy Zoning Ord. §9.1-17 and §10.1-23 (comparable uses)",
+    "u": "https://library.municode.com/tx/katy/codes/code_of_ordinances?nodeId=CH14ZO_EXHIBIT14AZOOR_S9CODI"
+   },
+   {
+    "t": "Katy Zoning Ord. §25.1 (penalty)",
+    "u": "https://library.municode.com/tx/katy/codes/code_of_ordinances?nodeId=CH14ZO_EXHIBIT14AZOOR_S25PEVI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance and airport hazard article (Zoneomics copy) were searched; the rest of the Katy code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because zoning bars unlisted uses (BRIEF2 rule); the code never names a heliport. Searched the full Municode code for heliport, helipad, helicopter, aircraft, landing."
  },
  {
   "city": "Keller",
@@ -2310,15 +2492,28 @@
  {
   "city": "Kennedale",
   "fips": "4838896",
-  "level": "unknown",
-  "title": "Kennedale: heliport rule not checked",
-  "text": "The city's code could not be searched: its likely code host blocks automated access, and no readable copy was found.",
+  "level": "amber",
+  "title": "Kennedale: helicopter pads by special exception only",
+  "text": "A helicopter landing pad is allowed only by special exception, and only in agricultural, C-2 commercial and industrial districts. It isn't allowed in residential, Old Town, C-0, C-1 or Employment Center districts. The pad must follow FAA rules.",
   "penalty": "",
-  "who": "",
-  "cites": [],
+  "who": "City of Kennedale (special exception review, UDC Art. 25)",
+  "cites": [
+   {
+    "t": "Kennedale UDC §11.5 (Helicopter Landing Pad)",
+    "u": "https://library.municode.com/tx/kennedale/codes/code_of_ordinances?nodeId=UNDECO_PTIIIDEPRDEST_ART11SPUSRE_S11.5AIAIHELAPA"
+   },
+   {
+    "t": "Kennedale UDC Table 3.2 (Agricultural and residential uses)",
+    "u": "https://library.municode.com/tx/kennedale/codes/code_of_ordinances?nodeId=UNDECO_PTIIZODIUSRE_ART3AGREDI_S3.2SCUS"
+   },
+   {
+    "t": "Kennedale UDC Table 6.2 (Commercial and industrial uses)",
+    "u": "https://library.municode.com/tx/kennedale/codes/code_of_ordinances?nodeId=UNDECO_PTIIZODIUSRE_ART6COINDI_S6.2SCUS"
+   }
+  ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Code host assumed to be Municode (library.municode.com/tx/kennedale), unverified."
+  "confidence": "high",
+  "note": "Blank cells in the use tables mean not permitted. Only the AG, C-2 and I cells carry an S."
  },
  {
   "city": "Kerrville",
@@ -2341,114 +2536,126 @@
  {
   "city": "Kilgore",
   "fips": "4839124",
-  "level": "unknown",
-  "title": "Kilgore: zoning use table couldn't be read",
-  "text": "Kilgore's zoning (Development Code) use table couldn't be searched, so no heliport or helicopter rule could be confirmed. The rest of the code I could read doesn't mention heliports.",
+  "level": "green",
+  "title": "Kilgore: no helicopter landing rule found",
+  "text": "Kilgore's code on eCode360, including its Development Code (zoning, Appendix A), never mentions heliports, helistops, helipads or landing aircraft. Its only helicopter reference is a fire-service fee when a helicopter landing zone is created.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Kilgore Development Code (Zoneomics copy)",
-    "u": "https://www.zoneomics.com/code/kilgore-TX"
+    "t": "Kilgore City Code and Development Code (searched)",
+    "u": "https://ecode360.com/KI6371"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoneomics returned an error for Article II (zoning districts and uses). Other articles and definitions have no heliport or aircraft mentions."
+  "confidence": "medium",
+  "note": "No unlisted-use clause turned up in search; use tables were not read line by line."
  },
  {
   "city": "Killeen",
   "fips": "4839148",
-  "level": "unknown",
-  "title": "Killeen: code not searchable (Municode blocked)",
-  "text": "Not checked. Killeen's zoning (Chapter 31) and aviation (Chapter 7) rules are on Municode, which blocks automated access. Searches found no heliport or helicopter-landing section.",
+  "level": "amber",
+  "title": "Killeen: heliports not listed in zoning districts",
+  "text": "Killeen's zoning has no heliport or helicopter use. Each district may be used only for the purposes it lists, and the Board of Adjustment decides how any use not named in the chapter is classified. The airport rules in Chapter 7 cover only airport hazard zoning around Skylark Field.",
   "penalty": "",
-  "who": "",
+  "who": "Board of Adjustment; Planning and Development Services",
   "cites": [
    {
-    "t": "Killeen Code of Ordinances, Ch. 31 Zoning and Ch. 7 Aviation",
-    "u": "https://library.municode.com/tx/killeen/codes/code_of_ordinances"
+    "t": "Killeen Code §31-77(a)(9) (classifying unnamed uses)",
+    "u": "https://library.municode.com/tx/killeen/codes/code_of_ordinances?nodeId=PTIICOOR_CH31ZO_ARTIIADEN_DIV3BOADAPVAET_S31-77SPEX"
+   },
+   {
+    "t": "Killeen Code ch. 31 district use lists (e.g. §31-156)",
+    "u": "https://library.municode.com/tx/killeen/codes/code_of_ordinances?nodeId=PTIICOOR_CH31ZO_ARTIVDIRE_DIV2DIAGDI_S31-156USRE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Chapter 31 says buildings may be used only for uses permitted in their district; the use table was not visible."
+  "confidence": "medium",
+  "note": "Only helicopter mentions are fire/police event-plan checklists (Ch. 25) and a cell-tower clause. Amber rests on the 'used only for the following purposes' district rule."
  },
  {
   "city": "Kingsville",
   "fips": "4839352",
-  "level": "unknown",
-  "title": "Kingsville: land use chart not searchable",
-  "text": "Not checked. Kingsville's land use chart (Chapter XV, Article 6) is on Municode, which blocks automated access. The city also has airport-zone rules, which are not landing rules.",
+  "level": "amber",
+  "title": "Kingsville: heliports need a special use permit",
+  "text": "The zoning land use chart lists 'airport, heliport' as a special use in every district except R1 and R2A, where it isn't allowed. A permit is therefore needed even in agricultural, commercial and industrial districts. Unlisted uses are classified by the City Planner.",
   "penalty": "",
-  "who": "",
+  "who": "City of Kingsville (City Planner; special use permit)",
   "cites": [
    {
-    "t": "Kingsville Code of Ordinances, Ch. XV Art. 6 Zoning",
+    "t": "Kingsville Code Ch. XV Art. 6, App. A land use chart",
+    "u": "https://library.municode.com/tx/kingsville/codes/code_of_ordinances?nodeId=PT2COOR_CHXVLAUS_ART6ZO_APXALAUSCA_S1LAUSCH"
+   },
+   {
+    "t": "Kingsville Code §15-6-20 (Unlisted uses)",
     "u": "https://library.municode.com/tx/kingsville/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "high",
+  "note": "Naval Air Station Kingsville's compatible-use rules (Code §15-6-35 ff.) are separate airport-zone rules, not a landing rule."
  },
  {
   "city": "Kyle",
   "fips": "4839952",
-  "level": "unknown",
-  "title": "Kyle: use chart not searchable",
-  "text": "Not checked. Kyle's Chapter 53 zoning defines both heliports and helistops, so the use chart probably lists them, but the chart could not be opened. The city is writing a new Unified Development Code.",
+  "level": "amber",
+  "title": "Kyle: heliports by council permit in three districts",
+  "text": "A heliport is a conditional use the City Council can authorize only in the CM, W and PUD districts. A heliport is also allowed with a hospital in the Hospital Services district if it meets FAA rules. A helistop is an occasional-use pad for aircraft under 6,000 lb.",
   "penalty": "",
-  "who": "",
+  "who": "City Council; Kyle planning staff",
   "cites": [
    {
-    "t": "Kyle Code Ch. 53 Zoning (eCode360)",
-    "u": "https://ecode360.com/45580270"
+    "t": "Kyle Code §53-1047 (authorized conditional uses)",
+    "u": "https://library.municode.com/tx/kyle/codes/code_of_ordinances?nodeId=PTIICOOR_CH53ZO_ARTVICOUS_DIV2PE_S53-1047AUCOUS"
    },
    {
-    "t": "Kyle Ch. 53 zoning definitions (city PDF)",
-    "u": "https://www.cityofkyle.gov/media/wvmkwnkr/zoning_definitions.pdf"
+    "t": "Kyle Code §53-5 (definitions of heliport and helistop)",
+    "u": "https://library.municode.com/tx/kyle/codes/code_of_ordinances?nodeId=PTIICOOR_CH53ZO_ARTIINGE_S53-5DE"
+   },
+   {
+    "t": "Kyle Code ch. 53, Zoning (eCode360, includes §53-633)",
+    "u": "https://ecode360.com/45580270"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Definitions read in the city PDF: helistop = occasional-use pad for aircraft under 6,000 lb; heliport = regularly scheduled use."
+  "confidence": "high",
+  "note": "Same text on Municode and eCode360. No general landing ban found. Helistops are defined but not listed as a use."
  },
  {
   "city": "La Marque",
   "fips": "4841116",
   "level": "red",
   "title": "La Marque allows landings only at licensed heliports",
-  "text": "Taking off or landing any helicopter or aircraft in the city is unlawful except at airports, or at heliports and helistops that hold a city license or special permit. Medical evacuations, emergencies and facilities exempt under section 37-1 are an affirmative defense. Licensed sites must be 1,000 ft from a church, school or home.",
-  "penalty": "",
-  "who": "City of La Marque (heliport and helistop licenses)",
+  "text": "Taking off or landing any helicopter or aircraft anywhere in the city except at an airport or a licensed heliport or helistop is unlawful. Licensed sites can't be within 1,000 ft of a church, school or home, or within 2,400 ft of another site. Temporary licenses cover construction projects (90 days) or ground-level sites (up to 10 days); medical and emergency flights are a defense.",
+  "penalty": "Fine under the city's general penalty (Code §1-7)",
+  "who": "Building official (director); Helicopter Facility Licensing and Appeals Board",
   "cites": [
    {
-    "t": "La Marque Code §37-2 (Chapter 37, Heliports and Helistops)",
-    "u": "https://library.municode.com/tx/la_marque/codes/code_of_ordinances?nodeId=PTIICOOR_CH37HEHE_S37-26TR"
+    "t": "La Marque Code ch. 37, §37-2 (landings and takeoffs prohibited), §37-8, §37-9",
+    "u": "https://library.municode.com/tx/la_marque/codes/code_of_ordinances?nodeId=PTIICOOR_CH37HEHE"
    }
   ],
   "zoning": true,
-  "confidence": "medium",
-  "note": "Text read through search excerpts of Municode; penalty section not seen. Licenses run six years (heliport $1,500, helistop $1,250)."
+  "confidence": "high",
+  "note": "Full chapter 37 read. Licenses run six years (heliport $1,500, helistop $1,250) plus $1,000 yearly inspection; government facilities are exempt."
  },
  {
   "city": "La Porte",
   "fips": "4841440",
   "level": "green",
-  "title": "La Porte: no heliport or helicopter rule found",
-  "text": "La Porte has zoning, and its zoning chapter says nothing about heliports, helistops or helicopter landings. Its Chapter 18 (Aviation) covers airport rules and leases.",
+  "title": "La Porte: no helicopter landing rule found",
+  "text": "The aviation chapter (18) covers only the La Porte municipal airport: its manager, advisory board, ground and landing rules and leases. No code section limits helicopter landings elsewhere, and the zoning chapter names no heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "La Porte Code ch. 106 (Zoning)",
-    "u": "https://www.zoneomics.com/code/la-porte-TX"
+    "t": "La Porte Code ch. 18 (Aviation)",
+    "u": "https://library.municode.com/tx/la_porte/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Chapter 18 (Aviation) text wasn't readable; it may hold landing rules beyond the airport. Zoning searched via Zoneomics only."
+  "confidence": "medium",
+  "note": "'Helicopter' appears only in an airport maintenance-shop definition (§18-181). Municode, Aug 2026."
  },
  {
   "city": "Lago Vista",
@@ -2475,20 +2682,20 @@
  {
   "city": "Lake Jackson",
   "fips": "4840588",
-  "level": "unknown",
-  "title": "Lake Jackson: code not searchable (Municode blocked)",
-  "text": "Not checked. Lake Jackson's zoning (Chapter 110) is on Municode, which blocks automated access. Searches found no heliport or helicopter-landing section.",
+  "level": "amber",
+  "title": "Lake Jackson: landing fields need commission approval",
+  "text": "Airports, landing fields and airport facilities are listed among uses that need Planning Commission approval instead of a building inspector's sign-off. No heliport or helistop is named, and the code has no general ban on landing aircraft.",
   "penalty": "",
-  "who": "",
+  "who": "Planning Commission",
   "cites": [
    {
-    "t": "Lake Jackson Code of Ordinances",
-    "u": "https://library.municode.com/tx/lake_jackson/codes/code_of_ordinances"
+    "t": "Lake Jackson Code §110-10 (special permits)",
+    "u": "https://library.municode.com/tx/lake_jackson/codes/code_of_ordinances?nodeId=PTIICOOR_CH110ZO_ARTIINGE_S110-10SPPE"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": ""
+  "note": "Whether a private helicopter pad counts as a 'landing field' is unclear; only helicopter hit elsewhere is a freeway setback (§95-6)."
  },
  {
   "city": "Lancaster",
@@ -2511,20 +2718,20 @@
  {
   "city": "Laredo",
   "fips": "4841464",
-  "level": "unknown",
-  "title": "Laredo: heliport rule not checked",
-  "text": "The Land Development Code (May 2021 edition) is posted by the city and on Municode, but both block automated access. The only copy found online was an older zoning mirror whose text had no heliport use.",
+  "level": "amber",
+  "title": "Laredo: heliports in farm, industrial, mixed-use",
+  "text": "Laredo's land use chart allows heliports and helistops outright only in the agricultural, M-1, M-2 and mixed-use (MXD) districts. They are not allowed in residential, business or downtown districts, and any use not specifically permitted is prohibited.",
   "penalty": "",
-  "who": "",
+  "who": "Planning Department; City Council (rezoning)",
   "cites": [
    {
-    "t": "Laredo Land Development Code and code ordinances page",
-    "u": "https://www.cityoflaredo.com/departments/planning-and-zoning/code-ordinances"
+    "t": "Laredo Land Development Code §24-63.2 (permitted land uses, use code 4582)",
+    "u": "https://library.municode.com/tx/laredo/codes/land_development_code?nodeId=LADECO_ARTIVZORE_S24-63EFDIGERE_S24-63.2PELAUS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoneomics copy is outdated and has no permitted-use table; hospital definition mentions 'emergency heliports' only."
+  "confidence": "high",
+  "note": "Columns read from the chart's HTML table (X in AG, M-1, M-2, MXD). Code of Ordinances ch. 4 (airport) rules apply only at the airport. No permit route outside those districts."
  },
  {
   "city": "League City",
@@ -2575,36 +2782,44 @@
   "fips": "4842388",
   "level": "green",
   "title": "Leon Valley: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "text": "The full code says nothing about helicopters, heliports, helipads or aircraft landings; aircraft appear only in noise and parking provisions. Zoning district use lists don't name a heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Leon Valley zoning (Ch. 15)",
-    "u": "https://www.zoneomics.com/code/leon-valley-TX"
+    "t": "Leon Valley Code of Ordinances (Municode, Sept 2026)",
+    "u": "https://library.municode.com/tx/leon_valley/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "No general closed-use clause or unlisted-use procedure was found in the zoning article."
  },
  {
   "city": "Levelland",
   "fips": "4842448",
   "level": "green",
   "title": "Levelland: no helicopter landing rule found",
-  "text": "Levelland's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields. The general code of ordinances couldn't be searched, so a landing rule there can't be ruled out.",
+  "text": "Levelland's current zoning ordinance and the rest of its code on eCode360 never mention heliports or helicopters, apart from airport-zoning rules. A zoning rewrite drafted in 2026 would bar unlisted uses and has no heliport row; whether it was adopted wasn't confirmed.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Levelland Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/levelland-TX"
+    "t": "Levelland Zoning Ordinance, Art. 9.500 (current)",
+    "u": "https://www.levellandtexas.org/DocumentCenter/View/6841"
+   },
+   {
+    "t": "Levelland Code of Ordinances (searched)",
+    "u": "https://ecode360.com/LE6387"
+   },
+   {
+    "t": "2026 zoning update page",
+    "u": "https://www.levellandtexas.org/1886/2026-Zoning-Ordinance-Update"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy)."
+  "confidence": "medium",
+  "note": "If the 2026 draft (unlisted uses not allowed; no heliport row) was adopted, this would be amber."
  },
  {
   "city": "Lewisville",
@@ -2685,38 +2900,42 @@
  {
   "city": "Lockhart",
   "fips": "4843240",
-  "level": "unknown",
-  "title": "Lockhart: code not searchable (Municode blocked)",
-  "text": "Not checked. Lockhart's code (zoning is Chapter 64) is on Municode, which blocks automated access. The city's airport hazard zoning ordinance is not a landing rule.",
+  "level": "amber",
+  "title": "Lockhart: unlisted uses like heliports are prohibited",
+  "text": "Lockhart's zoning doesn't list heliports or helicopter landings. A use not listed in any district is prohibited unless the zoning administrator rules it matches a listed use, or the Planning and Zoning Commission decides it is appropriate. The aircraft rules in Chapter 4 cover only the city airport.",
   "penalty": "",
-  "who": "",
+  "who": "Zoning Administrator; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Lockhart Code of Ordinances",
-    "u": "https://library.municode.com/tx/lockhart/codes/code_of_ordinances?nodeId=COORLOTE"
+    "t": "Lockhart Code §64-196(a) (unlisted uses)",
+    "u": "https://library.municode.com/tx/lockhart/codes/code_of_ordinances?nodeId=PTIICOOR_CH64ZO_ARTVIIZODIST_S64-196ESZODI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text anywhere in the code."
  },
  {
   "city": "Longview",
   "fips": "4843888",
-  "level": "unknown",
-  "title": "Longview: code not searchable",
-  "text": "Longview's Code of Ordinances and Unified Development Code are on American Legal, which blocks scripted access, so I couldn't search them for heliport or aircraft landing rules.",
-  "penalty": "",
-  "who": "Planning and Zoning; Zoning Board of Adjustment",
+  "level": "amber",
+  "title": "Longview: aircraft landing places need a council permit",
+  "text": "No one may set up, keep or operate a landing place for aircraft in the city without a written permit from the City Council. 'Aircraft' means any vehicle that can fly and carry a person, so helicopters are covered. Flights must stay above 1,500 ft unless the council authorizes a special flight.",
+  "penalty": "Fine up to $2,000 (general penalty, §1-4)",
+  "who": "Longview City Council (written permit)",
   "cites": [
    {
-    "t": "Longview Code of Ordinances (American Legal)",
-    "u": "https://codelibrary.amlegal.com/codes/longview/latest/"
+    "t": "Longview Code §7-2 (Altitude limitations; landing places)",
+    "u": "https://codelibrary.amlegal.com/codes/longview/latest/longview_tx/0-0-0-1161"
+   },
+   {
+    "t": "Longview Code §1-4 (General penalty)",
+    "u": "https://codelibrary.amlegal.com/codes/longview/latest/longview_tx/0-0-0-677"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The city's site lists a Planning and Zoning meeting and a Zoning Board of Adjustment, so zoning exists. American Legal bot check."
+  "confidence": "high",
+  "note": "Ord. 73 (1948), still in the current American Legal code. Parks rule §81-65 also bars launching aircraft in city parks. No heliport text in the zoning."
  },
  {
   "city": "Lubbock",
@@ -2743,20 +2962,20 @@
  {
   "city": "Lufkin",
   "fips": "4845072",
-  "level": "unknown",
-  "title": "Lufkin: heliport rule not checked",
-  "text": "The zoning ordinance refers to a separate Schedule of Permitted Uses that wasn't in the readable text, and the city's code host blocks automated access.",
+  "level": "amber",
+  "title": "Lufkin: airports and landing fields by special use permit",
+  "text": "Lufkin's zoning schedule lists 'Airport or Landing Field' as needing a special use permit in 13 of its 18 districts, and not permitted in AG, ARO, PUD, RPO and O. No heliport or helicopter is named, and no general landing ban was found.",
   "penalty": "",
-  "who": "",
+  "who": "Planning & Zoning Division, City of Lufkin",
   "cites": [
    {
-    "t": "Lufkin Zoning Ordinance (Zoneomics copy)",
-    "u": "https://www.zoneomics.com/code/lufkin-TX/chapter_1"
+    "t": "Lufkin Zoning Ord. Art. XIX, Schedule of Permitted Uses",
+    "u": "https://ecode360.com/39370900"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "No heliport, helistop or airport text found in the readable zoning text; the use schedule is missing."
+  "confidence": "medium",
+  "note": "Heliport isn't named; 'landing field' is read as covering a helicopter pad. Row read from the table cells."
  },
  {
   "city": "Lumberton",
@@ -2783,96 +3002,112 @@
  {
   "city": "Manor",
   "fips": "4846440",
-  "level": "unknown",
-  "title": "Manor: code not searchable; city guide lists no heliport",
-  "text": "Not checked in the code itself. Manor's zoning (Chapter 14) is on Municode, which blocks automated access. The city's September 2023 Zoning Guide lists no heliport, helistop or helicopter use.",
+  "level": "amber",
+  "title": "Manor: heliports defined but not allowed in any district",
+  "text": "Manor's zoning defines heliports and helistops but its land use tables list neither, and a use with no mark in a district is not allowed there. The development services director classifies any unlisted use. Austin Executive Airport hazard rules (§14.02.034) are not landing rules.",
   "penalty": "",
-  "who": "",
+  "who": "Development Services Director",
   "cites": [
    {
-    "t": "Manor Code Ch. 14 Zoning (Municode)",
-    "u": "https://library.municode.com/tx/manor/codes/code_of_ordinances?nodeId=COOR_CH14ZO"
+    "t": "Manor Code §14.02.005 and §14.02.017 (land use tables, unlisted uses)",
+    "u": "https://library.municode.com/tx/manor/codes/code_of_ordinances?nodeId=COOR_CH14ZO_ART14.02ZODIRE_DIV2REDI_S14.02.005RELAUSTA"
    },
    {
-    "t": "Manor Zoning Guide (Sept. 2023, city PDF)",
-    "u": "https://www.manortx.gov/DocumentCenter/View/508"
+    "t": "Manor Code §14.01.008 (heliport, helistop definitions)",
+    "u": "https://library.municode.com/tx/manor/codes/code_of_ordinances?nodeId=COOR_CH14ZO_ART14.01GE_S14.01.008DE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The guide is a city summary, not the code. Manor's code also has Austin Executive Airport hazard rules (§14.02.034), which are not landing rules."
+  "confidence": "medium",
+  "note": "Read the whole zoning chapter as loaded on Municode: only the definitions mention heliports. Amber rests on the 'no designation means not allowed' rule."
  },
  {
   "city": "Mansfield",
   "fips": "4846452",
-  "level": "unknown",
-  "title": "Mansfield: code not searchable",
-  "text": "Mansfield has zoning (Ch. 155), but its district regulations and supplemental provisions could not be read, so no heliport rule was confirmed either way. The code is on American Legal.",
+  "level": "amber",
+  "title": "Mansfield: heliports by permit in business and industrial",
+  "text": "Heliports need a specific use permit in the C-1, C-2, C-3, I-1 and I-2 districts and are allowed by right in planned developments. They aren't allowed in agricultural, residential or office districts. A heliport must follow FAA rules, keep a safe approach zone, and have no servicing or fueling.",
   "penalty": "",
-  "who": "",
+  "who": "City of Mansfield (specific use permit; City Council)",
   "cites": [
    {
-    "t": "Mansfield Code of Ordinances (American Legal)",
+    "t": "Mansfield Code §155.054 (Permitted uses table)",
+    "u": "https://codelibrary.amlegal.com/codes/mansfieldtx/latest/mansfield_tx/0-0-0-47135"
+   },
+   {
+    "t": "Mansfield Code §155.099(15) (Special conditions: airport landing field and heli…",
     "u": "https://codelibrary.amlegal.com/codes/mansfieldtx/latest/mansfield_tx/0-0-0-49839"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "American Legal blocks automated access; the mirror's district-regulation and supplemental chapters failed to load. Searches exhausted."
+  "confidence": "high",
+  "note": "Read from the current American Legal text. 'S' is a specific use permit; no landing ban elsewhere in the code."
  },
  {
   "city": "Manvel",
   "fips": "4846500",
-  "level": "unknown",
-  "title": "Manvel: code not found online",
-  "text": "Not checked. I could not find Manvel's code of ordinances or a zoning ordinance on a host that allows automated access.",
-  "penalty": "",
-  "who": "",
+  "level": "red",
+  "title": "Manvel bans landings outside licensed airports and heliports",
+  "text": "It is unlawful to take off or land any aircraft in the city except at an airport or heliport licensed by the City Council. Emergency landing sites and agricultural aircraft use are exempt. The license costs $5 and lasts three years.",
+  "penalty": "General penalty (§1-4): up to $2,000 for safety and zoning rules",
+  "who": "City Council (issues licenses)",
   "cites": [
    {
-    "t": "Manvel city website",
-    "u": "https://www.cityofmanvel.com/"
+    "t": "Manvel Code §11-7 (landings and takeoffs of aircraft)",
+    "u": "https://library.municode.com/tx/manvel/codes/code_of_ordinances?nodeId=PAIICOOR_CH11AV_ARTIINGE_S11-7LATAAI"
+   },
+   {
+    "t": "Manvel Code §11-37 (license required; fee)",
+    "u": "https://library.municode.com/tx/manvel/codes/code_of_ordinances?nodeId=PAIICOOR_CH11AV_ARTIILI_S11-37REFE"
+   },
+   {
+    "t": "Manvel Code §11-39 (issuance)",
+    "u": "https://library.municode.com/tx/manvel/codes/code_of_ordinances?nodeId=PAIICOOR_CH11AV_ARTIILI_S11-39IS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "A Zoneomics zoning index exists for Manvel but has no readable text."
+  "confidence": "high",
+  "note": "The council licenses a heliport once it finds the site suitable (§11-39, §11-41 factors). Aviation chapter has no penalty clause of its own."
  },
  {
   "city": "Marshall",
   "fips": "4846776",
   "level": "unknown",
-  "title": "Marshall: code could not be searched",
-  "text": "Marshall's code of ordinances is on Municode, which blocks automated access, so no heliport or helicopter rule could be checked.",
+  "title": "Marshall: zoning text isn't in the online code",
+  "text": "Marshall has had zoning since 1951 (Chapter 32), but the online code marks that chapter reserved, so its use rules couldn't be read. The rest of the code has no heliport, helicopter or aircraft-landing rule; its aviation chapter only creates an airport zoning board.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Development; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Marshall Code of Ordinances (Municode)",
-    "u": "https://library.municode.com/tx/marshall/codes/code_of_ordinances"
+    "t": "Marshall Code ch. 32 (zoning, reserved) and ch. 5 (aviation)",
+    "u": "https://library.municode.com/tx/marshall/codes/code_of_ordinances?nodeId=PTIICOOR_CH32ZORE"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Zoneomics has no zoning text for Marshall. Zoning status assumed, not confirmed."
+  "note": "City council rezoning ordinances cite Ord. O-87-13, Chapter 32. Zoning ordinance text not found on Municode or the city site."
  },
  {
   "city": "McAllen",
   "fips": "4845384",
-  "level": "green",
-  "title": "McAllen: no heliport or helicopter rule found",
-  "text": "McAllen has zoning, but its Unified Development Code lists only airports as an aviation use and says nothing about heliports, helistops or helicopter landings. No city rule on private helicopter landings turned up.",
+  "level": "amber",
+  "title": "McAllen: airport-type uses only in A-O and industrial zones",
+  "text": "The Unified Development Code doesn't name heliports or helicopter pads. The Planning Director places unlisted uses by similarity, and the closest listed use, an airport (any place where aircraft land and take off), is allowed only in the A-O, I-1 and I-2 districts.",
   "penalty": "",
-  "who": "",
+  "who": "City of McAllen (Planning Director)",
   "cites": [
    {
-    "t": "McAllen Unified Development Code (Ord. 2026-16), Ch. 3 Uses",
-    "u": "https://www.zoneomics.com/code/mcallen-TX/chapter_3"
+    "t": "McAllen UDC §3.1.3 (Use table) and §3.1.3.C (Unlisted uses)",
+    "u": "https://ecode360.com/50753115"
+   },
+   {
+    "t": "McAllen UDC §10.2.1 (Defined terms: Airport)",
+    "u": "https://ecode360.com/50757406"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Searched only the UDC text via Zoneomics; McAllen's general code on Municode couldn't be searched, so a landing ban there isn't ruled out."
+  "note": "Amber is inferred from the 'airport' use; no heliport or helicopter text in the whole code (eCode360). Chapter 18 (Aviation) covers only the airport."
  },
  {
   "city": "McKinney",
@@ -2915,18 +3150,18 @@
   "fips": "4847700",
   "level": "green",
   "title": "Mercedes: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "text": "Mercedes' code on eCode360 never mentions heliports, helistops, helipads or helicopters; its only aircraft hits are junked-vehicle rules and a joint airport zoning board. The first pass found none in the zoning ordinance either.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Mercedes zoning ordinance",
-    "u": "https://www.zoneomics.com/code/mercedes-TX"
+    "t": "Mercedes Code of Ordinances (searched)",
+    "u": "https://ecode360.com/ME6403"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable."
+  "confidence": "medium",
+  "note": "The zoning ordinance isn't in the eCode360 code; its text was read only in a first-pass Zoneomics copy."
  },
  {
   "city": "Mesquite",
@@ -2971,24 +3206,24 @@
  {
   "city": "Midlothian",
   "fips": "4848096",
-  "level": "unknown",
-  "title": "Midlothian: heliport use is defined, table unreadable",
-  "text": "Midlothian's zoning code defines 'Airport, Heliport, Helipad, or Helistop' as a land use, so a district or permit rule likely exists, but I couldn't read the use matrix or the rest of the code (eCode360 blocks scripted access).",
+  "level": "amber",
+  "title": "Midlothian: heliports by specific use permit only",
+  "text": "Airports, heliports, helipads and helistops are allowed only with a specific use permit, in the agricultural, commercial, light, medium and heavy industrial districts. They aren't allowed in residential, general professional, community retail or downtown districts.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Midlothian Code of Ordinances (eCode360)",
-    "u": "https://ecode360.com/MI6405"
+    "t": "Midlothian Zoning Ord. (Exh. 14A) §2.04 use table, line T1",
+    "u": "https://ecode360.com/39982018"
    },
    {
-    "t": "Midlothian zoning definitions (Zoneomics copy)",
-    "u": "https://www.zoneomics.com/code/midlothian-TX/chapter_11"
+    "t": "Midlothian Zoning Ord. §100.100 (definition)",
+    "u": "https://ecode360.com/39984003"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The Zoneomics copy of the use matrix is corrupted (repeats the residential table). Airport Overlay (Div. 6) is airport hazard zoning only."
+  "confidence": "medium",
+  "note": "Columns read from the HTML table; the N8 (North 8th Street) column has a '+' mark the text doesn't explain. Hospital accessory helipads are set in a 2018 ordinance."
  },
  {
   "city": "Mineral Wells",
@@ -3035,36 +3270,36 @@
   "fips": "4848804",
   "level": "green",
   "title": "Missouri City: no helicopter landing rule found",
-  "text": "Missouri City's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields. The general code of ordinances couldn't be searched, so a landing rule there can't be ruled out.",
+  "text": "The full code says nothing about helicopters, heliports, helipads or aircraft landings or takeoffs. Zoning district use lists don't name a heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Missouri City Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/missouri-city-TX"
+    "t": "Missouri City Code of Ordinances (Municode, June 2026)",
+    "u": "https://library.municode.com/tx/missouri_city/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy). Municode blocks automated access."
+  "confidence": "medium",
+  "note": "District regulations list permitted uses; no general closed-use clause or unlisted-use procedure was found."
  },
  {
   "city": "Mont Belvieu",
   "fips": "4849068",
-  "level": "green",
-  "title": "Mont Belvieu: no heliport rule found in the zoning code",
-  "text": "The land use table and district regulations don't list heliports, helistops or helicopter landings. A use the planner finds isn't listed is classified by the city planner.",
-  "penalty": "",
-  "who": "City planner",
+  "level": "amber",
+  "title": "Mont Belvieu: airports, heliports, or the mayor's written OK",
+  "text": "Landing or taking off an aircraft anywhere in the city is unlawful unless at a designated and authorized airport or heliport, or with the mayor's written permission. Law enforcement and rescue or lifesaving flights are exempt. Violators face a misdemeanor charge and aircraft impoundment.",
+  "penalty": "Misdemeanor; aircraft may be impounded",
+  "who": "Mayor or designee; Chief of Police",
   "cites": [
    {
-    "t": "Mont Belvieu Code §42-193 (land use table) and §42-106 (unlisted uses)",
-    "u": "https://www.zoneomics.com/code/mont-belvieu-TX/chapter_3"
+    "t": "Mont Belvieu Code §24-4 (landing of aircraft)",
+    "u": "https://library.municode.com/tx/mont_belvieu/codes/code_of_ordinances?nodeId=COOR_CH24OF_ARTIINGE_S24-4LAAI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoning read on a Zoneomics copy; Municode/AMLegal block fetching, so non-zoning chapters weren't searched."
+  "confidence": "medium",
+  "note": "Close to red; amber because the mayor can grant written permission for other places, as in Horseshoe Bay."
  },
  {
   "city": "Mount Pleasant",
@@ -3091,64 +3326,68 @@
  {
   "city": "Murphy",
   "fips": "4850100",
-  "level": "unknown",
-  "title": "Murphy: zoning use chart couldn't be read",
-  "text": "Murphy's zoning code defines 'heliport' and 'helistop' and allows only uses its use charts mark P (permitted) or S (specific use permit). The charts are in Appendix A-3, which wasn't in the copy I could read, so the districts and permits weren't confirmed.",
+  "level": "amber",
+  "title": "Murphy: heliports only by specific use permit",
+  "text": "A heliport needs a specific use permit and is listed only in the LC light commercial district. A helistop (no refueling, repair or storage) can get a permit in the NS, R and LC districts. Neither use is allowed in residential, office or business park districts. The code has no other helicopter landing rule.",
   "penalty": "",
-  "who": "Planning Dept.; City Council (specific use permits)",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Murphy Zoning Code §30.06.001-.002 (use charts, Appendix A-3)",
-    "u": "https://www.zoneomics.com/code/murphy-TX/chapter_6"
+    "t": "Murphy Zoning Ch. 30, Appendix A-3 Use Regulations (§30.06.002)",
+    "u": "https://ecode360.com/attachment/336634/MU6414-030c%20Appendix%20A-3.%20Use%20Regulations.pdf"
    },
    {
-    "t": "Murphy Zoning Code §30.01.006 (definitions: heliport, helistop)",
-    "u": "https://www.zoneomics.com/code/murphy-TX/chapter_1"
+    "t": "Murphy Code §30.01.006 (definitions of heliport and helistop)",
+    "u": "https://ecode360.com/39769672"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Appendix A-3 is missing from the Zoneomics copy. Likely amber (a listed use), but unconfirmed; needs a manual look at the chart."
+  "confidence": "high",
+  "note": "Read the use chart PDF on ecode360 by column position. Noise article §14.04.013 only says aircraft operations must follow federal rules. The Municode and elaws hosts were not usable."
  },
  {
   "city": "Nacogdoches",
   "fips": "4850256",
-  "level": "green",
-  "title": "Nacogdoches: no heliport or helicopter rule found",
-  "text": "Zoning regulates only 'airport or landing field', defined as a fixed-wing facility of 60 acres or more, by specific use permit in B-2, I-1 and I-2. Heliports and helicopter landings aren't mentioned; unlisted uses go to the planning commission and council.",
-  "penalty": "",
-  "who": "Planning & Zoning Commission; City Council",
+  "level": "red",
+  "title": "Nacogdoches bars low flying except over the airfield",
+  "text": "It's unlawful to operate any aircraft within 1,000 ft of the ground anywhere in the city, except over the municipal airfield. The rule has no exception for takeoffs, landings or emergency flights, so a helicopter landing elsewhere breaks it as written. Zoning lists no heliport; only fixed-wing airports of 60+ acres, by permit.",
+  "penalty": "Fine up to $500; each street flown over is a separate offense",
+  "who": "Police; City Planner (zoning)",
   "cites": [
    {
-    "t": "Nacogdoches Code §118-273 (land use schedule)",
-    "u": "https://www.zoneomics.com/code/nacogdoches-TX/chapter_3"
+    "t": "Nacogdoches Code §10-4 (flying too low)",
+    "u": "https://library.municode.com/tx/nacogdoches/codes/code_of_ordinances?nodeId=PTIICOOR_CH10AV_ARTIINGE_S10-4FLTOLOSTFL"
    },
    {
-    "t": "Nacogdoches Code §118-307 (new and unlisted uses)",
-    "u": "https://www.zoneomics.com/code/nacogdoches-TX/chapter_4"
+    "t": "Nacogdoches Code §118-273 (land use schedule)",
+    "u": "https://library.municode.com/tx/nacogdoches/codes/code_of_ordinances?nodeId=PTIICOOR_CH118ZO_ARTIIIDIRE_S118-273LAUSSC"
+   },
+   {
+    "t": "Nacogdoches Code §1-14 (general penalty)",
+    "u": "https://library.municode.com/tx/nacogdoches/codes/code_of_ordinances?nodeId=PTIICOOR_CH1GEPR_S1-14GEPECOVI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning chapter (Zoneomics copy) was searched; the rest of the Nacogdoches code wasn't searchable."
+  "confidence": "medium",
+  "note": "Red is a reading of the 1,000 ft rule: it never mentions landing, but a landing needs flight below 1,000 ft. Unlisted uses are barred by zoning, so a heliport would be amber at best."
  },
  {
   "city": "Nederland",
   "fips": "4850580",
-  "level": "green",
-  "title": "Nederland: no heliport rule found",
-  "text": "Nederland's zoning schedule of permitted uses lists no airport, heliport or helicopter use. The only aviation text is a rule that structures must respect airport hazard height limits.",
+  "level": "amber",
+  "title": "Nederland: heliports not listed, needs a commission ruling",
+  "text": "Nederland's zoning doesn't list heliports or helicopter landings. Land may be used only as the district allows, and an unlisted use is sent to the Planning and Zoning Commission, which proposes a classification that the City Council can approve, change or deny. Nothing else in the code covers helicopters.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council",
   "cites": [
    {
-    "t": "Nederland Zoning, subch. C §13.2 (Schedule of permitted uses)",
-    "u": "https://www.zoneomics.com/code/nederland-TX/chapter_3"
+    "t": "Nederland Zoning (App. A) subch. A §4 compliance and §6 new and unlisted uses",
+    "u": "https://library.municode.com/tx/nederland/codes/code_of_ordinances?nodeId=APXAZO_SUBCHAPTER_AGEPR_S6ZODI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning code only (mirror of 5 subchapters). The general code was not searchable."
+  "confidence": "medium",
+  "note": "Whole zoning appendix and Chapter 14 (aviation, airport zoning board only) read: no heliport, helicopter or aircraft landing text. Amber rests on the unlisted-use process."
  },
  {
   "city": "New Braunfels",
@@ -3281,20 +3520,24 @@
  {
   "city": "Palmview",
   "fips": "4854804",
-  "level": "unknown",
-  "title": "Palmview: code not found online",
-  "text": "Not checked. I could not find Palmview's code of ordinances on a host that allows automated access.",
+  "level": "green",
+  "title": "Palmview: no helicopter landing rule found",
+  "text": "The code has no heliport, helipad, airport or aircraft landing rule. The only helicopter mention is a fire department fee for creating a helicopter landing zone. Zoning (ch. 156) lists districts and conditional uses but no heliport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Palmview city website",
-    "u": "https://www.palmviewtexas.com/"
+    "t": "Palmview Code §31.31 (Fire fees: landing zone)",
+    "u": "https://codelibrary.amlegal.com/codes/palmview/latest/overview"
+   },
+   {
+    "t": "Palmview Code ch. 156 (Zoning and land use)",
+    "u": "https://codelibrary.amlegal.com/codes/palmview/latest/overview"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "A Zoneomics zoning index exists for Palmview but has no readable text."
+  "confidence": "medium",
+  "note": "Read on American Legal (current). The $1,520 landing-zone fee is billed by the fire department when a helicopter landing zone is created."
  },
  {
   "city": "Pampa",
@@ -3339,24 +3582,20 @@
  {
   "city": "Pasadena",
   "fips": "4856000",
-  "level": "unknown",
-  "title": "Pasadena: no zoning; city code not searched",
-  "text": "Pasadena says it is a non-zoned city with a set of land development rules (fences, towers, parking and the like). I couldn't search its Code of Ordinances for aircraft or helicopter rules, so the level is unknown.",
+  "level": "green",
+  "title": "Pasadena: no zoning; landing rule only for the fairgrounds",
+  "text": "Pasadena has no zoning ordinance, and its code on Municode has no heliport or aircraft-landing rule. The one helicopter rule covers the city fairgrounds, where landings need written permission from the facility director at least six weeks before an event.",
   "penalty": "",
-  "who": "Planning Department",
+  "who": "Director of the fairgrounds facility",
   "cites": [
    {
-    "t": "Pasadena zoning page (non-zoned city)",
-    "u": "https://www.pasadenatx.gov/287/Zoning"
-   },
-   {
-    "t": "Pasadena Code of Ordinances (Municode)",
+    "t": "Pasadena Code §24-39(pp) (fairgrounds policies: helicopters)",
     "u": "https://library.municode.com/tx/pasadena/codes/code_of_ordinances"
    }
   ],
   "zoning": false,
-  "confidence": "low",
-  "note": "Municode blocks scripted access (bot check). The city's posted development ordinances list nothing on heliports."
+  "confidence": "medium",
+  "note": "No zoning district text anywhere in the Municode code (a planning and zoning commission exists for plats)."
  },
  {
   "city": "Pearland",
@@ -3379,56 +3618,64 @@
  {
   "city": "Pflugerville",
   "fips": "4857176",
-  "level": "green",
-  "title": "Pflugerville: no heliport rule found in the zoning code",
-  "text": "The Unified Development Code's use tables don't list heliports, helistops or helicopter landings. Its only aviation rules cover the Austin Executive Airport hazard zone. A use that isn't listed isn't allowed in a district unless the city classifies it.",
+  "level": "amber",
+  "title": "Pflugerville: heliports not listed, so not allowed",
+  "text": "Pflugerville's land use tables list no heliport, helipad or airport use; a use with no mark in a district is not allowed there, and the Administrator classifies any unlisted use. Heliports appear only as accessory uses in the hospital and event center definitions. Airport rules cover only the Austin Executive Airport hazard overlay.",
   "penalty": "",
-  "who": "",
+  "who": "UDC Administrator (Planning Department)",
   "cites": [
    {
-    "t": "Pflugerville Unified Development Code ch. 4 (use tables)",
-    "u": "https://www.zoneomics.com/code/pflugerville-TX/chapter_2"
+    "t": "Pflugerville UDC §4.2.2, §4.3.2, §4.4.2 (land use tables, unlisted uses)",
+    "u": "https://online.encodeplus.com/regs/pflugerville/index.aspx"
+   },
+   {
+    "t": "Pflugerville Code of Ordinances (eCode360)",
+    "u": "https://ecode360.com/PF6442"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Heliport isn't a listed use, so a zoning interpretation may be needed. Zoning read on a Zoneomics copy; Municode/AMLegal block fetching, so non-zoning chapters weren't searched."
+  "confidence": "medium",
+  "note": "UDC (enCodePlus) and Code of Ordinances (eCode360) both searched. No heliport, helicopter or aircraft landing rule; code mentions helicopter only in the noise defenses (§94.04)."
  },
  {
   "city": "Pharr",
   "fips": "4857200",
   "level": "green",
-  "title": "Pharr: no heliport or helicopter rule found",
-  "text": "Pharr has zoning, and its zoning text doesn't mention heliports, helistops or helicopters. The only aviation use is \"landing strips\", a conditional use in the Agricultural district, which may not cover helipads.",
+  "title": "Pharr: no helicopter landing rule found",
+  "text": "The full code has no heliport, helipad or aircraft landing rule; its only helicopter mention is in ambulance regulations. Unlisted land uses go to the planning director and Planning and Zoning Commission to classify.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Pharr Zoning Ord. Art. I, Agricultural district conditional uses",
-    "u": "https://www.zoneomics.com/code/pharr-TX/chapter_2"
+    "t": "Pharr Code §1.83 (New and unlisted uses)",
+    "u": "https://library.municode.com/tx/pharr/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; Pharr's Municode general code blocks automated access, so a landing ban there isn't ruled out."
+  "confidence": "medium",
+  "note": "Municode, Apr 2026."
  },
  {
   "city": "Plainview",
   "fips": "4857980",
-  "level": "unknown",
-  "title": "Plainview: heliport rule not checked",
-  "text": "The city's code of ordinances is on eCode360, which blocks automated access, and no readable copy of the zoning code was found.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Plainview: landings need a city permit",
+  "text": "It is unlawful to take off or land any aircraft in the city, or let one do so, without a permit from the director of municipal services, unless it is a public airport the airport board has approved. The director decides within five days. Emergency, law enforcement and government flights are exempt.",
+  "penalty": "General penalty (§1.01.009)",
+  "who": "Director of Municipal Services; City Manager (appeals)",
   "cites": [
    {
-    "t": "Plainview Code of Ordinances (eCode360)",
-    "u": "https://ecode360.com/PL6447"
+    "t": "Plainview Code §1.14.066 (regulation of aircraft activity)",
+    "u": "https://ecode360.com/39792007"
+   },
+   {
+    "t": "Plainview Code §14.04.002(23) (helipad, hospital or public safety)",
+    "u": "https://ecode360.com/39796867"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Link taken from the city's website."
+  "confidence": "high",
+  "note": "A permit is per aircraft activity (dates, route, insurance), not a standing heliport license. A hospital helipad must be 1,000 ft from homes, churches, schools and parks."
  },
  {
   "city": "Plano",
@@ -3456,19 +3703,23 @@
   "city": "Pleasanton",
   "fips": "4858280",
   "level": "unknown",
-  "title": "Pleasanton: code found but not searchable",
-  "text": "Pleasanton's code of ordinances is on American Legal, but I couldn't search its zoning or aviation text, so no heliport or helicopter rule could be confirmed. Its airport rules and airport zoning board are separate matters.",
-  "penalty": "",
-  "who": "",
+  "title": "Pleasanton: zoning text isn't online",
+  "text": "Pleasanton has zoning (nine districts adopted in 1999), but its district use rules are in an attachment that isn't in the online code. The rest of the code has no heliport or landing rule; its aircraft rules (§10.28) cover only the city airport.",
+  "penalty": "Zoning fine of $200 per offense, each day separate (§153.02)",
+  "who": "Zoning Commission; Community Development Services",
   "cites": [
    {
-    "t": "Pleasanton Code of Ordinances (American Legal)",
+    "t": "Pleasanton Code §153.02 (general zoning)",
+    "u": "https://codelibrary.amlegal.com/codes/pleasanton/latest/pleasanton_tx/0-0-0-4435"
+   },
+   {
+    "t": "Pleasanton Code §10.28 (airport rules)",
     "u": "https://codelibrary.amlegal.com/codes/pleasanton/latest/pleasanton_tx/0-0-0-761"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "American Legal blocked automated access and the Zoneomics copy has no text. Whether the city has zoning wasn't confirmed."
+  "note": "American Legal search found no heliport/helistop/helipad; zoning ordinance (Ord. 1163, Attachment 1) is not on AMLegal or the city site, so district use lists weren't read."
  },
  {
   "city": "Port Arthur",
@@ -3495,33 +3746,46 @@
  {
   "city": "Port Lavaca",
   "fips": "4858916",
-  "level": "unknown",
-  "title": "Port Lavaca: code not found online",
-  "text": "No online copy of Port Lavaca's zoning or city code could be opened, so no heliport rule was confirmed either way.",
-  "penalty": "",
-  "who": "",
-  "cites": [],
-  "zoning": true,
-  "confidence": "low",
-  "note": "Zoning flag assumed. Municode and similar hosts block automated access; no mirror found; searches exhausted."
- },
- {
-  "city": "Port Neches",
-  "fips": "4858940",
-  "level": "unknown",
-  "title": "Port Neches: code not found online",
-  "text": "Not checked. I could not find Port Neches' code of ordinances on a host that allows automated access.",
+  "level": "green",
+  "title": "Port Lavaca: no helicopter landing rule found",
+  "text": "The code of ordinances has no heliport, helipad, helicopter or airport rule, and no zoning chapter. The charter allows zoning, and the city has a Zoning Advisory Committee drafting a Unified Development Code that isn't adopted yet.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Port Neches zoning index (Zoneomics)",
-    "u": "https://www.zoneomics.com/code/port-neches-TX"
+    "t": "Port Lavaca Code of Ordinances (Municode, July 2026)",
+    "u": "https://library.municode.com/tx/port_lavaca/codes/code_of_ordinances"
+   },
+   {
+    "t": "Port Lavaca Zoning Advisory Committee (draft UDC)",
+    "u": "https://www.portlavaca.gov/169/Zoning-Advisory-Committee"
+   }
+  ],
+  "zoning": false,
+  "confidence": "low",
+  "note": "Whether Port Lavaca has an adopted zoning ordinance outside the Municode code wasn't confirmed."
+ },
+ {
+  "city": "Port Neches",
+  "fips": "4858940",
+  "level": "amber",
+  "title": "Port Neches: heliports only in industrial districts",
+  "text": "Heliports are a conditional use in the Industrial-Light and Industrial-Heavy districts only, and are not allowed in any residential, business or downtown district. A conditional use permit needs City Council approval.",
+  "penalty": "",
+  "who": "City Council; Planning and Zoning Commission",
+  "cites": [
+   {
+    "t": "Port Neches Zoning Matrix, Code App. B",
+    "u": "https://library.municode.com/tx/port_neches/codes/code_of_ordinances?nodeId=PTIICOOR_CH126ZO_APXBZODIMA"
+   },
+   {
+    "t": "Port Neches Code §126.4.11 (I-L Industrial-Light)",
+    "u": "https://library.municode.com/tx/port_neches/codes/code_of_ordinances?nodeId=PTIICOOR_CH126ZO_ART126.4SCDIRE_S126.4.11INGH"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "The city's own site did not load."
+  "confidence": "high",
+  "note": "Search of the whole code found no landing rule outside zoning."
  },
  {
   "city": "Portland",
@@ -3544,20 +3808,24 @@
  {
   "city": "Princeton",
   "fips": "4859576",
-  "level": "unknown",
-  "title": "Princeton: code not searchable (Municode blocked)",
-  "text": "Not checked. Princeton's code (zoning is Chapter 82) is on Municode, which blocks automated access. Searches found no heliport or helicopter-landing section.",
+  "level": "amber",
+  "title": "Princeton: heliports need a specific use permit",
+  "text": "Airports, heliports and landing fields need a specific use permit in agricultural, general commercial and both manufacturing districts. Helistops need one in agricultural, neighborhood convenience, light retail and general commercial districts, and are allowed outright only in the two manufacturing districts. Neither is allowed in residential districts.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; City Council (specific use permits)",
   "cites": [
    {
-    "t": "Princeton Code of Ordinances",
-    "u": "https://library.municode.com/tx/princeton"
+    "t": "Princeton Code §82-27 (zoning use chart)",
+    "u": "https://library.municode.com/tx/princeton/codes/code_of_ordinances?nodeId=COOR_CH82ZO_ARTVIUSLABU_S82-27ZOUSCH"
+   },
+   {
+    "t": "Princeton Code §82-28 (use definitions)",
+    "u": "https://library.municode.com/tx/princeton/codes/code_of_ordinances?nodeId=COOR_CH82ZO_ARTVIUSLABU_S82-28DEDEUS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "high",
+  "note": "Chart columns read from the HTML table. Parks code §50-6 separately bars launching aircraft, including helicopters, in city parks without approval."
  },
  {
   "city": "Prosper",
@@ -3585,37 +3853,37 @@
   "city": "Providence Village",
   "fips": "4859748",
   "level": "unknown",
-  "title": "Providence Village: use chart not readable",
-  "text": "The zoning ordinance defines 'airport; heliport' as a transportation use, but the district use chart could not be read, so where, or if, it's allowed is unconfirmed.",
+  "title": "Providence Village: zoning use chart not readable",
+  "text": "The zoning ordinance (a third-party copy) lists 'Airport; Heliport' as a use, but the district use chart isn't in any copy that could be read, and no official code host was found.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Providence Village Zoning §24.3 (use descriptions)",
+    "t": "Providence Village Zoning Ordinance §24.3 (Zoneomics copy)",
     "u": "https://www.zoneomics.com/code/providence-village-TX/chapter_22"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "The mirror omits the use chart. Searches exhausted before another source could be found."
+  "note": "Not on Municode or American Legal. The district chapters (§6 to §16) in the copy never mention airports or heliports."
  },
  {
   "city": "Raymondville",
   "fips": "4860836",
   "level": "unknown",
-  "title": "Raymondville: code not found online",
-  "text": "Not checked. I could not find Raymondville's code of ordinances on a host that allows automated access.",
+  "title": "Raymondville: code not searchable online",
+  "text": "Raymondville posts its ordinances only as scanned PDFs on the city site, including a short Zoning Ordinance 201. The scans have no searchable text and the city isn't on Municode, so no heliport or landing rule could be checked.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Raymondville city website",
-    "u": "https://www.raymondvilletx.com/"
+    "t": "Raymondville Zoning Ordinance 201 (scanned PDF)",
+    "u": "https://raymondvilletx.us/wp-content/uploads/2025/09/Zoning-Ordinance-201.pdf"
    }
   ],
-  "zoning": null,
+  "zoning": true,
   "confidence": "low",
-  "note": ""
+  "note": "The zoning PDF is 8 scanned pages with no text layer."
  },
  {
   "city": "Red Oak",
@@ -3642,24 +3910,24 @@
  {
   "city": "Richardson",
   "fips": "4861796",
-  "level": "unknown",
-  "title": "Richardson: zoning code not searchable (Municode blocked)",
-  "text": "Not checked. Richardson's Comprehensive Zoning Ordinance (special permits in Article XXII-A; supplemental use rules in XXII-E) is on Municode and cor.net, both of which block automated access.",
+  "level": "amber",
+  "title": "Richardson: helipads only by special permit",
+  "text": "A helipad needs a special permit, and only in commercial (C-M), office (O-M, TO-M), planned development (PD) or industrial districts. Any use not listed as allowed in the zoning ordinance is also a special permit use. City parks bar operating a helicopter.",
   "penalty": "",
-  "who": "",
+  "who": "Plan Commission; City Council (special permits)",
   "cites": [
    {
-    "t": "Richardson Comprehensive Zoning Ordinance (city page)",
-    "u": "https://www.cor.net/departments/development-services/regulations-and-guidelines/comprehensive-zoning-ordinance"
+    "t": "Richardson Zoning Ord. (App. A) art. XXII-A §2(a), (b)(24)",
+    "u": "https://library.municode.com/tx/richardson/codes/code_of_ordinances?nodeId=PTIICOOR_APXACOZOOR1956_ARTXXII-ASPPE_S2USRE"
    },
    {
-    "t": "Richardson Code, Appendix A (Municode)",
-    "u": "https://library.municode.com/tx/richardson/codes/code_of_ordinances?nodeId=PTIICOOR_APXACOZOOR1956_ARTIIZOREGE"
+    "t": "Richardson Code §15-61 (parks)",
+    "u": "https://library.municode.com/tx/richardson/codes/code_of_ordinances?nodeId=PTIICOOR_CH15PARE_ARTIIIPARU_S15-61UNAC"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "high",
+  "note": "Special permit authority and body inferred from the article's title; no heliport or helistop text, only helipad. Aircraft appear only in definitions."
  },
  {
   "city": "Richmond",
@@ -3682,15 +3950,20 @@
  {
   "city": "Rio Grande City",
   "fips": "4862168",
-  "level": "unknown",
-  "title": "Rio Grande City: code not found online",
-  "text": "I couldn't find or search Rio Grande City's code of ordinances or zoning text online, so no heliport or helicopter rule could be confirmed either way.",
+  "level": "green",
+  "title": "Rio Grande City: no helicopter landing rule found",
+  "text": "The full code has no heliport, helipad, helicopter or aircraft landing rule. Its aviation provisions cover trespass on the airport's runways and taxiways. Zoning (ch. 44) names no heliport.",
   "penalty": "",
   "who": "",
-  "cites": [],
+  "cites": [
+   {
+    "t": "Rio Grande City Code §24-2 (Trespass on runways)",
+    "u": "https://library.municode.com/tx/rio_grande_city/codes/code_of_ordinances"
+   }
+  ],
   "zoning": true,
-  "confidence": "low",
-  "note": "No code URL found; searches turned up only other cities. Whether the city has zoning wasn't confirmed."
+  "confidence": "medium",
+  "note": "Municode, Mar 2026. No closed-use clause or unlisted-use procedure was found."
  },
  {
   "city": "Roanoke",
@@ -3732,41 +4005,45 @@
   "city": "Robstown",
   "fips": "4862600",
   "level": "green",
-  "title": "Robstown: no heliport or helicopter rule found",
-  "text": "Robstown has zoning, and its zoning text says nothing about heliports, helistops, helicopters or aircraft landings.",
+  "title": "Robstown: no helicopter landing rule found",
+  "text": "Robstown's code on eCode360, including Chapter 14 (Zoning), never mentions heliports, helistops, helipads or helicopters. Its aircraft hits are airport zoning ordinances for the Nueces County airport.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Robstown Zoning Ord.",
-    "u": "https://www.zoneomics.com/code/robstown-TX"
+    "t": "Robstown Code of Ordinances (searched; ch. 14 Zoning)",
+    "u": "https://ecode360.com/RO6460"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; the general code wasn't searchable."
+  "confidence": "medium",
+  "note": "No unlisted-use clause turned up in search."
  },
  {
   "city": "Rockport",
   "fips": "4862804",
-  "level": "green",
-  "title": "Rockport: no heliport or helicopter rule found",
-  "text": "The zoning ordinance's district use lists never name heliports or helipads. Only its parking schedule mentions 'Airport, Landing Strip, Helipad' (one space per tie-down plus one per hangar area). The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Rockport: helipads in industrial districts only",
+  "text": "No district lists a heliport or helipad, but the light and heavy industrial districts allow any non-residential purpose, so a helipad fits there. Residential and business districts allow only their listed uses. Aircraft may not land or take off on the waters of Little Bay Rockport Ski Basin or Legget Channel. The code has no other landing rule.",
+  "penalty": "Zoning violations: fine up to $2,000; each day a separate offense",
+  "who": "Code official; Planning Commission; City Council (conditional use permits)",
   "cites": [
    {
-    "t": "Rockport Code ch. 118, art. 21 (parking schedule)",
-    "u": "https://www.zoneomics.com/code/rockport-TX/chapter_21"
+    "t": "Rockport Code §118-17 and §118-18 (I-1 and I-2 uses)",
+    "u": "https://ecode360.com/41829250"
    },
    {
-    "t": "Rockport Code ch. 118, art. 15-18 (business and industrial district uses)",
-    "u": "https://www.zoneomics.com/code/rockport-TX/chapter_15"
+    "t": "Rockport Code §118-21 (parking: Airport, Landing Strip, Helipad)",
+    "u": "https://ecode360.com/41829250"
+   },
+   {
+    "t": "Rockport Code §114-36 (aircraft on Little Bay waters)",
+    "u": "https://ecode360.com/41826858"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning chapter (Zoneomics copy) was searched; it allows 'any purpose' in the I-1/I-2 districts, so a helipad there is unaddressed. Rest of the code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because heliports fit only the industrial 'any purpose' districts. The zoning text never names a heliport as a use; the parking table lists 'Airport, Landing Strip, Helipad'."
  },
  {
   "city": "Rockwall",
@@ -3807,15 +4084,24 @@
  {
   "city": "Rosenberg",
   "fips": "4863284",
-  "level": "unknown",
-  "title": "Rosenberg: heliport rule not checked",
-  "text": "The city's code of ordinances could not be searched: the likely host blocks automated access and no readable copy of the zoning code was found.",
+  "level": "green",
+  "title": "Rosenberg: no zoning and no helicopter landing rule found",
+  "text": "Rosenberg's code has no zoning ordinance, and its charter allows one only after a six-month waiting period and a binding referendum. A search of the whole code found no heliport, helistop, helipad or helicopter text; aircraft appear only in a noise defense and a park drone ban.",
   "penalty": "",
   "who": "",
-  "cites": [],
-  "zoning": true,
-  "confidence": "low",
-  "note": "Code host assumed to be Municode (library.municode.com/tx/rosenberg), unverified."
+  "cites": [
+   {
+    "t": "Rosenberg Charter §7.03 (referendum on zoning)",
+    "u": "https://library.municode.com/tx/rosenberg/codes/code_of_ordinances?nodeId=PTITHCH_ARTVIIMUPL_S7.03REZO"
+   },
+   {
+    "t": "Rosenberg Code §21-53 (park drone ban)",
+    "u": "https://library.municode.com/tx/rosenberg/codes/code_of_ordinances"
+   }
+  ],
+  "zoning": false,
+  "confidence": "medium",
+  "note": "'No zoning' inferred: the table of contents has no zoning chapter and the charter requires a referendum. Fort Bend County rules weren't checked."
  },
  {
   "city": "Round Rock",
@@ -3882,38 +4168,46 @@
  {
   "city": "Sachse",
   "fips": "4864064",
-  "level": "unknown",
-  "title": "Sachse: use table not searchable (eCode360 blocked)",
-  "text": "Not checked. Sachse's zoning ordinance defines \"Airport/heliport\" as a facility for landing and takeoff of fixed or rotary wing aircraft, but its district use tables could not be opened.",
+  "level": "amber",
+  "title": "Sachse: helipads by special use permit in 3 districts",
+  "text": "A helipad, meaning a landing pad for occasional and infrequent use, needs a special use permit and is allowed only in the agricultural, I-1 and I-2 industrial districts. It isn't allowed in residential or commercial districts. A full airport or heliport isn't listed as a use.",
   "penalty": "",
-  "who": "",
+  "who": "City of Sachse (zoning; special use permit)",
   "cites": [
    {
-    "t": "Sachse Code Ch. 11 Zoning (Exhibit 11A)",
-    "u": "https://ecode360.com/39971669"
+    "t": "Sachse Zoning Ord. Art. 3 §13 (Use designations)",
+    "u": "https://ecode360.com/39972366"
+   },
+   {
+    "t": "Sachse Zoning Ord. Art. 2 §1.1 (Definitions)",
+    "u": "https://ecode360.com/39971893"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Use table codes include S (special use permit). Unlisted uses are classified by the zoning administrator."
+  "confidence": "high",
+  "note": "Read on eCode360 (SA6467); the Municode copy of Sachse's code is no longer published. In the use table, 'S' means special use permit required."
  },
  {
   "city": "Saginaw",
   "fips": "4864112",
-  "level": "unknown",
-  "title": "Saginaw: permitted use table not searchable",
-  "text": "Not checked. Saginaw's Permitted Use Table (Zoning Appendix A, Sec. 5-1) is on Municode, which blocks automated access. Recent amendments to the table posted by the city mention no aircraft or heliport row.",
+  "level": "amber",
+  "title": "Saginaw: heliports by permit in industrial districts",
+  "text": "A heliport needs a specific use permit and is allowed only in the LI (light industrial) and HI (heavy industrial) districts; the use table treats a blank as prohibited. A helistop is defined but not listed. The rest of the code has no landing rule.",
   "penalty": "",
-  "who": "",
+  "who": "City of Saginaw (specific use permits)",
   "cites": [
    {
-    "t": "Saginaw Zoning Appendix A, Sec. 5-1 Permitted Use Table",
+    "t": "Saginaw Zoning Ord. §5-1 (permitted use table)",
     "u": "https://library.municode.com/tx/saginaw/codes/code_of_ordinances?nodeId=CICO_APXAZO_ART5PEUS_S5-1PEUSTA"
+   },
+   {
+    "t": "Saginaw Zoning Ord. §12-2 (definitions)",
+    "u": "https://library.municode.com/tx/saginaw/codes/code_of_ordinances?nodeId=CICO_APXAZO_ART12DE_S12-2DE"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "high",
+  "note": "Table columns read from the header row: S in LI and HI only."
  },
  {
   "city": "San Angelo",
@@ -3958,33 +4252,42 @@
  {
   "city": "San Benito",
   "fips": "4865036",
-  "level": "green",
-  "title": "San Benito: no heliport or helicopter rule found",
-  "text": "San Benito has zoning, and its zoning text says nothing about heliports, helistops or helicopter landings. It only requires staff site-plan review for airports and similar terminals.",
+  "level": "amber",
+  "title": "San Benito: heliports not on the land use chart",
+  "text": "San Benito's land use chart lists no heliport. Any unlisted use goes to the Director of Planning, then the Planning and Zoning Commission, and the City Commission sets its classification by ordinance. Airports are listed as conditional uses in some districts.",
   "penalty": "",
-  "who": "",
+  "who": "Director of Planning; Planning and Zoning Commission; City Commission",
   "cites": [
    {
-    "t": "San Benito Zoning Ord. (parking and site-plan review provisions)",
-    "u": "https://www.zoneomics.com/code/san-benito-TX/chapter_7"
+    "t": "San Benito Zoning Ord. 2252 §3.04 (new and unlisted uses)",
+    "u": "https://ecode360.com/38954848"
+   },
+   {
+    "t": "San Benito Zoning Ord. 2252 Exh. A (land use chart)",
+    "u": "https://ecode360.com/38954834"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; the general code wasn't searchable."
+  "confidence": "medium",
+  "note": "eCode360 search of the code and its PDF attachments found no heliport, helistop, helipad or helicopter text. Land use chart PDF not read cell by cell; only its Airport row appeared in search."
  },
  {
   "city": "San Elizario",
   "fips": "4865360",
   "level": "unknown",
-  "title": "San Elizario: code could not be searched",
-  "text": "San Elizario's code of ordinances could not be found in a form that can be searched, so no heliport or helicopter rule could be checked.",
+  "title": "San Elizario: no code found online",
+  "text": "The city's ordinances page lists single ordinances as PDFs; no consolidated code of ordinances or zoning ordinance was found.",
   "penalty": "",
   "who": "",
-  "cites": [],
-  "zoning": null,
+  "cites": [
+   {
+    "t": "San Elizario ordinances page",
+    "u": "https://cityofsanelizario.com/ordinances/"
+   }
+  ],
+  "zoning": false,
   "confidence": "low",
-  "note": "Zoneomics has no zoning text. Whether the city has zoning isn't confirmed."
+  "note": "Not on Municode or American Legal. Whether the city has zoning isn't confirmed."
  },
  {
   "city": "San Juan",
@@ -4051,20 +4354,24 @@
  {
   "city": "Santa Fe",
   "fips": "4865726",
-  "level": "green",
-  "title": "Santa Fe: no heliport or helicopter rule found",
-  "text": "The zoning ordinance and its use table have no heliport, helipad, airport or air-transportation entry, and the text never mentions helicopters. The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Santa Fe: heliports not listed in any district",
+  "text": "Zoning lists permitted and conditional uses for each district, and none names a heliport, helipad or airport. A new or unlisted use that can't be read as similar to a listed one goes to the Board of Adjustment for a ruling. The city code has no other helicopter landing rule.",
+  "penalty": "Zoning violations are misdemeanors; each day is a separate offense",
+  "who": "City Manager; Board of Adjustment; City Council (conditional use permits)",
   "cites": [
    {
-    "t": "Santa Fe Zoning Ordinance art. 4 appendices (permitted-use tables)",
-    "u": "https://www.zoneomics.com/code/santa-fe-TX/chapter_15"
+    "t": "Santa Fe Zoning Ord. Sec. 3.05 (new and unlisted land uses)",
+    "u": "https://library.municode.com/tx/santa_fe/codes/zoning?nodeId=ART3AD_S3.05NEUNLAUS"
+   },
+   {
+    "t": "Santa Fe Zoning Ord. Art. 4 (zoning districts)",
+    "u": "https://library.municode.com/tx/santa_fe/codes/zoning?nodeId=ART4ZODI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (Zoneomics copy) was searched; the rest of the Santa Fe city code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because only listed uses are allowed (BRIEF2 rule). Searched both Municode products (Code of Ordinances and Zoning) for heliport, helicopter, aircraft, airport: zero hits."
  },
  {
   "city": "Schertz",
@@ -4087,20 +4394,24 @@
  {
   "city": "Seabrook",
   "fips": "4866392",
-  "level": "green",
-  "title": "Seabrook: no helicopter landing rule found",
-  "text": "Seabrook's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields. The general code of ordinances couldn't be searched, so a landing rule there can't be ruled out.",
-  "penalty": "",
-  "who": "",
+  "level": "red",
+  "title": "Seabrook: landings only at permitted helistops",
+  "text": "Landing or taking off a helicopter in the city is an offense unless it is at a helistop approved by specific use permit from the City Council (plus a council permit to use it), or in a city-approved emergency training program. Emergency landings, including rescue and ambulance flights, are exempt.",
+  "penalty": "Offense; general penalty applies (§1-15)",
+  "who": "City Council; City Manager (training programs)",
   "cites": [
    {
-    "t": "Seabrook Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/seabrook-TX"
+    "t": "Seabrook Code §14-41 (permits required; exception)",
+    "u": "https://library.municode.com/tx/seabrook/codes/code_of_ordinances?nodeId=PTIICOOR_CH14AV_ARTIIAI_DIV2HE_S14-41PEREEXHETRPR"
+   },
+   {
+    "t": "Seabrook Code §14-42 (requirements for issuance)",
+    "u": "https://library.municode.com/tx/seabrook/codes/code_of_ordinances?nodeId=PTIICOOR_CH14AV_ARTIIAI_DIV2HE_S14-42REIS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy). Municode blocks automated access."
+  "confidence": "high",
+  "note": "No landing permit is issued unless an existing helistop is in the city (§14-42); helistop SUP follows the zoning ordinance in Code App. A."
  },
  {
   "city": "Seagoville",
@@ -4131,24 +4442,20 @@
  {
   "city": "Seguin",
   "fips": "4866644",
-  "level": "green",
-  "title": "Seguin: no helicopter landing rule found",
-  "text": "Seguin's Unified Development Code doesn't mention heliports, helistops, helicopters or airports as a land use, and a search of Seguin's Municode code turned up no heliport article. A landing rule elsewhere in the general code couldn't be fully ruled out.",
+  "level": "amber",
+  "title": "Seguin: heliports not listed in the land use matrix",
+  "text": "Seguin's land use matrix lists no heliport, helistop or airport use. Land may be used only for uses specified for its district; an unlisted use needs the Planning Director's ruling that it matches a listed use, or a code amendment through the Planning and Zoning Commission and City Council.",
   "penalty": "",
-  "who": "",
+  "who": "Planning Director; Planning and Zoning Commission; City Council",
   "cites": [
    {
-    "t": "Seguin Unified Development Code (searched, no match)",
-    "u": "https://www.zoneomics.com/code/seguin-TX/chapter_3"
-   },
-   {
-    "t": "Seguin Code of Ordinances (Municode)",
-    "u": "https://library.municode.com/tx/seguin/codes/code_of_ordinances"
+    "t": "Seguin UDC (App. A) §3.4.1-3.4.2 (use, unlisted uses)",
+    "u": "https://library.municode.com/tx/seguin/codes/code_of_ordinances?nodeId=PTIICOOR_APXAUNDECO_CH3ZOLAUS_S3.4US"
    }
   ],
   "zoning": true,
   "confidence": "medium",
-  "note": "UDC read from a Zoneomics copy; Municode blocks automated access, so the general code was only checked by title."
+  "note": "Land use matrix table read from the page; its Transportation and Utility rows are bus station, tower, freight terminal, parking, utilities. No heliport or aircraft text in the code."
  },
  {
   "city": "Selma",
@@ -4193,51 +4500,56 @@
  {
   "city": "Snyder",
   "fips": "4868624",
-  "level": "green",
-  "title": "Snyder: no heliport rule found in the zoning code",
-  "text": "The district regulations list their permitted uses without naming heliports, helistops or helicopter landings.",
+  "level": "amber",
+  "title": "Snyder: heliports aren't a listed zoning use",
+  "text": "The zoning ordinance never names heliports or helicopters. It allows buildings and land only for purposes permitted in each district and lists those uses by district. No procedure for unlisted uses was found.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Snyder Zoning Ordinance, districts R-1 through M-2",
-    "u": "https://www.zoneomics.com/code/snyder-TX/chapter_1"
+    "t": "Snyder Zoning Ord. §III (Exhibit 14A)",
+    "u": "https://library.municode.com/tx/snyder/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Short older ordinance; non-zoning chapters not searched. Zoning via Zoneomics."
+  "note": "Amber is inferred from the closed use lists; no heliport, helicopter or aircraft-landing text anywhere in the code (Municode, June 2026). Only airport-zoning-board provisions mention airports."
  },
  {
   "city": "Socorro",
   "fips": "4868636",
-  "level": "unknown",
-  "title": "Socorro: code not searchable (Municode blocked)",
-  "text": "Not checked. Socorro's code (zoning is Chapter 46) is on Municode, which blocks automated access. Searches found no heliport or helicopter-landing section.",
+  "level": "amber",
+  "title": "Socorro: airports and heliports are special uses",
+  "text": "Socorro's zoning lists 'airport or heliport' among special uses, which need rezoning to the SU-1 special use district with a plot plan. No general ban on landing aircraft was found in the code.",
   "penalty": "",
-  "who": "",
+  "who": "City of Socorro (zoning)",
   "cites": [
    {
-    "t": "Socorro Code of Ordinances",
-    "u": "https://library.municode.com/tx/socorro"
+    "t": "Socorro Code §46-513 (special use zoning district)",
+    "u": "https://library.municode.com/tx/socorro/codes/code_of_ordinances?nodeId=PTIICOOR_CH46ZO_ARTIVDIRE_DIV12-SPUSZO_S46-513PU"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "Only §46-513 mentions airports or heliports; the SU-1 approval steps weren't read in full."
  },
  {
   "city": "South Houston",
   "fips": "4869020",
-  "level": "unknown",
-  "title": "South Houston: code not found online",
-  "text": "No online copy of South Houston's zoning or city code could be opened, so no heliport rule was confirmed either way.",
+  "level": "amber",
+  "title": "South Houston: heliports by special permit",
+  "text": "A heliport is allowed in any district only by special permit, and only with prior approval from the federal aviation agency (listed in the code as the Civil Aeronautics Administration). Premises may otherwise be used only for the purposes listed for their district.",
   "penalty": "",
-  "who": "",
-  "cites": [],
+  "who": "Board of Adjustment (special permits)",
+  "cites": [
+   {
+    "t": "South Houston Zoning Ord. (App. A) §2.2 (special permits)",
+    "u": "https://library.municode.com/tx/south_houston/codes/code_of_ordinances?nodeId=COOR_APXAZOOR_PTTWOUSPR_S2.2CEUSMABELOSPPE"
+   }
+  ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoning flag assumed from memory. Municode and similar hosts block automated access; no mirror found; searches exhausted."
+  "confidence": "high",
+  "note": "The permit-granting body is inferred from the section's reference to Board of Adjustment approval; the code doesn't define helistops or helicopter landings otherwise."
  },
  {
   "city": "Southlake",
@@ -4260,20 +4572,28 @@
  {
   "city": "Stafford",
   "fips": "4869908",
-  "level": "green",
-  "title": "Stafford: no heliport or helicopter rule found",
-  "text": "The zoning code's permitted use table has no heliport, helipad or airport use, and the text never mentions helicopters. It allows only listed principal uses. The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Stafford: heliports not listed in any district",
+  "text": "No principal use is allowed in any district unless the permitted use table lists it, and the table has no heliport or helipad. A new or unlisted use is classified as a similar listed use by the mayor or designee, with questions sent to the planning commission. The code has no other helicopter landing rule.",
+  "penalty": "Zoning violations: fine up to $2,000 per offense, each day separate",
+  "who": "Mayor or designee; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Stafford Code ch. 102 (zoning), art. IV, §102-71.2 and following (permitted use…",
-    "u": "https://www.zoneomics.com/code/stafford-TX/chapter_4"
+    "t": "Stafford Code §102-83 (principal permitted use table)",
+    "u": "https://library.municode.com/tx/stafford/codes/code_of_ordinances?nodeId=PTIICOOR_CH102ZO_ARTIVZODI_S102-83PRPEUSTA"
+   },
+   {
+    "t": "Stafford Code §102-33 (new and unlisted uses)",
+    "u": "https://library.municode.com/tx/stafford/codes/code_of_ordinances?nodeId=PTIICOOR_CH102ZO_ARTIIGERE_S102-33CLNEUNUS"
+   },
+   {
+    "t": "Stafford Code §102-6 (penalty)",
+    "u": "https://library.municode.com/tx/stafford/codes/code_of_ordinances?nodeId=PTIICOOR_CH102ZO_ARTIAU_S102-6PEVI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning code (Zoneomics copy) was searched. §102-83 allows only listed principal uses and lists no heliport. Rest of the Stafford code wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because zoning bars unlisted uses (BRIEF2 rule). Fire code §42-111 needs a permit for a helicopter operating in public space only. Full Municode search found no heliport text."
  },
  {
   "city": "Stephenville",
@@ -4297,45 +4617,49 @@
   "city": "Sugar Land",
   "fips": "4870808",
   "level": "red",
-  "title": "Sugar Land bans helicopter landings outside permitted sites",
-  "text": "Sugar Land's code has a Heliports and Helistops article with a section titled Landings and takeoffs prohibited, plus exemptions and siting rules, and the city issues annual and temporary helistop/heliport permits. Zoning allows a heliport only by conditional use permit in four nonresidential districts, and a private helipad only at a house on 5+ acres, also by CUP.",
+  "title": "Sugar Land allows helicopter landings only at licensed sites",
+  "text": "Landing or taking off anywhere in the city except at a licensed heliport or helistop is unlawful, and the helicopter's owner is presumed to be the operator. Licensed sites must be at least 750 ft from a church, school or home. Medical evacuations, declared emergencies and government-run sites are exempt.",
   "penalty": "",
-  "who": "City of Sugar Land; City Council for conditional use permits",
+  "who": "City of Sugar Land (heliport and helistop license)",
   "cites": [
    {
-    "t": "Sugar Land Code Ch. 4, Art. VII Heliports and Helistops (§4-97 Landings and tak…",
-    "u": "https://library.municode.com/TX/Sugar_Land/codes/code_of_ordinances?nodeId=PTIICOOR_CH4LIPEBURE_ARTVIIHEHE_DIV1INGE_S4-99EX"
+    "t": "Sugar Land Code §4-97 (Landings and takeoffs prohibited)",
+    "u": "https://library.municode.com/tx/sugar_land/codes/code_of_ordinances?nodeId=PTIICOOR_CH4LIPEBURE_ARTVIIHEHE_DIV1INGE_S4-97LATAPR"
    },
    {
-    "t": "Sugar Land Land Development Code §2-71, §2-91 use tables (Heliport, Helipad)",
-    "u": "https://www.zoneomics.com/code/sugar-land-TX/chapter_4"
+    "t": "Sugar Land Code §4-101 (Location)",
+    "u": "https://library.municode.com/tx/sugar_land/codes/code_of_ordinances?nodeId=PTIICOOR_CH4LIPEBURE_ARTVIIHEHE"
    },
    {
-    "t": "Sugar Land FY25 Fee Ordinance: Helistop/heliport permits",
-    "u": "https://sugarlandtx.gov/DocumentCenter/View/39614/FY25_Fee_Ordinance_FINAL_v2"
+    "t": "Sugar Land Code §4-108 (License required)",
+    "u": "https://library.municode.com/tx/sugar_land/codes/code_of_ordinances?nodeId=PTIICOOR_CH4LIPEBURE_ARTVIIHEHE_DIV2LIPERE_S4-108LIRE"
    }
   ],
   "zoning": true,
-  "confidence": "medium",
-  "note": "Municode blocks automated access, so §4-97's wording and any exemptions weren't read. Red is inferred from the section titles, an exemptions section and the permit fee schedule."
+  "confidence": "high",
+  "note": "Read from current Municode text. Licenses last six years with a $50 yearly inspection. Penalty not located in the article."
  },
  {
   "city": "Sulphur Springs",
   "fips": "4870904",
-  "level": "green",
-  "title": "Sulphur Springs: no heliport or helicopter rule found",
-  "text": "Zoning Ordinance 2050 never mentions heliports, helipads, helicopters, airports or aircraft landings; each district lists the uses it allows. The rest of the city code couldn't be searched.",
-  "penalty": "",
-  "who": "",
+  "level": "amber",
+  "title": "Sulphur Springs: heliports not listed in any district",
+  "text": "Zoning allows land to be used only for the uses each district lists, and no district lists a heliport or helipad. A new or unlisted use goes to the Building Official, who can refer it to the Planning and Zoning Commission for a ruling. The zoning ordinance has no helicopter or aircraft landing rule.",
+  "penalty": "Zoning violations: fine of $1 to $1,000, each day a separate offense",
+  "who": "Building Official; Planning and Zoning Commission",
   "cites": [
    {
-    "t": "Sulphur Springs Zoning Ordinance 2050 (official PDF, 2026 edition)",
+    "t": "Sulphur Springs Zoning Ord. 2050, Art. 4 §4.200 (new and unlisted uses)",
+    "u": "https://www.sulphurspringstx.org/OFFICIAL%20ZONING%20ORDINANCE%202050(ZO2901)%202026.pdf"
+   },
+   {
+    "t": "Sulphur Springs Zoning Ord. 2050, Art. 35 (penalty)",
     "u": "https://www.sulphurspringstx.org/OFFICIAL%20ZONING%20ORDINANCE%202050(ZO2901)%202026.pdf"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Searched the full text of the city's zoning PDF; the city code of ordinances wasn't searchable. The city's airport has its own rules, which I didn't see."
+  "note": "Read the full 109-page zoning PDF. The city's Code of Ordinances (general chapters, airport rules) is not online outside a Google Books listing, so an outright landing ban there couldn't be ruled out."
  },
  {
   "city": "Sweetwater",
@@ -4358,15 +4682,24 @@
  {
   "city": "Taylor",
   "fips": "4871948",
-  "level": "unknown",
-  "title": "Taylor: code could not be searched",
-  "text": "Taylor's code of ordinances and development code could not be found in a form that can be searched, so no heliport or helicopter rule could be checked.",
+  "level": "green",
+  "title": "Taylor: no helicopter landing rule found",
+  "text": "Taylor's Land Development Code (its zoning, subdivision and sign rules) and its Municode code never mention heliports, helistops, helipads or helicopters, other than airport zoning and a fire-fee line. No rule on landing aircraft turned up.",
   "penalty": "",
   "who": "",
-  "cites": [],
+  "cites": [
+   {
+    "t": "Taylor Made Land Development Code (PDF)",
+    "u": "https://www.taylortx.gov/DocumentCenter/View/14244/Taylor-Land-Development-Code---Revised-091224"
+   },
+   {
+    "t": "Taylor Code of Ordinances (Municode, searched)",
+    "u": "https://library.municode.com/tx/taylor/codes/code_of_ordinances"
+   }
+  ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoneomics has no zoning text for Taylor; Municode (likely host) blocks automated access. Zoning status assumed, not confirmed."
+  "confidence": "medium",
+  "note": "The LDC is form-based (uses by building and place type); no explicit unlisted-use bar found."
  },
  {
   "city": "Temple",
@@ -4513,24 +4846,24 @@
  {
   "city": "Trophy Club",
   "fips": "4873710",
-  "level": "green",
-  "title": "Trophy Club: no heliport or helicopter rule found",
-  "text": "The zoning ordinance's use table doesn't list heliports, helipads or airports. The only mention bars helipads at extended-stay medical facilities. No other aircraft landing rule turned up, but the rest of the town code couldn't be searched.",
+  "level": "amber",
+  "title": "Trophy Club: heliports not in the use table",
+  "text": "The zoning use table lists no heliport, helipad or airport, and blank boxes in the table mean a prohibited use. A new or unlisted use goes to the Planning and Zoning Commission, and the Town Council then sets its zoning by ordinance. The code has no other helicopter landing rule.",
   "penalty": "",
-  "who": "",
+  "who": "Planning and Zoning Commission; Town Council",
   "cites": [
    {
-    "t": "Trophy Club Zoning Ord. §14.02.103 (use table)",
-    "u": "https://www.zoneomics.com/code/trophy-club-TX/chapter_3"
+    "t": "Trophy Club Code §14.02.103 (use table)",
+    "u": "https://ecode360.com/40210515"
    },
    {
-    "t": "Trophy Club Zoning Ord. §14.02.052 (definitions)",
-    "u": "https://www.zoneomics.com/code/trophy-club-TX/chapter_2"
+    "t": "Trophy Club Code §14.02.102 (new and unlisted uses)",
+    "u": "https://ecode360.com/40210515"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (Zoneomics copy) was searched; unlisted uses go to the commission and council. The town code on Municode wasn't searchable."
+  "confidence": "medium",
+  "note": "Amber because blank boxes mean prohibited and unlisted uses need an ordinance (BRIEF2 rule). Full ecode360 search: heliport appears only in a surgery-center definition that bars helipads there."
  },
  {
   "city": "Tyler",
@@ -4589,38 +4922,42 @@
  {
   "city": "Uvalde",
   "fips": "4874588",
-  "level": "green",
-  "title": "Uvalde: no helicopter landing rule found",
-  "text": "The zoning ordinance doesn't mention heliports, helipads or aircraft landings. No city restriction on a private helicopter landing on private land turned up.",
+  "level": "amber",
+  "title": "Uvalde: heliports only in factory/industrial districts",
+  "text": "Uvalde's zoning allows land in each district to be used only for the purposes listed, and any other use is unlawful. Heliports aren't listed for residential or business districts; the factory/industrial (FI) district allows any use except housing. Airport zoning in Chapter 17.44 covers only height and use hazards near Garner Field.",
   "penalty": "",
-  "who": "",
+  "who": "Building Official; Board of Adjustment",
   "cites": [
    {
-    "t": "Uvalde Code ch. 17 (zoning), incl. 17.44 Garner Field airport zoning",
-    "u": "https://www.zoneomics.com/code/uvalde-TX"
+    "t": "Uvalde Code §17.20.010 (uses by district)",
+    "u": "https://library.municode.com/tx/uvalde/codes/code_of_ordinances?nodeId=TIT17ZO_CH17.04GEPRDE_17.04.030EFTI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Only the zoning ordinance (a Zoneomics copy) was searched; the rest of the city code wasn't searchable. Ch. 17.44 is airport hazard zoning only, not a landing rule."
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text. Whether a heliport could be a listed 'airport' use was not determined; no landing ban elsewhere."
  },
  {
   "city": "Victoria",
   "fips": "4875428",
-  "level": "unknown",
-  "title": "Victoria: code could not be searched",
-  "text": "Victoria's code of ordinances is on Municode, which blocks automated access, so no heliport or helicopter rule could be checked.",
+  "level": "amber",
+  "title": "Victoria: helicopter landing sites must be cleared by police",
+  "text": "No one may land a rotorcraft in the city except at a site made known to the Chief of Police and not disapproved. The chief won't approve a site within 250 ft of a church, school or home and can revoke approval. Emergency, medical, military and other government flights are exempt.",
   "penalty": "",
-  "who": "",
+  "who": "Chief of Police, City of Victoria",
   "cites": [
    {
-    "t": "Victoria Code of Ordinances (Municode)",
-    "u": "https://library.municode.com/tx/victoria/codes/code_of_ordinances"
+    "t": "Victoria Code §3-4 (Approved landing sites for rotocraft)",
+    "u": "https://library.municode.com/tx/victoria/codes/code_of_ordinances?nodeId=CICO_CH3AIAI_S3-4APLASIRO"
+   },
+   {
+    "t": "Victoria Code §3-5 (Exceptions to chapter)",
+    "u": "https://library.municode.com/tx/victoria/codes/code_of_ordinances?nodeId=CICO_CH3AIAI"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Zoneomics has no zoning text for Victoria. Zoning status assumed, not confirmed."
+  "confidence": "high",
+  "note": "Ord. 2011-10. Chapter 3 may be waived by the Chief of Police for approved special flights. Penalty not located."
  },
  {
   "city": "Waco",
@@ -4647,20 +4984,24 @@
  {
   "city": "Watauga",
   "fips": "4876672",
-  "level": "unknown",
-  "title": "Watauga: code not searchable (Municode blocked)",
-  "text": "Not checked. Watauga's code is on Municode, which blocks automated access.",
+  "level": "amber",
+  "title": "Watauga: heliports by permit in two districts, by right in I",
+  "text": "Heliports are allowed by right in the I district and need a specific use permit in the C and CF districts; the use table shows none in residential, LB or GB districts. An aviation field, airport or aircraft landing area is a special exception in the I district only.",
   "penalty": "",
-  "who": "",
+  "who": "City of Watauga (Board of Adjustment)",
   "cites": [
    {
-    "t": "Watauga Code of Ordinances",
-    "u": "https://library.municode.com/tx/watauga"
+    "t": "Watauga Code §115-85 (permitted use table)",
+    "u": "https://library.municode.com/tx/watauga/codes/code_of_ordinances?nodeId=SPBLADE_CH115ZO_ARTIVTAUS_S115-85PEUSTA"
+   },
+   {
+    "t": "Watauga Code §115-34 (board of adjustment, special exceptions)",
+    "u": "https://library.municode.com/tx/watauga/codes/code_of_ordinances?nodeId=SPBLADE_CH115ZO_ARTIIADEN_S115-34BOAD"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": ""
+  "confidence": "medium",
+  "note": "Columns read from the table header (SFA, SF6, D, MF, MH, LB, GB, C, I, CF, GU); footnotes 2, 5 and 7 weren't read."
  },
  {
   "city": "Waxahachie",
@@ -4701,56 +5042,56 @@
  {
   "city": "Webster",
   "fips": "4876948",
-  "level": "unknown",
-  "title": "Webster: heliport rule not checked",
-  "text": "The zoning ordinance's schedule of uses wasn't in the readable text, and the city's code host blocks automated access.",
+  "level": "amber",
+  "title": "Webster: heliports not listed, so not allowed",
+  "text": "Webster's schedule of permitted uses lists no heliport or airport use. Land can't be used for any use other than those the regulations give its district, and the code has no process for unlisted uses. Nothing else in the code covers helicopter landings.",
   "penalty": "",
-  "who": "",
+  "who": "Building Official; Zoning Board of Adjustment",
   "cites": [
    {
-    "t": "Webster Zoning Ordinance (Zoneomics copy)",
-    "u": "https://www.zoneomics.com/code/webster-TX/chapter_1"
+    "t": "Webster Code §98-10 (effect of chapter), §98-71 Table 1",
+    "u": "https://library.municode.com/tx/webster/codes/code_of_ordinances?nodeId=PTIICOOR_CH98ZO_ARTIVSCUS_S98-71TAUS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "No heliport, helistop or helicopter text found in what could be read."
+  "confidence": "medium",
+  "note": "Municode search found no heliport, helistop, helipad or helicopter text; Table 1 rows read from the page. PD districts list their own uses by ordinance."
  },
  {
   "city": "Weslaco",
   "fips": "4877272",
   "level": "green",
-  "title": "Weslaco: no heliport or helicopter rule found",
-  "text": "Weslaco has zoning, and its zoning text says nothing about heliports, helistops or helicopter landings. Its only aviation rules are airport hazard zoning around the city airport.",
+  "title": "Weslaco: no helicopter landing rule found",
+  "text": "The full code has no heliport, helipad or helicopter rule. Aircraft appear only in the airport hazard zoning district (§150-11.2) and airport management chapter. Unlisted land uses are classified by the Planning and Zoning Commission and city commission.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "Weslaco Zoning Ord. (Code ch. 150)",
-    "u": "https://www.zoneomics.com/code/weslaco-TX"
+    "t": "Weslaco Code §150-11.2 (Airport hazard zoning district)",
+    "u": "https://library.municode.com/tx/weslaco/codes/code_of_ordinances"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Searched the zoning text via Zoneomics only; Weslaco's general code wasn't searchable."
+  "confidence": "medium",
+  "note": "Municode, July 2025."
  },
  {
   "city": "West University Place",
   "fips": "4877956",
-  "level": "green",
-  "title": "West University Place: no helicopter landing rule found",
-  "text": "West University Place's zoning ordinance doesn't mention heliports, helistops, helicopters, airports or landing fields. The general code of ordinances couldn't be searched, so a landing rule there can't be ruled out.",
+  "level": "amber",
+  "title": "West University Place: unlisted uses prohibited",
+  "text": "The zoning ordinance prohibits any structure built or maintained for a use not specifically permitted by it, and no heliport or helipad use appears in the code. The rest of the Municode code has no helicopter or aircraft rule.",
   "penalty": "",
   "who": "",
   "cites": [
    {
-    "t": "West University Place Zoning Ordinance (searched, no match)",
-    "u": "https://www.zoneomics.com/code/west-university-place-TX"
+    "t": "West University Place Zoning Ord. §8-102(c) (density compliance)",
+    "u": "https://library.municode.com/tx/west_university_place/codes/code_of_ordinances?nodeId=PTIICOOR_APXAZOOR_ART8ADRE_S8-102ACSTUSDE"
    }
   ],
   "zoning": true,
   "confidence": "low",
-  "note": "Only the zoning ordinance was searched (Zoneomics copy). Municode blocks automated access."
+  "note": "§8-102(c) is about structures, so a landing with no built pad may not be covered; read as the zoning's unlisted-use bar. Close call between amber and green."
  },
  {
   "city": "White Settlement",
@@ -4807,23 +5148,23 @@
  {
   "city": "Wylie",
   "fips": "4880356",
-  "level": "unknown",
-  "title": "Wylie: zoning code couldn't be searched",
-  "text": "Wylie's zoning ordinance (Article 5 land use charts, with S for specific use permit) and city code are on Municode, which blocks scripts. Excerpts of recent land use amendments mention no heliport, but the full charts weren't read.",
+  "level": "amber",
+  "title": "Wylie: helipads by permit or in industrial districts",
+  "text": "A helipad (a landing area for helicopters, closed to anyone without permission) is allowed outright in light and heavy industrial districts and with a special use permit in community commercial and business-government districts. An airport, heliport or landing field is allowed in the industrial districts and by permit in community commercial. Neither use is allowed in residential districts.",
   "penalty": "",
-  "who": "",
+  "who": "Planning Department; City Council (special use permits)",
   "cites": [
    {
-    "t": "Wylie Zoning Ordinance (Jan. 2024) on Municode",
-    "u": "https://library.municode.com/tx/wylie/codes/code_of_ordinances?nodeId=PTIICOOR_APXBZO"
+    "t": "Wylie Zoning Ord. (App. B) §5.1 Land Use Charts, G.1 and G.6",
+    "u": "https://library.municode.com/tx/wylie/codes/code_of_ordinances?nodeId=PTIICOOR_APXBZO_ART5USRE_S5.1LAUSCH"
    },
    {
-    "t": "Wylie Planning: ordinances page",
-    "u": "https://www.wylietexas.gov/departments/planning/ordinances.php"
+    "t": "Wylie Zoning Ord. §5.2 Listed Uses (definitions)",
+    "u": "https://library.municode.com/tx/wylie/codes/code_of_ordinances?nodeId=PTIICOOR_APXBZO_ART5USRE_S5.2LIUS"
    }
   ],
   "zoning": true,
-  "confidence": "low",
-  "note": "Municode returned 403/bot checks. Checked five council-packet excerpts of the zoning ordinance on Municode Meetings; none contained heliport, helicopter or airport."
+  "confidence": "high",
+  "note": "Read the Municode land use chart; land may be used only for uses the chart lists. Searches of the full code for helicopter, aircraft and landing found no other landing rule."
  }
 ]
