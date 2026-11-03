@@ -1174,8 +1174,10 @@ function heliStart(REGION, startAt) {
   function search() {
     const raw = qEl.value.trim(), q = raw.toLowerCase();
     if (q.length < 2) { resEl.hidden = true; rows = []; return; }
-    const local = index.filter((e) => e.l.includes(q))
-      .map((e) => ({ e, s: (e.l.startsWith(q) ? 0 : e.l.includes(' ' + q) ? 1 : 2) + e.l.length / 200 }))
+    // every word typed has to appear in the name, so "pease park" finds Pease District Park
+    const words = q.split(/\s+/).filter(Boolean);
+    const local = index.filter((e) => words.every((w) => e.l.includes(w)))
+      .map((e) => ({ e, s: (e.l.startsWith(q) ? 0 : e.l.includes(' ' + q) ? 1 : e.l.includes(q) ? 1.5 : 2) + e.l.length / 200 }))
       .sort((a, b) => a.s - b.s).slice(0, 8).map((x) => x.e);
     rows = [...local];
     if (raw.length >= 3) rows.push({ geo: 'ask', q: raw, n: `Find the address “${raw}”`, html: `Find the address “${esc(raw)}”`, k: 'Press Enter' });
