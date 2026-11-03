@@ -56,7 +56,7 @@ try {
         const dts = [...el.querySelectorAll('dt')].map((d) => d.textContent);
         const dds = [...el.querySelectorAll('dd')].map((d) => d.innerText.replace(/\\n/g, ' / '));
         const imgs = [...document.querySelectorAll('.leaflet-p-parcel-pane img')].filter((i) => i.complete && i.naturalWidth > 0).length;
-        return { at: document.querySelector('.coords span')?.textContent, verdict: document.querySelector('.v-title')?.textContent, roll: el.querySelector('.group-title .hint')?.textContent || '',
+        return { at: document.querySelector('.coords span')?.textContent, verdict: document.querySelector('.v-title')?.textContent, rules: [...(document.querySelector('#pane-spot .rules')?.querySelectorAll('.rule h3') || [])].map((h) => h.textContent), roll: el.querySelector('.group-title .hint')?.textContent || '',
           rows: dts.map((d, i) => d + ': ' + (/Owner|Mail/.test(d) ? mask(dds[i]) : dds[i])),
           how: el.querySelector('.owner-how')?.textContent || el.querySelector('.owner-card p')?.textContent || '',
           links: [...el.querySelectorAll('a.cite, button.cite')].map((a) => a.textContent + (a.href ? ' -> ' + a.href : '')),

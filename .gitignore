@@ -1,4 +1,4 @@
-# downloaded source data (scripts/fetch_region.sh fetches it again)
+# downloaded source data (scripts/fetch_region.mjs fetches it again)
 raw/*/
 # test pages, screenshots and throwaway browser profiles
 build/

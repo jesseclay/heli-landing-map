@@ -43,6 +43,7 @@
   --zone-res-fill: 0.09;
   --zone-ok-fill: 0.1;
   --city-tint: 0.15;
+  --city-tint-green: 0.1;
   --s-red-bg: #fbe9e6;
   --s-amber-bg: #fdf1d9;
   --s-green-bg: #e3f3e8;
@@ -62,7 +63,7 @@
     --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
     --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
     --fill-red: 0.2; --fill-amber: 0.16; --fill-green: 0.11;
-    --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+    --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13; --city-tint-green: 0.09;
     color-scheme: dark;
   }
 }
@@ -76,7 +77,7 @@
   --s-red: #f06a5f; --s-amber: #f1b23f; --s-green: #5cc27d; --s-blue: #5ea9ea;
   --s-red-bg: #3a1c1a; --s-amber-bg: #3a2c12; --s-green-bg: #15301f; --s-blue-bg: #132b40;
   --fill-red: 0.2; --fill-amber: 0.16; --fill-green: 0.11;
-  --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13;
+  --zone-hatch: 0.55; --zone-res-fill: 0.08; --zone-ok-fill: 0.09; --city-tint: 0.13; --city-tint-green: 0.09;
   color-scheme: dark;
 }
 
@@ -219,6 +220,7 @@ button.cite:hover { border-color: var(--accent); color: var(--accent); }
 .sw.cban { border: 2px dashed var(--s-red); background: color-mix(in srgb, var(--s-red) 20%, transparent); }
 .sw.parcel { border: 1px solid var(--map-parcel); background: linear-gradient(90deg, transparent 47%, var(--map-parcel) 47% 53%, transparent 53%); }
 .parcel-tiles { filter: var(--parcel-tiles); }
+.sw.cok { border: 1.5px solid var(--s-green); background: color-mix(in srgb, var(--s-green) 14%, transparent); }
 .sw.cpermit { border: 2px dashed var(--s-amber); background: color-mix(in srgb, var(--s-amber) 20%, transparent); }
 .legend-sub { display: grid; gap: 5px; }
 .legend-sub[hidden], .toggle[hidden] { display: none; }
@@ -243,6 +245,8 @@ button.cite:hover { border-color: var(--accent); color: var(--accent); }
 .lbl-county { font-family: var(--font-display); font-weight: 500; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--map-county); transform: translate(-50%, -50%); position: absolute; }
 .lbl-ap { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--ink); position: absolute; left: 9px; top: -7px; }
 .map-z-lo .lbl-city:not(.major), .map-z-lo .lbl-ap, .map-z-lo .infra-ic, .map-z-lo .ap-priv, .map-z-lo .lbl-tfr { display: none; }
+/* the statewide view keeps only the biggest cities' names */
+.map-z-state .lbl-city:not(.mega), .map-z-state .lbl-county, .map-z-state .lbl-water, .map-z-state .lbl-air, .map-z-state .lbl-ap { display: none; }
 .map-z-mid .lbl-county { display: none; }
 .map-z-hi .lbl-county { display: none; }
 .map-z-lo .lbl-water.minor { display: none; }
@@ -283,9 +287,10 @@ button.cite:hover { border-color: var(--accent); color: var(--accent); }
           <label class="toggle"><input type="checkbox" id="t-red" checked> <span class="lg"><span class="sw red"></span>Off-limits land</span></label>
           <label class="toggle"><input type="checkbox" id="t-amber" checked> <span class="lg"><span class="sw amber"></span>Private or managed land: ask first</span></label>
           <label class="toggle" id="greenLegend"><input type="checkbox" id="t-green" checked> <span class="lg"><span class="sw green"></span>National forest: open outside wilderness</span></label>
-          <label class="toggle"><input type="checkbox" id="t-city" checked> <span class="lg"><span class="sw cityline"></span>City limits</span></label>
+          <label class="toggle"><input type="checkbox" id="t-city" checked> <span class="lg"><span class="sw cityline"></span>City limits (gray: rules not checked)</span></label>
           <div class="lg" style="padding-left:21px"><span class="sw cban"></span>City bans landings</div>
           <div class="lg" style="padding-left:21px"><span class="sw cpermit"></span>City permit needed</div>
+          <div class="lg" style="padding-left:21px" id="cityOkLegend"><span class="sw cok"></span>City has no landing rule</div>
           <div class="legend-sub" id="zoneLegend">
             <label class="toggle"><input type="checkbox" id="t-zone" checked> <span class="lg"><span class="sw zres"></span>Austin residential zoning: no permit possible</span></label>
             <div class="lg" style="padding-left:21px"><span class="sw zok"></span>Other Austin zoning: permit possible</div>
@@ -297,7 +302,7 @@ button.cite:hover { border-color: var(--accent); color: var(--accent); }
         </div>
         <div class="legend-sec">
           <div class="eyebrow">Airspace</div>
-          <label class="toggle"><input type="checkbox" id="t-airspace" checked> <span class="lg"><span class="sym" style="gap:2px;display:inline-flex"><span class="sw c" style="width:10px;height:10px;border-width:2px"></span><span class="sw d" style="width:10px;height:10px;border-width:2px"></span></span>Class C and D</span></label>
+          <label class="toggle"><input type="checkbox" id="t-airspace" checked> <span class="lg"><span class="sym" style="gap:2px;display:inline-flex"><span class="sw c" style="width:10px;height:10px;border-width:2px"></span><span class="sw d" style="width:10px;height:10px;border-width:2px"></span></span>Class B, C and D</span></label>
           <label class="toggle"><input type="checkbox" id="t-sua" checked> <span class="lg"><span class="sw r"></span>Restricted and alert areas</span></label>
           <label class="toggle"><input type="checkbox" id="t-tfr" checked> <span class="lg"><span class="sw tfr"></span>Game and race day TFRs (3 NM)</span></label>
         </div>

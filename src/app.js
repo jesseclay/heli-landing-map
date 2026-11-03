@@ -5,7 +5,9 @@
   const REGIONS = window.HELI_REGIONS;
   function parseHash() {
     const m = /^#([a-z]+)(?:\/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?))?/.exec(location.hash || '');
-    const key = m && REGIONS[m[1]] ? m[1] : Object.keys(REGIONS)[0];
+    // a region can answer to an older name (the Austin map became the Texas map)
+    const named = m && (REGIONS[m[1]] ? m[1] : Object.keys(REGIONS).find((k) => (REGIONS[k].aliases || []).includes(m[1])));
+    const key = named || Object.keys(REGIONS)[0];
     return { key, at: m && m[2] ? [+m[2], +m[3]] : null };
   }
   const h = parseHash();
@@ -101,7 +103,7 @@ function heliStart(REGION, startAt) {
   const nmStr = (m) => (m < 0.2 * NM ? `${Math.round(m / 0.3048).toLocaleString()} ft` : `${(m / NM).toFixed(m < 10 * NM ? 1 : 0)} NM`);
   // Virginia's independent cities are county-equivalents, so the county list holds them too
   const countyName = (c) => (c.ic ? `City of ${c.n}` : `${c.n} County`);
-  const STATE_NAMES = { TX: 'Texas', VA: 'Virginia', WV: 'West Virginia' };
+  const STATE_NAMES = { TX: 'Texas', VA: 'Virginia', WV: 'West Virginia', NM: 'New Mexico', OK: 'Oklahoma', AR: 'Arkansas', LA: 'Louisiana' };
   const placeKind = (p) => ({ town: 'Town', village: 'Village' }[p.lsad] || 'City');
 
   // ---------- what each kind of zone means (kinds come from the build; rule ids from the region's state) ----------
@@ -150,6 +152,14 @@ function heliStart(REGION, startAt) {
     lake_other: { s: 'amber', label: 'Lake or pond', rules: ['water_other'] },
   };
   const CITY = REGION.cities || {};
+  // a city's landing rule: its own entry in the region's settings, or the card its researched code produced
+  // (city_<GEOID>); tint is the map color. A city with neither hasn't been checked
+  function cityRuleOf(p) {
+    if (!p || p.reg === 'other_state') return null;
+    if (CITY[p.reg]) return CITY[p.reg];
+    const id = `city_${p.reg}`, r = p.reg && RULES[id];
+    return r ? { rule: id, tint: ['red', 'amber', 'green'].includes(r.level) ? r.level : '' } : null;
+  }
   const CITY_NOTES = REGION.cityNotes || {};
   const MAJOR = new Set(REGION.major || []);
   const WATER_LABELS = REGION.waterLabels || [];
@@ -159,18 +169,22 @@ function heliStart(REGION, startAt) {
   // a zone's map color follows the level of its main rule in this state, so a kind can be off-limits in one state
   // and ask-first in another
   const withLevel = (d) => { const r = RULES[d.rules[0]]; return d.s === 'none' || !r ? d : { ...d, s: r.level === 'info' ? 'none' : r.level }; };
-  const lands = D.lands.map(zone).map((z) => ({ ...z, def: withLevel(LAND[z.k] || LAND.unknown) }));
-  const water = D.water.map(zone).map((z) => ({ ...z, def: withLevel(WATER[z.k] || WATER.lake_other) }));
-  const places = D.places.map(zone);
-  const counties = D.counties.map(zone);
-  const airspace = D.airspace.map(zone);
-  const sua = D.sua.map(zone);
-  const roads = D.roads.map((r) => {
+  const landZone = (o) => { const z = zone(o); return { ...z, def: withLevel(LAND[z.k] || LAND.unknown) }; };
+  const waterZone = (o) => { const z = zone(o); return { ...z, def: withLevel(WATER[z.k] || WATER.lake_other) }; };
+  const roadLine = (r) => {
     const line = dec(r.g);
     let s = 90, w = 180, n = -90, e = -180;
     for (const c of line) { if (c[0] < s) s = c[0]; if (c[0] > n) n = c[0]; if (c[1] < w) w = c[1]; if (c[1] > e) e = c[1]; }
     return { ...r, line, bb: [s, w, n, e] };
-  });
+  };
+  // a statewide region's smaller land, water and roads arrive later, in 1° squares (see "detail squares")
+  const lands = D.lands.map(landZone);
+  const water = D.water.map(waterZone);
+  const roads = D.roads.map(roadLine);
+  const places = D.places.map(zone);
+  const counties = D.counties.map(zone);
+  const airspace = D.airspace.map(zone);
+  const sua = D.sua.map(zone);
   const airports = D.airports;
   const infra = D.infra;
 
@@ -187,19 +201,19 @@ function heliStart(REGION, startAt) {
     TOD: ['Transit-oriented development', 'sp'], NBG: ['North Burnet/Gateway', 'sp'], ERC: ['East Riverside Corridor', 'sp'], TND: ['Traditional neighborhood', 'sp'],
     UNZ: ['Unzoned', 'unz'], UNK: ['Zoning not recorded', 'unz'],
   };
-  const zTypes = (D.zoning ? D.zoning.types : []).map(([code, base]) => {
-    const b = ZBASE[base] || ZBASE.UNK;
-    return { code, base, cls: b[1], name: (/^(I-)?CS-1\b/.test(code) ? 'Commercial-liquor sales' : b[0]) + (code.startsWith('I-') ? ' (interim)' : '') };
-  });
+  let zTypes = [], zLots = [], zDate = '';
   // Lots are kept in Web Mercator world units (256 to the world at zoom 0): tiles draw them as they are, and
   // lookups convert the clicked point instead.
   const WU = 256;
   const mercY = (la) => { const s = Math.sin(la * Math.PI / 180); return WU / 2 - (WU / (4 * Math.PI)) * Math.log((1 + s) / (1 - s)); };
   const toWorld = (la, lo) => [(lo + 180) * WU / 360, mercY(la)];
   const fromWorld = (x, y) => [(2 * Math.atan(Math.exp((WU / 2 - y) * 2 * Math.PI / WU)) - Math.PI / 2) * 180 / Math.PI, x * 360 / WU - 180];
-  const zLots = (() => {
-    const Z = D.zoning;
-    if (!Z) return [];
+  function decodeZoning(Z) {
+    zDate = Z.date;
+    zTypes = Z.types.map(([code, base]) => {
+      const b = ZBASE[base] || ZBASE.UNK;
+      return { code, base, cls: b[1], name: (/^(I-)?CS-1\b/.test(code) ? 'Commercial-liquor sales' : b[0]) + (code.startsWith('I-') ? ' (interim)' : '') };
+    });
     const bin = atob(Z.g), bytes = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     let p = 0;
@@ -219,8 +233,9 @@ function heliStart(REGION, startAt) {
       for (let i = 0; i < o.length; i += 2) { if (o[i] < x0) x0 = o[i]; if (o[i] > x1) x1 = o[i]; if (o[i + 1] < y0) y0 = o[i + 1]; if (o[i + 1] > y1) y1 = o[i + 1]; }
       lots.push({ t, rings, bb: [x0, y0, x1, y1] });
     }
-    return lots;
-  })();
+    zLots = lots;
+  }
+  if (D.zoning) decodeZoning(D.zoning);
   function pipW(x, y, a) {
     let ins = false;
     for (let i = 0, j = a.length - 2; i < a.length; j = i, i += 2) {
@@ -264,21 +279,22 @@ function heliStart(REGION, startAt) {
   // ---------- page chrome for the region ----------
   document.title = REGION.title;
   document.getElementById('title').textContent = REGION.title;
-  document.getElementById('tagline').textContent = `Where a private helicopter can and can't put down around ${REGION.name}, and what a prohibited landing can cost. Click any spot on the map, or search an address.`;
+  document.getElementById('tagline').textContent = `Where a private helicopter can and can't put down ${REGION.where || `around ${REGION.name}`}, and what a prohibited landing can cost. Click any spot on the map, or search an address.`;
   const regionsEl = document.getElementById('regions');
   const regionKeys = Object.keys(REGIONS);
   if (regionKeys.length > 1) {
     regionsEl.innerHTML = regionKeys.map((k) => `<button type="button" data-region="${k}" aria-pressed="${k === REGION.key}">${esc(REGIONS[k].label)}</button>`).join('');
     regionsEl.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { if (b.dataset.region !== REGION.key) location.hash = b.dataset.region; }));
   } else regionsEl.hidden = true;
-  if (!zLots.length) document.getElementById('zoneLegend').hidden = true;
+  if (!D.zoning && !D.zoningFile) document.getElementById('zoneLegend').hidden = true;
   if (!lands.some((l) => l.def.s === 'green')) document.getElementById('greenLegend').hidden = true;
+  if (!places.some((p) => (cityRuleOf(p) || {}).tint === 'green')) document.getElementById('cityOkLegend').hidden = true;
   if (REGION.parcels) document.getElementById('parcelText').textContent = REGION.parcels.lines.legend;
   else document.getElementById('parcelLegend').hidden = true;
 
   // ---------- map ----------
   const map = L.map('map', {
-    minZoom: 8, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
+    minZoom: REGION.minZoom || 8, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
     maxBounds: REGION.maxBounds, maxBoundsViscosity: 0.7, attributionControl: true,
   });
   map.zoomControl.setPosition('topright');
@@ -302,27 +318,30 @@ function heliStart(REGION, startAt) {
       county: g('--map-county'), city: g('--map-city'), cityFill: g('--map-city-fill'), c: g('--air-c'), d: g('--air-d'), r: g('--air-r'), tfr: g('--air-tfr'),
       red: g('--s-red'), amber: g('--s-amber'), green: g('--s-green'), blue: g('--s-blue'), ink: g('--ink'), panel: g('--panel'), accent: g('--accent'),
       parcel: g('--map-parcel'), parcelLabel: g('--map-parcel-label'),
-      fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), fillGreen: num('--fill-green', 0.12), cityTint: num('--city-tint', 0.14),
+      fillRed: num('--fill-red', 0.26), fillAmber: num('--fill-amber', 0.2), fillGreen: num('--fill-green', 0.12), cityTint: num('--city-tint', 0.14), cityTintGreen: num('--city-tint-green', 0.1),
       zoneHatch: num('--zone-hatch', 0.5), zoneRes: num('--zone-res-fill', 0.08), zoneOk: num('--zone-ok-fill', 0.12),
     };
   }
   readColors();
 
   const G = {};
-  ['counties', 'cities', 'zone', 'water', 'roads', 'green', 'red', 'amber', 'parcel', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
+  // d-groups hold a statewide region's detail squares, shown from zoom 9
+  ['counties', 'cities', 'zone', 'water', 'dwater', 'roads', 'droads', 'green', 'dgreen', 'red', 'dred', 'amber', 'damber', 'parcel', 'airspace', 'sua', 'tfr', 'ap', 'priv', 'infra', 'labels', 'hl', 'pin'].forEach((k) => { G[k] = L.layerGroup(); });
   const styled = []; // [layer, fn] pairs, restyled on theme change
   function add(group, layer, styleFn) { layer.setStyle(styleFn()); styled.push([layer, styleFn]); group.addLayer(layer); return layer; }
   const noI = { interactive: false };
 
   for (const z of counties) add(G.counties, L.polygon(z.polys, { ...noI, renderer: rBase }), () => ({ color: C.county, weight: 1, dashArray: '5 4', opacity: 0.7, fill: false }));
   for (const z of places) {
-    const tint = (CITY[z.reg] || {}).tint;
+    const tint = (cityRuleOf(z) || {}).tint;
     add(G.cities, L.polygon(z.polys, { ...noI, renderer: rBase }), () => ({ color: C.city, weight: 1, opacity: 0.5, fillColor: C.cityFill, fillOpacity: 0.55 }));
     if (!tint) continue;
-    // a city that restricts landings gets a wash under its zoning and water and a bold border above them,
-    // so the whole area it covers reads at a glance
-    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ stroke: false, fillColor: C[tint], fillOpacity: C.cityTint }));
-    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[tint], weight: 2.4, opacity: 0.95, dashArray: '9 4', fill: false }));
+    // a city with a landing rule gets a wash under its zoning and water and a border above them (bold and dashed
+    // where it bans or limits landings), so the whole area it covers reads at a glance
+    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ stroke: false, fillColor: C[tint], fillOpacity: tint === 'green' ? C.cityTintGreen : C.cityTint }));
+    add(G.cities, L.polygon(z.polys, { ...noI, renderer: rLand }), () => (tint === 'green'
+      ? { color: C.green, weight: 1.5, opacity: 0.85, fill: false }
+      : { color: C[tint], weight: 2.4, opacity: 0.95, dashArray: '9 4', fill: false }));
   }
   // Austin zoning, drawn into canvas tiles: residential lots hatched red (no permit possible), the other districts amber
   let hatchSrc = null;
@@ -365,25 +384,36 @@ function heliStart(REGION, startAt) {
       return tile;
     },
   });
-  const zoneLayer = zLots.length ? (() => {
+  let zoneLayer = null;
+  function addZoneLayer() {
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     for (const { bb } of zLots) { x0 = Math.min(x0, bb[0]); y0 = Math.min(y0, bb[1]); x1 = Math.max(x1, bb[2]); y1 = Math.max(y1, bb[3]); }
-    return new ZoneTiles({ pane: 'p-zone', updateWhenZooming: false, keepBuffer: 3, bounds: L.latLngBounds([fromWorld(x0, y1), fromWorld(x1, y0)]) });
-  })() : null;
-  if (zoneLayer) G.zone.addLayer(zoneLayer);
-  for (const z of water) add(G.water, L.polygon(z.polys, { ...noI, renderer: rWater }), () => ({ color: C.waterEdge, weight: 0.8, opacity: 0.9, fillColor: C.water, fillOpacity: 1 }));
-  for (const r of roads) {
+    zoneLayer = new ZoneTiles({ pane: 'p-zone', updateWhenZooming: false, keepBuffer: 3, bounds: L.latLngBounds([fromWorld(x0, y1), fromWorld(x1, y0)]) });
+    G.zone.addLayer(zoneLayer);
+  }
+  if (zLots.length) addZoneLayer();
+  function drawWater(z, detail) {
+    add(detail ? G.dwater : G.water, L.polygon(z.polys, { ...noI, renderer: rWater }), () => ({ color: C.waterEdge, weight: 0.8, opacity: 0.9, fillColor: C.water, fillOpacity: 1 }));
+  }
+  function drawRoad(r, detail) {
     const p = r.c === 'P';
-    add(G.roads, L.polyline(r.line, { ...noI, renderer: rRoad }), () => ({ color: p ? C.road : C.roadMinor, weight: p ? 2.4 : 1.4, opacity: 0.9, lineCap: 'round' }));
+    add(detail ? G.droads : G.roads, L.polyline(r.line, { ...noI, renderer: rRoad }), () => ({ color: p ? C.road : C.roadMinor, weight: p ? 2.4 : 1.4, opacity: 0.9, lineCap: 'round' }));
   }
-  for (const z of lands) {
-    if (z.def.s === 'green') { add(G.green, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ color: C.green, weight: 1.1, opacity: 0.8, fillColor: C.green, fillOpacity: C.fillGreen })); continue; }
-    if (z.def.s !== 'red' && z.def.s !== 'amber') continue;
-    add(z.def.s === 'red' ? G.red : G.amber, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[z.def.s], weight: 0.9, opacity: 0.9, fillColor: C[z.def.s], fillOpacity: z.def.s === 'red' ? C.fillRed : C.fillAmber }));
+  function drawLand(z, detail) {
+    const s = z.def.s;
+    if (s === 'green') { add(detail ? G.dgreen : G.green, L.polygon(z.polys, { ...noI, renderer: rTint }), () => ({ color: C.green, weight: 1.1, opacity: 0.8, fillColor: C.green, fillOpacity: C.fillGreen })); return; }
+    if (s !== 'red' && s !== 'amber') return;
+    const g = detail ? (s === 'red' ? G.dred : G.damber) : (s === 'red' ? G.red : G.amber);
+    add(g, L.polygon(z.polys, { ...noI, renderer: rLand }), () => ({ color: C[s], weight: 0.9, opacity: 0.9, fillColor: C[s], fillOpacity: s === 'red' ? C.fillRed : C.fillAmber }));
   }
+  for (const z of water) drawWater(z, false);
+  for (const r of roads) drawRoad(r, false);
+  for (const z of lands) drawLand(z, false);
   for (const z of airspace) {
-    const c = z.c === 'C';
-    add(G.airspace, L.polygon(z.polys, { ...noI, renderer: rAir }), () => ({ color: c ? C.c : C.d, weight: c ? (z.sfc ? 2.6 : 1.6) : 2, dashArray: c ? null : '7 5', opacity: 0.95, fill: c && z.sfc, fillColor: C.c, fillOpacity: 0.05 }));
+    const c = z.c === 'C', b = z.c === 'B';
+    add(G.airspace, L.polygon(z.polys, { ...noI, renderer: rAir }), () => (b
+      ? { color: C.d, weight: z.sfc ? 3 : 1.8, opacity: 0.95, fill: z.sfc, fillColor: C.d, fillOpacity: 0.05 }
+      : { color: c ? C.c : C.d, weight: c ? (z.sfc ? 2.6 : 1.6) : 2, dashArray: c ? null : '7 5', opacity: 0.95, fill: c && z.sfc, fillColor: C.c, fillOpacity: 0.05 }));
   }
   for (const z of sua) {
     const r = z.t === 'R';
@@ -460,7 +490,9 @@ function heliStart(REGION, startAt) {
   // labels
   const label = (lat, lon, cls, text) => L.marker([lat, lon], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl ${cls}">${esc(text)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' });
   for (const z of counties) if (!z.ic) G.labels.addLayer(label(z.l[0], z.l[1], 'lbl-county', `${z.n} Co.`));
-  for (const z of places) G.labels.addLayer(label(z.l[0], z.l[1], `lbl-city${MAJOR.has(z.n) ? ' major' : ''}`, z.n));
+  // a statewide region sizes city labels by population: the biggest show from the state view, cities of 50,000+ from
+  // zoom 7.5, the rest from zoom 10
+  for (const z of places) G.labels.addLayer(label(z.l[0], z.l[1], `lbl-city${MAJOR.has(z.n) || z.t >= 2 ? ' major' : ''}${z.t === 3 ? ' mega' : ''}`, z.n));
   for (const [n, la, lo, m] of WATER_LABELS) G.labels.addLayer(label(la, lo, `lbl-water ${m}`, n));
   const hideAir = new Set(REGION.hideAirspaceLabels || []);
   for (const z of airspace) {
@@ -469,12 +501,12 @@ function heliStart(REGION, startAt) {
     const mid = (z.bb[1] + z.bb[3]) / 2;
     const ceil = String(parseInt(z.hi, 10) / 100 | 0);
     const floor = z.sfc ? 'SFC' : String(parseInt(z.lo, 10) / 100 | 0);
-    const txt = z.c === 'C' ? `${ceil}/${floor}` : `[${ceil}]`;
-    G.labels.addLayer(L.marker([top, mid], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.c === 'C' ? 'var(--air-c)' : 'var(--air-d)'}">${txt}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
+    const txt = z.c === 'D' ? `[${ceil}]` : `${ceil}/${floor}`;
+    G.labels.addLayer(L.marker([top, mid], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl lbl-air" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.c === 'C' ? 'var(--air-c)' : 'var(--air-d)'}">${txt}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
   }
   for (const z of sua) {
     const p = insidePoint(z);
-    G.labels.addLayer(L.marker(p, { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.t === 'R' ? 'var(--air-r)' : 'var(--air-c)'}">${esc(z.n)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
+    G.labels.addLayer(L.marker(p, { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl lbl-air" style="position:absolute;transform:translate(-50%,-50%);font:600 12px var(--font-mono);color:${z.t === 'R' ? 'var(--air-r)' : 'var(--air-c)'}">${esc(z.n)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
   }
   for (const s of D.stadiums) {
     G.labels.addLayer(L.marker([s.lat + 3 * NM / 110574 * 0.86, s.lon], { icon: L.divIcon({ className: 'lbl-wrap', iconSize: [0, 0], html: `<div class="lbl lbl-tfr" style="position:absolute;transform:translate(-50%,-50%);font:600 11px var(--font-mono);color:var(--air-tfr)">TFR ${esc(s.short)}</div>` }), interactive: false, keyboard: false, pane: 'p-label' }));
@@ -507,13 +539,23 @@ function heliStart(REGION, startAt) {
     G.infra.addLayer(m);
   }
 
-  const ORDER = ['counties', 'cities', 'zone', 'green', 'water', 'roads', 'red', 'amber', 'parcel', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
-  ORDER.forEach((k) => G[k].addTo(map));
-  const TOGGLES = { 't-red': ['red'], 't-amber': ['amber'], 't-green': ['green'], 't-city': ['cities'], 't-zone': ['zone'], 't-parcel': ['parcel'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
-  for (const [id, groups] of Object.entries(TOGGLES)) {
-    const el = document.getElementById(id);
-    el.addEventListener('change', () => groups.forEach((g) => (el.checked ? map.addLayer(G[g]) : map.removeLayer(G[g]))));
+  const ORDER = ['counties', 'cities', 'zone', 'green', 'dgreen', 'water', 'dwater', 'roads', 'droads', 'red', 'dred', 'amber', 'damber', 'parcel', 'airspace', 'sua', 'tfr', 'labels', 'priv', 'ap', 'infra', 'hl', 'pin'];
+  const TOGGLES = { 't-red': ['red', 'dred'], 't-amber': ['amber', 'damber'], 't-green': ['green', 'dgreen'], 't-city': ['cities'], 't-zone': ['zone'], 't-parcel': ['parcel'], 't-infra': ['infra'], 't-airspace': ['airspace'], 't-sua': ['sua'], 't-tfr': ['tfr'], 't-ap': ['ap'], 't-priv': ['priv'] };
+  // a statewide region keeps its detail squares, private strips and infrastructure off the map below zoom 9, and its
+  // public airports below zoom 8, so the state view shows the cities' colors
+  const DETAIL_Z = 9;
+  const MIN_Z = D.chunks ? { dgreen: DETAIL_Z, dwater: DETAIL_Z, droads: DETAIL_Z, dred: DETAIL_Z, damber: DETAIL_Z, priv: DETAIL_Z, infra: DETAIL_Z, ap: 8 } : {};
+  const toggleOf = {};
+  for (const [id, groups] of Object.entries(TOGGLES)) for (const g of groups) toggleOf[g] = document.getElementById(id);
+  function syncGroups() {
+    const z = map.getZoom();
+    for (const k of ORDER) {
+      const want = (!toggleOf[k] || toggleOf[k].checked) && !(z < (MIN_Z[k] || 0));
+      if (want !== map.hasLayer(G[k])) (want ? map.addLayer(G[k]) : map.removeLayer(G[k]));
+    }
   }
+  for (const id of Object.keys(TOGGLES)) document.getElementById(id).addEventListener('change', syncGroups);
+  map.on('zoomend', syncGroups);
   const layersEl = document.getElementById('layers');
   const layersHint = document.getElementById('layersHint');
   const syncHint = () => { layersHint.textContent = layersEl.open ? 'hide' : 'show'; };
@@ -524,6 +566,7 @@ function heliStart(REGION, startAt) {
   function zoomClass() {
     const z = map.getZoom();
     const el = map.getContainer();
+    el.classList.toggle('map-z-state', z < 7.5);
     el.classList.toggle('map-z-lo', z < 10);
     el.classList.toggle('map-z-mid', z >= 10 && z < 12);
     el.classList.toggle('map-z-hi', z >= 12);
@@ -534,6 +577,59 @@ function heliStart(REGION, startAt) {
   function restyle() { readColors(); for (const [l, f] of styled) l.setStyle(f()); if (zoneLayer) zoneLayer.redraw(); if (parcelLayer && parcelLayer.refresh) parcelLayer.refresh(); drawHighlight(); }
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', restyle);
   new MutationObserver(restyle).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class', 'style'] });
+
+  // ---------- detail squares and zoning (a statewide region) ----------
+  // The base file holds what a statewide view shows; each 1° square's smaller land, water and roads load once the
+  // map is zoomed in over it or a spot in it is checked. A feature that crosses squares comes in each of them under
+  // one id and is kept once. Austin's zoning loads the same way, near Austin.
+  const CH = D.chunks || null;
+  const chunkKeys = new Set(CH ? CH.keys : []);
+  const chunkLoads = new Map(), chunkDone = new Map(), seenIds = new Set();
+  window.heliChunk = (key, data) => { const done = chunkDone.get(key); if (done) done(data); };
+  function addDetail(data) {
+    for (const o of data.l) if (!seenIds.has(o.i)) { seenIds.add(o.i); const z = landZone(o); lands.push(z); drawLand(z, true); }
+    for (const o of data.w) if (!seenIds.has(o.i)) { seenIds.add(o.i); const z = waterZone(o); water.push(z); drawWater(z, true); }
+    for (const o of data.r) if (!seenIds.has(o.i)) { seenIds.add(o.i); const r = roadLine(o); roads.push(r); drawRoad(r, true); }
+  }
+  function loadScript(src, onload, onerror) {
+    const el = document.createElement('script');
+    el.src = src; el.onload = onload; el.onerror = onerror;
+    document.head.appendChild(el);
+  }
+  function loadChunk(key) {
+    if (!chunkKeys.has(key)) return Promise.resolve();
+    if (!chunkLoads.has(key)) {
+      chunkLoads.set(key, new Promise((resolve) => {
+        chunkDone.set(key, (data) => { chunkDone.delete(key); addDetail(data); resolve(); });
+        // a square that fails to load is tried again by the next view or spot that needs it
+        loadScript(`${CH.dir}/${key}.js`, null, () => { chunkLoads.delete(key); chunkDone.delete(key); resolve(); });
+      }));
+    }
+    return chunkLoads.get(key);
+  }
+  const cellKey = (la, lo) => `${Math.floor(lo)}_${Math.floor(la)}`;
+  let zoningLoad = null;
+  const inZoningBox = (la, lo) => !!D.zoningBox && lo >= D.zoningBox[0] && la >= D.zoningBox[1] && lo <= D.zoningBox[2] && la <= D.zoningBox[3];
+  function ensureZoning() {
+    if (!D.zoningFile || zLots.length) return Promise.resolve();
+    if (!zoningLoad) {
+      zoningLoad = new Promise((resolve) => loadScript(D.zoningFile,
+        () => { if (window.HELI_ZONING) { decodeZoning(window.HELI_ZONING); addZoneLayer(); syncGroups(); } resolve(); },
+        () => { zoningLoad = null; resolve(); }));
+    }
+    return zoningLoad;
+  }
+  function loadView() {
+    const b = map.getBounds(), z = map.getZoom();
+    if (D.zoningBox && z >= 11 && b.intersects(L.latLngBounds([[D.zoningBox[1], D.zoningBox[0]], [D.zoningBox[3], D.zoningBox[2]]]))) ensureZoning();
+    if (!CH || z < DETAIL_Z) return;
+    const keys = [];
+    for (let x = Math.floor(b.getWest()); x <= Math.floor(b.getEast()); x++) for (let y = Math.floor(b.getSouth()); y <= Math.floor(b.getNorth()); y++) keys.push(`${x}_${y}`);
+    if (keys.length <= 30) keys.forEach(loadChunk);
+  }
+  map.on('moveend', loadView);
+  // everything a spot check needs at this point: its square, and Austin's zoning if it's near Austin
+  const ensureSpot = (la, lo) => Promise.all([CH ? loadChunk(cellKey(la, lo)) : null, inZoningBox(la, lo) ? ensureZoning() : null]);
 
   // ---------- the spot check ----------
   // rough size of a plant's or dam's grounds around its mapped point
@@ -599,7 +695,8 @@ function heliStart(REGION, startAt) {
     // airspace
     for (const z of res.sua) add(z.t === 'R' ? 'restricted' : 'alert', `${z.n}, SFC to ${z.hi} · ${z.tm}`);
     for (const z of res.air) {
-      if (z.c === 'C') add(z.sfc ? 'class_c' : 'class_c_shelf', `${(REGION.airspaceNames || {})[z.id] || airportName(z.id)} Class C, ${z.lo} to ${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`);
+      if (z.c === 'B') add(z.sfc ? 'class_b' : 'class_b_shelf', `${(REGION.airspaceNames || {})[z.id] || airportName(z.id)} Class B, ${z.lo} to ${z.hi}`);
+      else if (z.c === 'C') add(z.sfc ? 'class_c' : 'class_c_shelf', `${(REGION.airspaceNames || {})[z.id] || airportName(z.id)} Class C, ${z.lo} to ${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`);
       else add('class_d', `${airportName(z.id)} (${z.id}) Class D, SFC to ${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`);
     }
     for (const s of res.tfr) add('tfr_stadium', `${s.n}: ${s.ev}`);
@@ -618,13 +715,15 @@ function heliStart(REGION, startAt) {
       else if (!offLimits) add(t.cls === 'unz' ? 'austin_unzoned' : 'austin_permit', `${t.code}: ${t.name}${extra}`);
     } else if (res.lotGap) add('roadway', `Between zoning lots (${Math.round(res.lotGap.d / 0.3048)} ft from the nearest), so most likely a street, alley or rail line`);
     // the same reading from the county's parcel map: land outside every parcel is almost always right-of-way
-    res.parcelGap = !!(known && known.parcelGap) && !res.lot && !res.lotGap && !res.road && !res.water.length && !res.lands.length && !res.infra.length && !res.atPub && !res.atPriv;
+    res.parcelGap = !!(known && known.parcelGap) && !!res.county && !res.lot && !res.lotGap && !res.road && !res.water.length && !res.lands.length && !res.infra.length && !res.atPub && !res.atPriv;
     if (res.parcelGap) add('roadway', 'No parcel on the county’s parcel map here, so most likely a road, rail line or other right-of-way');
     // jurisdiction (the region's rules are one state's; a spot over the state line only gets a pointer)
     res.outOfState = !!(res.county && res.county.st && res.county.st !== REGION.state);
-    if (res.outOfState) add('other_state', `${countyName(res.county)}, ${STATE_NAMES[res.county.st] || res.county.st}`);
+    res.abroad = !res.county && !!RULES.outside_us;
+    if (res.abroad) add('outside_us', 'No US county here: Mexico, or offshore in the Gulf');
+    else if (res.outOfState) add('other_state', `${countyName(res.county)}, ${STATE_NAMES[res.county.st] || res.county.st}`);
     else if (res.place) {
-      const cr = CITY[res.place.reg];
+      const cr = cityRuleOf(res.place);
       const note = CITY_NOTES[res.place.n];
       add(cr ? cr.rule : 'city_other', note ? `${res.place.n}: ${note}` : `${placeKind(res.place)} of ${res.place.n}`);
     } else add('unincorporated', `${res.county ? countyName(res.county) : 'County'}, outside city and town limits`);
@@ -654,6 +753,7 @@ function heliStart(REGION, startAt) {
     if (res.lotGap) return `Street or alley in ${res.place.n}`;
     if (res.parcelGap) return 'Road or other right-of-way';
     if (res.lot) return `${LOT_NAME[res.lot.t.base] || LOT_NAME[res.lot.t.cls]} in ${res.place.n}`;
+    if (res.abroad) return 'Outside the United States';
     return res.place ? `Private land in ${res.place.n}` : `Private land, ${res.county ? (res.county.ic ? `City of ${res.county.n}` : `unincorporated ${res.county.n} County`) : 'unincorporated area'}`;
   }
   const LOT_NAME = {
@@ -699,11 +799,11 @@ function heliStart(REGION, startAt) {
     const nRed = main.filter((h) => h.level === 'red').length;
     const air = res.air.filter((z) => z.sfc || z.c === 'D');
     const airTxt = air.length
-      ? air.map((z) => (z.c === 'C' ? `Class C surface area, SFC–${z.hi}` : `Class D (${z.id}), SFC–${z.hi}${z.hrs ? `; ${z.hrs}` : ''}`)).join('; ')
-      : (res.air.length ? `Under the Class C shelf (floor ${res.air[0].lo})` : 'Class G (uncontrolled) near the ground');
+      ? air.map((z) => (z.c === 'D' ? `Class D (${z.id}), SFC–${z.hi}${z.hrs ? `; ${z.hrs}` : ''}` : `Class ${z.c} surface area, SFC–${z.hi}`)).join('; ')
+      : (res.air.length ? `Under the Class ${res.air[0].c} shelf (floor ${res.air[0].lo})` : 'Class G (uncontrolled) near the ground');
     const jur = res.place
       ? `${placeKind(res.place)} of ${res.place.n}${res.county && !res.county.ic ? `, ${res.county.n} County` : ''}`
-      : res.county ? (res.county.ic ? `City of ${res.county.n}` : `Unincorporated ${res.county.n} County`) : 'Unincorporated';
+      : res.county ? (res.county.ic ? `City of ${res.county.n}` : `Unincorporated ${res.county.n} County`) : res.abroad ? 'Mexico or offshore' : 'Unincorporated';
     const jurAll = res.outOfState ? `${jur}, ${STATE_NAMES[res.county.st] || res.county.st}` : jur;
     const np = res.nearPub && !res.atPub ? `${esc(res.nearPub.a.n)} (<span class="mono">${esc(res.nearPub.a.id)}</span>), ${nmStr(res.nearPub.d)} ${compass(bearing(res.la, res.lo, res.nearPub.a.lat, res.nearPub.a.lon))}` : '';
     const zoneTxt = res.lot ? `<span class="mono">${esc(res.lot.t.code)}</span> · ${esc(res.lot.t.name)}` : res.lotGap ? 'None (between lots)' : '';
@@ -911,7 +1011,7 @@ function heliStart(REGION, startAt) {
     let ok = true;
     const u = tpl.replace(/\{(\w+)\}/g, (m, k) => {
       const pad = /^id(\d+)$/.exec(k);
-      const v = k === 'id' ? o.id : pad ? o.id.padStart(+pad[1], '0') : k === 'year' ? o.year : tidy(o.attrs[k]);
+      const v = k === 'id' ? o.id : pad ? o.id.padStart(+pad[1], '0') : k === 'year' ? o.year : k === 'countyslug' ? (o.county || '').toLowerCase().replace(/[^a-z]/g, '') : tidy(o.attrs[k]);
       if (!v) ok = false;
       return encodeURIComponent(v);
     });
@@ -923,6 +1023,7 @@ function heliStart(REGION, startAt) {
     const label = s.linkLabel || 'County record';
     if (s.linkField) { const u = tidy(o.attrs[s.linkField]); return /^https?:\/\//i.test(u) ? [label, u] : null; }
     const tpl = s.records ? s.records[(o.county || '').toLowerCase()] : s.link;
+    if (!tpl && s.recordsFallback) { const f = fillLink(s.recordsFallback[1], o); return f ? [s.recordsFallback[0], f] : null; }
     const u = tpl && fillLink(tpl, o);
     return u ? [label, u] : null;
   }
@@ -985,13 +1086,17 @@ function heliStart(REGION, startAt) {
 
   const pinIcon = L.divIcon({ className: 'pin', iconSize: [30, 30], iconAnchor: [15, 15], html: '<svg viewBox="0 0 30 30"><circle class="ring" cx="15" cy="15" r="11" fill="none" style="stroke:var(--accent)" stroke-width="2"/><circle cx="15" cy="15" r="6.5" style="fill:var(--accent)" /><circle cx="15" cy="15" r="2.4" style="fill:var(--panel)"/><path d="M15 0v6M15 24v6M0 15h6M24 15h6" style="stroke:var(--accent)" stroke-width="2"/></svg>' });
   const pin = L.marker([0, 0], { icon: pinIcon, interactive: false, keyboard: false, pane: 'p-pin' });
-  function setSpot(la, lo, opts) {
+  let spotSeq = 0;
+  async function setSpot(la, lo, opts) {
+    const seq = ++spotSeq;
+    pin.setLatLng([la, lo]);
+    if (!G.pin.hasLayer(pin)) G.pin.addLayer(pin);
+    await ensureSpot(la, lo);
+    if (seq !== spotSeq) return; // a newer spot was picked while this one's square loaded
     current = check(la, lo);
     // the page's opening example waits for a click before asking the parcel service
     current.owner = PARCELS && !(opts && opts.initial) ? { state: 'loading' } : { state: 'idle' };
     current.opts = opts;
-    pin.setLatLng([la, lo]);
-    if (!G.pin.hasLayer(pin)) G.pin.addLayer(pin);
     drawHighlight();
     if (!(opts && opts.example)) {
       try { history.replaceState(null, '', `#${REGION.key}/${la.toFixed(5)},${lo.toFixed(5)}`); } catch { /* a sandboxed frame can refuse */ }
@@ -1025,7 +1130,8 @@ function heliStart(REGION, startAt) {
       const w = water.find((z) => inZone(z, la, lo));
       const p = places.find((z) => inZone(z, la, lo));
       const lot = zoned(p) && !w ? lotAt(la, lo) : null;
-      const cityNote = p && CITY[p.reg] && CITY[p.reg].tint ? ` <span class="z">· ${CITY[p.reg].tint === 'red' ? 'landings banned' : 'permit needed'}</span>` : '';
+      const cr = cityRuleOf(p), lv = cr && RULES[cr.rule] && RULES[cr.rule].level;
+      const cityNote = p ? ` <span class="z">· ${!cr ? 'city rules not checked' : lv === 'red' ? 'landings banned' : lv === 'amber' ? 'permit needed' : 'no city ban'}</span>` : '';
       txt = w ? `${esc(w.k === 'lake_austin_city' ? (lo > -97.7135 ? 'Colorado River' : austinLakeName(lo)) : w.n)}`
         : lot ? `${esc(p.n)} · ${esc(lot.t.code)} <span class="z">· ${lotNote(lot.t)}</span>`
         : p ? `${esc(p.n)} ${p.lsad === 'town' ? 'town' : 'city'} limits${cityNote}` : '<span class="z">Unincorporated</span>';
@@ -1051,6 +1157,7 @@ function heliStart(REGION, startAt) {
     for (const a of airports) index.push({ n: `${a.n} (${a.id})`, k: a.pub && a.t === 'AD' ? 'Public-use airport' : a.t === 'HP' ? 'Private heliport' : 'Private airfield', la: a.lat, lo: a.lon, zoom: 14 });
     for (const i of infra) if (i.k === 'power' || i.h >= 40) index.push({ n: i.n, k: i.k === 'power' ? 'Power plant' : 'High-hazard dam', la: i.lat, lo: i.lon, zoom: 14 });
     for (const s of D.stadiums) index.push({ n: s.n, k: 'Stadium TFR on event days', la: s.lat, lo: s.lon, zoom: 12 });
+    for (const [n, k, la, lo] of D.idx || []) if (!seen.has(n.toLowerCase())) index.push({ n, k: (LAND[k] || WATER[k] || LAND.unknown).label, la, lo, zoom: 15 });
     for (const e of index) e.l = e.n.toLowerCase();
   }
   // rows: local matches, then one row that searches addresses; geo rows replace them once an address search returns
@@ -1192,7 +1299,7 @@ function heliStart(REGION, startAt) {
     <ol class="checklist">${RB.checklist.map((c) => `<li><div><strong>${esc(c[0])}</strong>${esc(c[1])}</div></li>`).join('')}</ol>
     <h2>Sources</h2>
     <ul class="sources">${RB.sources.map((s) => `<li><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('')}</ul>
-    <p class="foot">Map data: ${esc(REGION.dataNote)}${D.zoning ? `; zoning as of ${esc(asOf(D.zoning.date))}` : ''}. ${PARCELS && PARCELS.note ? `${esc(PARCELS.note)}. ` : ''}Address search uses OpenStreetMap data through Nominatim and Photon. Event TFRs are drawn where the standing stadium TFR would apply; live TFRs are at tfr.faa.gov.</p>`;
+    <p class="foot">Map data: ${esc(REGION.dataNote)}${D.zoningDate || D.zoning ? `; Austin zoning as of ${esc(asOf(D.zoningDate || D.zoning.date))}` : ''}. ${PARCELS && PARCELS.note ? `${esc(PARCELS.note)}. ` : ''}Address search uses OpenStreetMap data through Nominatim and Photon. Event TFRs are drawn where the standing stadium TFR would apply; live TFRs are at tfr.faa.gov.</p>`;
 
   // ---------- examples and first view ----------
   const findLand = (n) => lands.filter((z) => z.n === n).sort((a, b) => b.area - a.area)[0];
@@ -1208,10 +1315,12 @@ function heliStart(REGION, startAt) {
   if (startAt && inBounds(REGION.bounds, startAt[0], startAt[1])) {
     map.setView(startAt, 15);
     zoomClass();
+    syncGroups();
     setSpot(startAt[0], startAt[1]);
   } else {
-    map.setView(REGION.view, small ? REGION.zoomSmall : REGION.zoom);
+    map.setView(small && REGION.viewSmall ? REGION.viewSmall : REGION.view, small ? REGION.zoomSmall : REGION.zoom);
     zoomClass();
+    syncGroups();
     const first = EXAMPLES[0];
     if (first) setSpot(first.la, first.lo, { example: true, initial: true });
   }

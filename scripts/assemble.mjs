@@ -7,7 +7,14 @@ import path from 'node:path';
 
 const dir = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const r = (p) => fs.readFileSync(path.join(dir, p), 'utf8');
-const rules = ['src/rules.js', 'src/rules_va.js'].filter((f) => fs.existsSync(path.join(dir, f))).map(r).join('\n');
+// the researched Texas cities' rules (src/cities_tx.json, keyed by Census GEOID) go in ahead of the rules that read them
+const cities = fs.existsSync(path.join(dir, 'src/cities_tx.json'))
+  ? Object.fromEntries(JSON.parse(r('src/cities_tx.json')).filter((c) => c.level && c.level !== 'unknown')
+    .map((c) => [c.fips, { level: c.level, title: c.title, text: c.text, penalty: c.penalty || '', who: c.who || '', cites: c.cites || [],
+      // a green card rests on the zoning code alone, since the code libraries wouldn't let the rest be searched
+      note: c.level === 'green' ? 'Based on the city’s zoning code. The rest of the city code wasn’t searched, and a separate landing rule could be there.' : '' }]))
+  : {};
+const rules = [`window.HELI_CITY_RULES = ${JSON.stringify(cities)};`, ...['src/rules.js', 'src/rules_va.js'].filter((f) => fs.existsSync(path.join(dir, f))).map(r)].join('\n');
 const app = r('src/app.js');
 const parts = (hooks) => ({
   '/*__LEAFLET_CSS__*/': r('raw/leaflet.css').replace(/url\([^)]*\)/g, 'none'),
@@ -26,7 +33,7 @@ function fill(hooks) {
   if (body === undefined) throw new Error('missing <!--__BODY__--> marker');
   return { head, body };
 }
-const DESC = 'Where a private helicopter can and can’t land around Austin, Texas, and Blacksburg, Virginia: the rules at any spot, who enforces them, and what a prohibited landing can cost.';
+const DESC = 'Where a private helicopter can and can’t land anywhere in Texas and around Blacksburg, Virginia: every city’s landing rule at a glance, the rules at any spot, who enforces them, and what a prohibited landing can cost.';
 const ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231d4f9c'/%3E%3Cpath d='M11 9v14M21 9v14M11 16h10' stroke='white' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E";
 const page = (hooks) => {
   const { head, body } = fill(hooks);

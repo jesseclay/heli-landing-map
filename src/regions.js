@@ -9,55 +9,48 @@ window.HELI_REGIONS = (() => {
   // Virginia's statewide parcels (VGIN): boundaries and parcel IDs, no owners
   const VGIN = 'https://vginmaps.vdem.virginia.gov/arcgis/rest/services/VA_Base_Layers/VA_Parcels';
   return {
-    austin: {
-      key: 'austin', label: 'Austin, TX', name: 'Austin', state: 'TX', data: 'data/austin.js',
-      title: 'Austin Helicopter Landing Map',
-      bounds: [-98.95, 29.55, -96.85, 31.25],
-      view: [30.29, -97.79], zoom: 10.5, zoomSmall: 9.5,
-      maxBounds: [[29.2, -99.4], [31.6, -96.4]],
-      attribution: 'Data: FAA, USGS PAD-US 4.1, US Census TIGER, EIA, USACE NID, City of Austin',
-      dataNote: 'FAA ADDS (airspace, airports, special-use airspace), USGS PAD-US 4.1 (parks and protected land), US Census TIGER (city limits, roads, water, campuses, correctional facilities), EIA (power plants), USACE National Inventory of Dams (high-hazard dams), City of Austin (zoning)',
-      major: ['Austin', 'Round Rock', 'Georgetown', 'San Marcos', 'Cedar Park', 'Pflugerville', 'New Braunfels', 'Killeen', 'Temple', 'Leander', 'Kyle', 'Bastrop', 'Lockhart', 'Marble Falls', 'Taylor', 'Fredericksburg', 'Seguin', 'Lakeway', 'Dripping Springs', 'Burnet', 'Llano', 'Elgin', 'Giddings'],
+    texas: {
+      key: 'texas', label: 'Texas', name: 'Texas', where: 'in Texas', state: 'TX', data: 'data/texas.js', aliases: ['austin'],
+      title: 'Texas Helicopter Landing Map', statewide: true,
+      bounds: [-106.65, 25.83, -93.5, 36.51],
+      view: [31.3, -102.3], viewSmall: [31.1, -99.4], zoom: 6, zoomSmall: 5, minZoom: 5, // the wide view clears the layers card
+      maxBounds: [[24.0, -116.0], [38.0, -87.0]],
+      attribution: 'Data: FAA, USGS PAD-US 4.1, US Forest Service, US Census TIGER, EIA, USACE NID, City of Austin, city codes',
+      dataNote: 'FAA ADDS (airspace, airports, special-use airspace), USGS PAD-US 4.1 (parks and protected land), US Forest Service (wilderness), US Census TIGER (state, city limits, roads, water, campuses, correctional facilities) and population estimates, EIA (power plants), USACE National Inventory of Dams (high-hazard dams), City of Austin (zoning), and each researched city’s code of ordinances',
       waterLabels: [
-        ['Lake Travis', 30.4378, -97.9200, ''], ['Lake Austin', 30.3511, -97.8070, ''], ['Lady Bird Lake', 30.2617, -97.7450, ''],
-        ['Lake LBJ', 30.5710, -98.3600, ''], ['Lake Buchanan', 30.7872, -98.4100, ''], ['Inks Lake', 30.7470, -98.3880, 'minor'],
-        ['Lake Marble Falls', 30.5546, -98.3000, 'minor'], ['Canyon Lake', 29.8928, -98.2600, ''], ['Lake Georgetown', 30.6741, -97.7500, 'minor'],
-        ['Granger Lake', 30.6950, -97.3500, 'minor'], ['Lake Bastrop', 30.1565, -97.2900, 'minor'], ['Walter E. Long Lake', 30.3032, -97.6000, 'minor'],
-        ['Belton Lake', 31.1396, -97.5200, ''], ['Stillhouse Hollow Lake', 31.0149, -97.6100, 'minor'],
+        ['Lake Texoma', 33.86, -96.75, ''], ['Sam Rayburn Reservoir', 31.12, -94.12, ''], ['Toledo Bend Reservoir', 31.33, -93.70, ''],
+        ['Lake Livingston', 30.78, -95.12, ''], ['Falcon Lake', 26.72, -99.17, ''], ['Amistad Reservoir', 29.56, -101.15, ''],
+        ['Lake Conroe', 30.45, -95.60, 'minor'], ['Lewisville Lake', 33.10, -97.02, 'minor'], ['Lake Ray Hubbard', 32.86, -96.51, 'minor'],
+        ['Cedar Creek Reservoir', 32.25, -96.10, 'minor'], ['Richland-Chambers Reservoir', 31.98, -96.22, 'minor'], ['Possum Kingdom Lake', 32.88, -98.50, 'minor'],
+        ['Lake Whitney', 31.95, -97.38, 'minor'], ['Galveston Bay', 29.55, -94.87, ''], ['Matagorda Bay', 28.55, -96.25, ''],
+        ['Corpus Christi Bay', 27.80, -97.25, 'minor'], ['Laguna Madre', 26.85, -97.45, 'minor'],
+        ['Lake Travis', 30.4378, -97.9200, 'minor'], ['Lake Austin', 30.3511, -97.8070, 'minor'], ['Lady Bird Lake', 30.2617, -97.7450, 'minor'],
+        ['Lake LBJ', 30.5710, -98.3600, 'minor'], ['Lake Buchanan', 30.7872, -98.4100, 'minor'], ['Canyon Lake', 29.8928, -98.2600, 'minor'],
+        ['Belton Lake', 31.1396, -97.5200, 'minor'],
       ],
-      // city limits the build tags with a reg key, and the rule and map tint each one gets
+      // cities with a card of their own in src/rules.js; the researched cities (src/cities_tx.json) get theirs by GEOID
       cities: {
         austin: { rule: 'city_austin', tint: 'amber' },
         wlh: { rule: 'city_wlh', tint: 'red' },
         lakeway: { rule: 'city_lakeway', tint: 'red' },
         dripping: { rule: 'city_dripping', tint: 'red' },
         hsb: { rule: 'city_hsb', tint: 'amber' },
-        zoning: { rule: 'city_zoning', tint: '' },
       },
-      cityNotes: {
-        Georgetown: 'heliports are banned in agricultural, residential and neighborhood commercial districts; elsewhere only beside a hospital or government facility, or by special use permit (UDC §5.05.020)',
-        Kyle: 'heliports by conditional use only, in the CM, W and PUD districts (§53-1047)',
-        Buda: 'special use permit only, and not within 1,000 ft of a church, school, hospital, library, park or home without noise mitigation (UDC §2.06.06)',
-        'Cedar Park': 'accessory heliports only in the H, PS and PA districts (§11.02.064)',
-        'Marble Falls': 'rotary-wing aviation is a conditional use in a few commercial and industrial districts (Development Code Table 3.1.4)',
-        Leander: 'any landing field needs a special use permit (zoning Art. IV §2)',
-        'Round Rock': 'zoning provides only for hospital heliports (§§2-60, 2-91)',
-      },
-      airportRadius: { AUS: 2700, SAT: 2300, GRK: 2000 },
-      airspaceNames: { AUS: 'Austin-Bergstrom', SAT: 'San Antonio' },
+      airportRadius: { AUS: 2700, SAT: 2300, GRK: 2000, DFW: 3500, IAH: 3000, HOU: 2000, DAL: 1800, ELP: 2300, AFW: 2000 },
+      airspaceNames: { AUS: 'Austin-Bergstrom', SAT: 'San Antonio', DFW: 'Dallas–Fort Worth', IAH: 'Houston', HOU: 'Houston Hobby', ELP: 'El Paso' },
       hideAirspaceLabels: ['SAT', 'RND'],
       examples: [
-        ['Zilker Park', { land: 'Zilker Metro Park' }, 14, 'red'],
-        ['Backyard in Hyde Park', [30.3050, -97.7292], 15, 'red'],
-        ['Industrial zoning in North Austin', [30.4000, -97.7200], 15, 'amber'],
+        ['Backyard in Hyde Park, Austin', [30.3050, -97.7292], 15, 'red'],
+        ['Ranch near Marfa', [30.2500, -104.1000], 12, 'green'],
         ['Ranch land near Dripping Springs', [30.2290, -98.2140], 12, 'green'],
-        ['Backyard in West Lake Hills', [30.2953, -97.8124], 14, 'red'],
-        ['Lake Travis', [30.4378, -97.9200], 12, 'amber'],
+        ['Big Bend National Park', { land: 'Big Bend National Park' }, 10, 'red'],
+        ['Sam Houston National Forest', { land: 'Sam Houston National Forest' }, 12, 'green'],
+        ['Fort Cavazos', [31.1900, -97.7500], 11, 'red'],
+        ['AT&T Stadium (game-day TFR)', [32.7520, -97.1000], 13, 'amber'],
+        ['Zilker Park, Austin', [30.2669, -97.7729], 14, 'red'],
+        ['Padre Island National Seashore', { land: 'Padre Island National Seashore' }, 11, 'red'],
         ['Austin Executive Airport', [30.3975, -97.5664], 13, 'blue'],
-        ['UT campus', { land: 'University of Texas at Austin' }, 14, 'red'],
-        ['Pedernales Falls State Park', { land: 'Pedernales Falls State Park' }, 12, 'red'],
-        ['Balcones Canyonlands refuge', { land: 'Balcones Canyonlands National Wildlife Refuge' }, 11, 'red'],
-        ['Dell Children’s hospital helipad', [30.30440, -97.70773], 15, 'amber'],
+        ['Gulf of Mexico off Galveston', [29.1000, -94.6000], 9, 'red'],
       ],
       parcels: {
         lines: { kind: 'export', url: TXGIO, layer: 0, label: 'owner_name', labelArea: 'gis_area', minZoom: 15, legend: 'Property lines and owners' },
@@ -66,6 +59,8 @@ window.HELI_REGIONS = (() => {
           f: { owner: 'OWNER_NAME', care: 'NAME_CARE', mail: ['MAIL_LINE1', 'MAIL_LINE2'], mailCity: 'MAIL_CITY', mailState: 'MAIL_STAT', mailZip: 'MAIL_ZIP', mailFull: 'MAIL_ADDR', situs: 'SITUS_ADDR', id: 'PROP_ID', legal: 'LEGAL_DESC', county: 'COUNTY', year: 'TAX_YEAR' },
           // each appraisal district's page for one property, by its property ID
           linkLabel: 'Appraisal record',
+          // a county without a link pattern points to its appraisal district's listing at the Comptroller
+          recordsFallback: ['County appraisal district', 'https://comptroller.texas.gov/taxes/property-tax/county-directory/{countyslug}.php'],
           records: {
             travis: 'https://travis.prodigycad.com/property-detail/{id}',
             williamson: 'https://search.wcad.org/Property-Detail/PropertyQuickRefID/{id}',

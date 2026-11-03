@@ -120,7 +120,7 @@ const dms = (s) => { // "30-11-40.2980N" -> decimal
 };
 const title = (s) => (s || '').toLowerCase().replace(/(^|[\s\-/(.])([a-z])/g, (m, a, c) => a + c.toUpperCase())
   .replace(/\b(Aaf|Ahp|Arng|Lz|Vip|Sts|Mgm|Lyj|Jej|Hbr|Crc|Gw|Tow|Lqlz|Bh|Ii|Iii|Tx|Va|Aap)\b/g, (w) => w.toUpperCase());
-const STATE_FIPS = { 48: 'TX', 51: 'VA', 54: 'WV' };
+const STATE_FIPS = { '05': 'AR', 22: 'LA', 35: 'NM', 40: 'OK', 48: 'TX', 51: 'VA', 54: 'WV' };
 
 // ---------- what differs by region ----------
 function austinLandKind(p, c, ctx) {
@@ -150,6 +150,11 @@ function austinLandKind(p, c, ctx) {
   if (t === 'PVT') return /Home ?Owners|HOA|Association|Owners Assoc|Community Assoc/i.test(who) ? 'hoa' : 'private_cons';
   return 'unknown';
 }
+// Texas statewide: Austin's kinds, plus national forests and grasslands (open outside wilderness, as in Virginia)
+function texasLandKind(p, c, ctx) {
+  if (p.Mang_Name === 'USFS') return 'usfs';
+  return austinLandKind(p, c, ctx);
+}
 // Virginia: national forest is open to landings outside wilderness, which comes from the Forest Service's own
 // boundaries; West Virginia's state and local land falls outside the Virginia rules this region applies.
 function vaLandKind(p, c, ctx) {
@@ -178,7 +183,44 @@ function vaLandKind(p, c, ctx) {
   if (/^(LP|LREC|LCA|LHCA|LOTH)$/.test(d)) return c && ctx.places.some((pl) => pl.st === 'VA' && inGeom(c, pl._geom)) ? 'park_city' : 'park_county';
   return 'unknown';
 }
+// Corps of Engineers reservoirs in Texas, where landing is barred outside designated areas
+const TX_USACE_LAKES = /Lk Georgetown|Granger Lk|Canyon Lk|Belton Lk|Stillhouse|Lewisville Lk|Grapevine Lk|Lavon Lk|Ray Roberts|Lk Texoma|Sam Rayburn|B A Steinhagen|Lk Whitney|Waco Lk|Lk Waco|Somerville Lk|Proctor Lk|Hords Creek Lk|O C Fisher|Benbrook Lk|Joe Pool|Aquilla Lk|Navarro Mills|Bardwell Lk|Pat Mayse|Jim Chapman|Cooper Lk|Wright Patman|Lk O' the Pines|Lake O' the Pines/;
 const REGION_CFG = {
+  texas: {
+    state: 'TX',
+    bounds: [-106.65, 25.83, -93.5, 36.51],
+    hub: 'Austin',
+    statewide: true,
+    // cities with their own rule card in src/rules.js; the researched cities (src/cities_tx.js) are keyed by GEOID
+    cityReg: { Austin: 'austin', 'West Lake Hills': 'wlh', Lakeway: 'lakeway', 'Dripping Springs': 'dripping', 'Horseshoe Bay': 'hsb' },
+    cityResearch: 'src/cities_tx.json',
+    waterKind: (name, c, b) => {
+      const n = name || '';
+      if (/Lk Travis|Creek Arm|Lk Buchanan|Inks Lk|Lyndon B Johnson|Lake Marble|Lk Bastrop/.test(n)) return 'lake_lcra';
+      if (TX_USACE_LAKES.test(n)) return 'lake_usace';
+      if (/Walter E Long/.test(n)) return 'lake_austin_park';
+      if (n === 'Colorado Riv' && b[0] < -97.85 && b[2] > -97.75 && b[1] < 30.3 && b[3] > 30.3) return 'lake_austin_city';
+      if (/Riv\b|Crk\b/.test(n)) return 'river';
+      return 'lake_other';
+    },
+    landKind: texasLandKind,
+    extraLands: [{ n: 'Texas Capitol Complex', k: 'capitol', m: 'State of Texas', a: 0, acc: '', d: 'CAP',
+      geom: { type: 'Polygon', coordinates: [[[-97.7438, 30.27248], [-97.74051, 30.28133], [-97.73451, 30.27964], [-97.73792, 30.27083], [-97.7438, 30.27248]]] } }],
+    publicCampus: /University of Texas|Univ of Texas|Texas State|Texas A ?& ?M|Texas Tech|Univ of Houston|University of Houston|Univ of North Texas|University of North Texas|Stephen F Austin|Sam Houston State|Lamar Univ|Prairie View|Texas Southern|Angelo State|Midwestern State|Sul Ross|Tarleton|West Texas A|Texas Woman|Community Colg|Community College|Junior Colg|Central Texas College|Blinn|Austin Community/,
+    // part-time towers get a pointer to the Chart Supplement; these are the hours where they're known
+    towerHours: {
+      EDC: 'tower 0700–2200 local, Class E when closed', GTU: 'tower 0700–2200 local, Class E when closed',
+      HYI: 'tower 0700–2100 local, Class E when closed', BAZ: 'tower 0700–1900 local, Class G when closed',
+      GRK: 'tower continuous', RND: 'tower Mon–Fri 0700–1900, Class E when closed',
+    },
+    partTimeHours: 'part-time tower: hours in the Chart Supplement, Class E or G when closed',
+    towered: 'airspace', // every airport with Class B, C or D airspace has a tower
+    stadiums: 'raw/texas/stadiums.json',
+    wilderness: 'usfs/wilderness.geojson',
+    zoning: true,
+    zoningFile: 'texas-zoning',
+    clipToState: 'tiger/state.geojson',
+  },
   austin: {
     state: 'TX',
     bounds: [-98.95, 29.55, -96.85, 31.25],
@@ -243,13 +285,19 @@ const CFG = REGION_CFG[REGION];
 if (!CFG) throw new Error(`unknown region ${REGION}`);
 
 // ---------- places (city and town limits) ----------
+// a statewide region labels cities by size (t: 3 for 500,000+, 2 for 50,000+, 1 for 10,000+) and gives each city
+// whose code was researched its own rule, keyed by its Census GEOID
+const popOf = exists('places_pop.json') ? new Map(read('places_pop.json').map((r) => [r.fips, r.p])) : null;
+const research = CFG.cityResearch && fs.existsSync(path.join(ROOT, CFG.cityResearch)) ? JSON.parse(fs.readFileSync(path.join(ROOT, CFG.cityResearch), 'utf8')) : [];
+const researched = new Set(research.filter((r) => r.level && r.level !== 'unknown').map((r) => r.fips));
 const places = read('tiger/places.geojson').features.map((f) => {
   const p = f.properties;
   const n = p.NAME.replace(/ (city|town|village)$/, '');
   const st = STATE_FIPS[String(p.GEOID).slice(0, 2)] || '';
+  const pop = popOf ? popOf.get(String(p.GEOID)) || 0 : 0;
   return {
-    reg: st && st !== CFG.state ? 'other_state' : (CFG.cityReg[n] || ''),
-    n, st,
+    reg: st && st !== CFG.state ? 'other_state' : (CFG.cityReg[n] || (researched.has(String(p.GEOID)) ? String(p.GEOID) : '')),
+    n, st, ...(popOf ? { t: pop >= 500000 ? 3 : pop >= 50000 ? 2 : pop >= 10000 ? 1 : 0 } : {}),
     lsad: (p.NAME.match(/ (city|town|village)$/) || [, 'city'])[1],
     l: [r5(+p.INTPTLAT), r5(+p.INTPTLON)],
     g: encPolys(f.geometry, 0.00025, 1e-8),
@@ -268,6 +316,20 @@ const counties = countyFeats.map((f) => ({
   l: (() => { const c = centroidish(f.geometry); return [r5(c[1]), r5(c[0])]; })(),
 }));
 const stateAt = (pt) => { const f = countyFeats.find((x) => inGeom(pt, x.geometry)); return f ? STATE_FIPS[String(f.properties.STATE)] : ''; };
+// a statewide region keeps only the roads, water and special land that touch the state
+const stateGeom = CFG.clipToState ? read(CFG.clipToState).features[0].geometry : null;
+const stateBox = stateGeom ? bboxOf(stateGeom) : null;
+function touchesState(geom) {
+  if (!stateGeom) return true;
+  const b = bboxOf(geom);
+  if (b[2] < stateBox[0] || b[0] > stateBox[2] || b[3] < stateBox[1] || b[1] > stateBox[3]) return false;
+  const pts = [];
+  const w = (c) => (Array.isArray(c[0]) ? c.forEach(w) : pts.push(c));
+  w(geom.coordinates);
+  const step = Math.max(1, Math.floor(pts.length / 12));
+  for (let i = 0; i < pts.length; i += step) if (inGeom(pts[i], stateGeom)) return true;
+  return inGeom(pts[pts.length - 1], stateGeom);
+}
 
 // ---------- roads ----------
 const roadName = (n) => (n || '')
@@ -278,6 +340,7 @@ const roadName = (n) => (n || '')
 const roads = [];
 for (const [file, cls, tol] of [['tiger/primary.geojson', 'P', 0.0002], ['tiger/secondary.geojson', 'S', 0.0003]]) {
   for (const f of read(file).features) {
+    if (!f.geometry || !touchesState(f.geometry)) continue;
     for (const line of linesOf(f.geometry)) {
       const s = simplify(line, tol);
       if (s.length < 2) continue;
@@ -288,10 +351,12 @@ for (const [file, cls, tol] of [['tiger/primary.geojson', 'P', 0.0002], ['tiger/
 
 // ---------- water ----------
 const prettyWater = (n) => (n || '').replace(/^Lk /, 'Lake ').replace(/ Lk$/, ' Lake').replace(/ Riv$/, ' River').replace(/ Crk$/, ' Creek').replace('Lake Lyndon B Johnson', 'Lake LBJ').replace('Lake Marble Fls', 'Lake Marble Falls').replace('Lake Mc Queeney', 'Lake McQueeney');
-const water = read('tiger/areahydro.geojson').features.map((f) => {
+const water = read('tiger/areahydro.geojson').features.filter((f) => f.geometry && touchesState(f.geometry)).map((f) => {
   const c = centroidish(f.geometry);
   const k = CFG.waterKind(f.properties.NAME, c, bboxOf(f.geometry));
-  return { n: prettyWater(f.properties.NAME) || 'Lake or pond', k, g: encPolys(f.geometry, 0.00012) };
+  // ar: area in km², so a statewide map can leave small ponds until it's zoomed in
+  const ar = Math.round((f.properties.AREAWATER || 0) / 1e5) / 10;
+  return { n: prettyWater(f.properties.NAME) || 'Lake or pond', k, ar, g: encPolys(f.geometry, !CFG.statewide ? 0.00012 : ar >= 20 ? 0.0004 : 0.00018), _c: c };
 });
 
 // ---------- protected and public lands (PAD-US, plus wilderness from the Forest Service) ----------
@@ -312,7 +377,7 @@ for (const f of pad) {
   const mgr = [p.Loc_Mang, p.Loc_Own].find((s) => s && !/^Unknown$/i.test(s)) || '';
   lands.push({
     n: (p.Unit_Nm && p.Unit_Nm !== 'Unknown') ? p.Unit_Nm.replace(/_\d+$/, '') : 'Unnamed protected land',
-    k, m: mgr, a: Math.round(p.GIS_Acres), acc: p.Pub_Access, d: p.Des_Tp, g,
+    k, m: mgr, a: Math.round(p.GIS_Acres), acc: p.Pub_Access, d: p.Des_Tp, g, _c: c,
   });
 }
 if (CFG.wilderness && exists(CFG.wilderness)) {
@@ -327,10 +392,12 @@ for (const x of CFG.extraLands) { const { geom, ...rest } = x; lands.push({ ...r
 const prettyCampus = (n) => n.replace(/^Univ of Texas$/, 'University of Texas at Austin').replace(/^Virginia Polytechnic Institute and State Univ$/, 'Virginia Tech')
   .replace(/Univ\b/, 'University').replace(/Colg\b/, 'College').replace(/Smry\b/, 'Seminary').replace(/Schl\b/, 'School').replace("Saint Edward's University", "St. Edward's University");
 for (const f of read('tiger/colleges.geojson').features) {
+  if (!touchesState(f.geometry)) continue;
   const n = prettyCampus(f.properties.NAME);
   lands.push({ n, k: CFG.publicCampus.test(n) || CFG.publicCampus.test(f.properties.NAME) ? 'campus_public' : 'campus_private', m: n, a: Math.round(f.properties.AREALAND / 4047), acc: '', d: 'CAMPUS', g: encPolys(f.geometry, 0.00004) });
 }
 for (const f of read('tiger/prisons.geojson').features) {
+  if (!touchesState(f.geometry)) continue;
   const n = f.properties.NAME.replace(/Complx/, 'Complex').replace(/Ctr\b/g, 'Center').replace(/Corr Faclty/, 'Correctional Facility').replace(/Faclty\b/, 'Facility').replace(/Acdmy/, 'Academy').replace(/Schl/, 'School').replace(/Ofc/, 'Office');
   lands.push({ n, k: 'prison', m: n, a: Math.round(f.properties.AREALAND / 4047), acc: '', d: 'CORR', g: encPolys(f.geometry, 0.00004) });
 }
@@ -339,14 +406,15 @@ for (const f of read('tiger/prisons.geojson').features) {
 const airspace = [];
 for (const f of read('faa/class_airspace2.geojson').features) {
   const p = f.properties;
-  if (!/^CLASS_(C|D)$/.test(p.LOCAL_TYPE)) continue;
+  if (!/^CLASS_(B|C|D)$/.test(p.LOCAL_TYPE)) continue;
   const cls = p.CLASS;
   const sfc = +p.LOWER_VAL === 0;
-  const key = `${p.IDENT}-${cls}-${p.LOWER_VAL}`;
-  if (airspace.some((a) => a.key === key)) continue; // some areas are listed twice
+  // some areas are listed twice; a Class B's sectors share an ident and floor, so the outline tells them apart
+  const key = `${p.IDENT}-${cls}-${p.LOWER_VAL}-${p.UPPER_VAL}-${bboxOf(f.geometry).map((v) => v.toFixed(3)).join(',')}`;
+  if (airspace.some((a) => a.key === key)) continue;
   airspace.push({
     key, id: p.IDENT, c: cls, sfc, lo: sfc ? 'SFC' : `${p.LOWER_VAL} MSL`, hi: `${p.UPPER_VAL} MSL`,
-    pt: p.WKHR_CODE !== 'H24', hrs: CFG.towerHours[p.IDENT] || '', n: title(p.NAME), g: encPolys(f.geometry, 0.0004),
+    pt: p.WKHR_CODE !== 'H24', hrs: CFG.towerHours[p.IDENT] || (p.WKHR_CODE !== 'H24' && CFG.partTimeHours) || '', n: title(p.NAME), g: encPolys(f.geometry, 0.0004),
   });
 }
 const sua = [];
@@ -358,6 +426,10 @@ for (const f of read('faa/sua.geojson').features || []) {
 }
 
 // ---------- airports and heliports ----------
+// every airport with its own Class B, C or D airspace has a tower; Love Field and Hobby sit inside a Class B
+const toweredBy = CFG.towered === 'airspace'
+  ? Object.assign(Object.fromEntries(airspace.map((a) => [a.id, a.c])), { DAL: 'B', HOU: 'B' })
+  : CFG.towered;
 const airports = read('faa/airports.geojson').features.map((f) => {
   const p = f.properties;
   return {
@@ -365,7 +437,7 @@ const airports = read('faa/airports.geojson').features.map((f) => {
       .replace(/\bExec\b/, 'Executive').replace(/\bFld\b/, 'Field').replace(/\bNtl\b/, 'National').replace(/\bMeml\b/, 'Memorial')
       .replace(/^Lago Vista TX\/Rusty Allen$/, 'Lago Vista (Rusty Allen)').replace('Hosital', 'Hospital').replace(/\bCo\b/, 'County').replace(/\bDep\b/, 'Department').replace(/\s+/g, ' '),
     t: p.TYPE_CODE, pub: p.PRIVATEUSE === 0 ? 1 : 0, mil: p.MIL_CODE === 'MIL' ? 1 : 0, city: title(p.SERVCITY),
-    lat: r5(dms(p.LATITUDE)), lon: r5(dms(p.LONGITUDE)), el: Math.round(p.ELEVATION), tw: CFG.towered[p.IDENT] || '',
+    lat: r5(dms(p.LATITUDE)), lon: r5(dms(p.LONGITUDE)), el: Math.round(p.ELEVATION), tw: toweredBy[p.IDENT] || '',
     st: p.OPERSTATUS,
   };
 }).filter((a) => a.st === 'OPERATIONAL');
@@ -446,7 +518,58 @@ if (CFG.zoning) {
     }
   }
   zoning = { q: ZQ, o: [zb[0], zb[1]], n: zPolys.length, types: zTypes, g: Buffer.from(zBytes).toString('base64'), date: '2026-10-30' };
-  zStats = { lots: zPolys.length, dropped: zDropped, outside: zOutside, vertices: zVerts, types: zTypes.length, bytes: zBytes.length };
+  zStats = { lots: zPolys.length, dropped: zDropped, outside: zOutside, vertices: zVerts, types: zTypes.length, bytes: zBytes.length, box: [zb[2], zb[3]] };
+}
+
+// ---------- a statewide region: a base file the page loads first, and detail in 1° squares loaded as needed ----------
+// The base keeps what a statewide view shows (city limits, counties, airspace, airports, highways, land of a square
+// mile or more, lakes of 20 km² or more); the smaller land, water and roads go to the square or squares each one
+// touches, with an id so a feature in two squares is kept once.
+const clean = (o) => { const { _c, ...rest } = o; return rest; };
+let chunkKeys = null, idx = null, chunkStats = null;
+const baseLands = [], baseWater = [], baseRoads = [];
+if (CFG.statewide) {
+  const decBox = (enc) => { let x = 0, y = 0, b = [1e9, 1e9, -1e9, -1e9]; for (let i = 0; i < enc.length; i += 2) { x += enc[i]; y += enc[i + 1]; b = [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x), Math.max(b[3], y)]; } return b.map((v) => v / 1e5); };
+  const polyBox = (g) => g.flatMap((poly) => [decBox(poly[0])]).reduce((a, b) => [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])]);
+  const cells = new Map();
+  let id = 0;
+  const put = (kind, o, box) => {
+    const f = { ...clean(o), i: id++ };
+    for (let x = Math.floor(box[0] - 0.002); x <= Math.floor(box[2] + 0.002); x++) {
+      for (let y = Math.floor(box[1] - 0.002); y <= Math.floor(box[3] + 0.002); y++) {
+        const k = `${x}_${y}`;
+        if (!cells.has(k)) cells.set(k, { l: [], w: [], r: [] });
+        cells.get(k)[kind].push(f);
+      }
+    }
+  };
+  for (const l of lands) {
+    if (l.a >= 640 || l.k === 'capitol' || l.k === 'wilderness') baseLands.push(clean(l));
+    else put('l', l, polyBox(l.g));
+  }
+  for (const w of water) { if (w.ar >= 20) baseWater.push(clean(w)); else put('w', w, polyBox(w.g)); }
+  for (const r of roads) { if (r.c === 'P') baseRoads.push(r); else put('r', r, decBox(r.g)); }
+  const dir = path.join(ROOT, 'docs', 'data', REGION);
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+  let biggest = 0;
+  for (const [k, v] of cells) {
+    const body = `window.heliChunk&&window.heliChunk(${JSON.stringify(k)},${JSON.stringify(v)});\n`;
+    fs.writeFileSync(path.join(dir, `${k}.js`), body);
+    biggest = Math.max(biggest, body.length);
+  }
+  chunkKeys = [...cells.keys()].sort();
+  // named land and water outside the base, so search finds them before their square has loaded
+  const best = new Map();
+  for (const l of [...lands, ...water]) {
+    if (!l._c || /^Unnamed|^Lake or pond$/.test(l.n) || baseLands.some((b) => b.n === l.n)) continue;
+    const size = l.a != null ? l.a : (l.ar || 0) * 247;
+    if (size < 20) continue;
+    const key = l.n.toLowerCase();
+    if (!best.has(key) || best.get(key)[4] < size) best.set(key, [l.n, l.k, r5(l._c[1]), r5(l._c[0]), size]);
+  }
+  idx = [...best.values()].map(([n, k, la, lo]) => [n, k, la, lo]);
+  chunkStats = { squares: chunkKeys.length, biggestKB: Math.round(biggest / 1024), detailFeatures: id, indexed: idx.length };
 }
 
 const data = {
@@ -455,17 +578,22 @@ const data = {
   built: new Date().toISOString().slice(0, 10),
   bounds: CFG.bounds,
   places: places.map(({ _geom, ...p }) => p),
-  counties, roads, water, lands, airspace, sua, airports, infra, stadiums: CFG.stadiums,
-  ...(zoning ? { zoning } : {}),
+  counties, airspace, sua, airports, infra,
+  ...(CFG.statewide ? { roads: baseRoads, water: baseWater, lands: baseLands, chunks: { dir: `data/${REGION}`, keys: chunkKeys }, idx } : { roads, water, lands: lands.map(clean) }),
+  stadiums: typeof CFG.stadiums === 'string' ? JSON.parse(fs.readFileSync(path.join(ROOT, CFG.stadiums), 'utf8')) : CFG.stadiums,
+  // a statewide region loads Austin's zoning from its own file, only once the map or a spot check needs it
+  ...(zoning && !CFG.zoningFile ? { zoning } : {}),
+  ...(zoning && CFG.zoningFile ? { zoningFile: `data/${CFG.zoningFile}.js`, zoningBox: [zoning.o[0] / zoning.q, zoning.o[1] / zoning.q, zStats.box[0] / zoning.q, zStats.box[1] / zoning.q] } : {}),
 };
 const json = JSON.stringify(data);
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, `window.HELI_DATA=${json};\n`);
+if (zoning && CFG.zoningFile) fs.writeFileSync(path.join(ROOT, 'docs', 'data', `${CFG.zoningFile}.js`), `window.HELI_ZONING=${JSON.stringify(zoning)};\n`);
 const kinds = {};
 for (const l of lands) kinds[l.k] = (kinds[l.k] || 0) + 1;
 console.log(JSON.stringify({
   region: REGION, out: path.relative(ROOT, OUT), bytes: json.length, places: places.length, counties: counties.length, roads: roads.length, water: water.length,
-  lands: lands.length, kinds, skipped, airspace: airspace.length, sua: sua.length, airports: airports.length, infra: infra.length, zoning: zStats,
+  lands: lands.length, kinds, skipped, chunks: chunkStats, airspace: airspace.length, sua: sua.length, airports: airports.length, infra: infra.length, zoning: zStats,
   waterKinds: water.reduce((o, w) => ((o[w.k] = (o[w.k] || 0) + 1), o), {}),
   regs: places.filter((p) => p.reg).map((p) => `${p.n}:${p.reg}`).join(' '),
 }, null, 1));

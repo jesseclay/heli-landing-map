@@ -14,7 +14,7 @@ window.HELI_RULES.TX = (function () {
     trespassB: 'Criminal trespass, Class B misdemeanor: up to 180 days in jail and a $2,000 fine',
     cityC: 'City ordinance violation, Class C: up to $500',
   };
-  const FAA_WHO = 'FAA Flight Standards, San Antonio FSDO (covers Austin)';
+  const FAA_WHO = 'FAA Flight Standards (the Dallas, Fort Worth, Houston, Lubbock or San Antonio district office)';
   const LCRA_REGS = 'https://www.lcra.org/download/lcra-land-and-water-use-regulations-pdf/?wpdmdl=19648';
   const AUS_LDC = 'https://library.municode.com/tx/austin/codes/land_development_code';
   const AUS_LDC_861 = `${AUS_LDC}?nodeId=TIT25LADE_CH25-2ZO_SUBCHAPTER_CUSDERE_ART4ADRECEUS_DIV4OTUS_S25-2-861FAHEOTNOWIAI`;
@@ -66,23 +66,30 @@ window.HELI_RULES.TX = (function () {
       { who: 'Texas Military Department security', pen: ['See the National Guard installation rule'] }),
 
     // ---------- airspace ----------
-    class_c: R('amber', 'Austin-Bergstrom Class C surface area',
-      'From the surface to 4,500 ft MSL within 5 NM of AUS. Before entering you need two-way radio contact with Austin Approach or Tower, a Mode C transponder and ADS-B Out. ATC can clear you to land at an off-airport site but doesn’t vet it: the tower will tell you the landing is at your own risk.',
-      { who: 'FAA; Austin Approach and AUS Tower report deviations', pen: ['Entering without radio contact is a top-severity case: about 20–60 days’ suspension if careless, 60–120 if intentional', P.civil],
+    class_b: R('amber', 'Class B surface area: clearance required',
+      'Class B surrounds the busiest airports (Dallas–Fort Worth and Love Field, Bush Intercontinental and Hobby). You may not enter it without an explicit ATC clearance (“cleared into the Class B”), with a two-way radio, a Mode C transponder and ADS-B Out. Approach can clear a helicopter to an off-airport site but doesn’t vet it, and in the inner core expect to be held or routed around traffic.',
+      { who: 'FAA; the approach control (Regional Approach or Houston Approach) reports deviations', pen: ['Entering without a clearance is a top-severity case: about 30–90 days’ suspension if careless, longer if intentional', P.civil],
+        cites: [c('14 CFR 91.131', ecfr(14, '91.131')), c('14 CFR 91.225', ecfr(14, '91.225'))] }),
+    class_b_shelf: R('info', 'Under a Class B shelf',
+      'This ring of the Class B starts well above the ground (its floor is listed above), so a landing stays below it and needs no clearance. You are under busy arrival and departure paths, though, so get flight following from approach.',
+      { cites: [c('14 CFR 91.131', ecfr(14, '91.131'))] }),
+    class_c: R('amber', 'Class C surface area',
+      'From the surface up, within about 5 NM of the airport. Before entering you need two-way radio contact with the approach control or tower, a Mode C transponder and ADS-B Out. ATC can clear you to land at an off-airport site but doesn’t vet it: the tower will tell you the landing is at your own risk.',
+      { who: 'FAA; the approach control and tower report deviations', pen: ['Entering without radio contact is a top-severity case: about 20–60 days’ suspension if careless, 60–120 if intentional', P.civil],
         cites: [c('14 CFR 91.130', ecfr(14, '91.130')), c('14 CFR 91.225', ecfr(14, '91.225')), c('JO 7110.65 ¶3-11-6', 'https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap3_section_11.html')] }),
     class_c_shelf: R('info', 'Under the Class C outer shelf',
-      'The outer ring of the AUS Class C starts at 2,100 ft MSL, roughly 1,500 ft above the ground here, so a landing stays below it and needs no ATC contact. You are under arrival and departure paths, though, and most pilots talk to Austin Approach anyway.',
+      'The outer ring of a Class C starts about 1,200 ft or more above the ground (its floor is listed above), so a landing stays below it and needs no ATC contact. You are under arrival and departure paths, though, and most pilots talk to approach anyway.',
       { cites: [c('FAA JO 7400.11M', 'https://www.faa.gov/documentLibrary/media/Order/2026-07-30_Order_JO_7400.11M_Airspace_Designations_and_Reporting_Points_FINAL.pdf')] }),
     class_d: R('amber', 'Class D surface area',
       'While the tower is open you need two-way radio contact with it before entering, and you should tell it you plan to land off-airport. ATC can approve the operation but not the site. When the tower closes the area becomes Class E or G, and no contact is required.',
       { who: 'FAA; the airport’s tower reports deviations', pen: ['Entering without radio contact: about 20–60 days’ suspension if careless', P.civil], cites: [c('14 CFR 91.129', ecfr(14, '91.129'))] }),
-    restricted: R('red', 'Restricted area over Fort Cavazos',
-      'R-6302 covers the Fort Cavazos ranges from the surface up. R-6302A is active around the clock, B and C on their published schedules and at other times by NOTAM. Entry needs permission from Fort Cavazos or Houston Center.',
-      { who: 'FAA; Fort Cavazos range control', pen: ['Top-severity airspace case: certificate suspension and civil penalty up to $1,875 per violation', 'Landing also puts you on a closed military reservation'], cites: [c('14 CFR 73.13', ecfr(14, '73.13'))] }),
+    restricted: R('red', 'Restricted area',
+      'Restricted airspace from the surface up, over a military range or test area. While it’s active (its hours are listed above, and at other times by NOTAM) entry needs permission from the controlling agency, and the land under it is usually a closed military reservation.',
+      { who: 'FAA; the using agency’s range control', pen: ['Top-severity airspace case: certificate suspension and civil penalty up to $1,875 per violation', 'Landing also puts you on a closed military reservation'], cites: [c('14 CFR 73.13', ecfr(14, '73.13'))] }),
     alert: R('info', 'Alert area A-638',
       'Heavy military pilot training from the surface to 3,500 ft MSL, weekdays from sunrise to sunset. It restricts nothing, but watch for training traffic.'),
     tfr_stadium: R('amber', 'Stadium TFR on game and race days',
-      'During UT home football games and NASCAR Cup races at COTA, a standing TFR bars all aircraft within 3 NM and up to 3,000 ft above the ground, from one hour before the scheduled start until one hour after the event ends. The F1 Grand Prix gets its own TFRs, published a few days ahead. Outside those windows the ring means nothing, so check tfr.faa.gov on the day.',
+      'During MLB and NFL games, Division I college football games at stadiums of 30,000 or more seats, and NASCAR Cup and IndyCar races, a standing TFR bars all aircraft within 3 NM and up to 3,000 ft above the ground, from one hour before the scheduled start until one hour after the event ends. COTA’s F1 Grand Prix gets its own TFRs, published a few days ahead. Outside those windows the ring means nothing, so check tfr.faa.gov on the day.',
       { who: 'FAA, with NORAD and law enforcement responding to violators',
         pen: ['Interception, then detention and questioning by law enforcement', 'Top-severity case: certificate suspension and civil penalty up to $1,875 per violation', 'Knowing or willful violation is a federal crime: up to 1 year and $100,000, or up to 5 years for a repeat offense'],
         cites: [c('FDC 0/0367', 'https://tfr.faa.gov/download/detail_0_0367.xml'), c('14 CFR 99.7', ecfr(14, '99.7')), c('49 U.S.C. 46307', usc(49, 46307))] }),
@@ -113,9 +120,17 @@ window.HELI_RULES.TX = (function () {
     city_zoning: R('amber', 'City zoning restricts heliports',
       'This city regulates landing sites through zoning: a place used for helicopter landings counts as a heliport, allowed only in certain districts and often only with a special or conditional use permit. A one-off landing isn’t expressly banned, but check with the planning department before relying on that.',
       { who: 'City code enforcement and police', pen: ['Zoning violation: fine up to $2,000'], cites: [CITE.lgc54] }),
-    city_other: R('amber', 'Inside city limits',
-      'We found no landing rule for this city, but Texas cities often regulate heliports through zoning or nuisance rules. Check the city code or call the planning department before you land.',
+    city_other: R('amber', 'City rules not checked',
+      'This map hasn’t checked this city’s code yet, and Texas cities often regulate heliports through zoning or nuisance rules. Look up the code (most are on Municode, American Legal or the city’s site) or call the city secretary before you land.',
       { who: 'City police and code enforcement', pen: ['City ordinance violation: Class C, up to $500; up to $2,000 for zoning, fire-safety or public-health rules'], cites: [CITE.lgc54] }),
+
+    outside_us: R('red', 'Outside the United States',
+      'This spot is outside every US county: in Mexico, or offshore in the Gulf. A landing in Mexico is an international flight that needs Mexican authorization, a flight plan and eAPIS, and a stop at a designated US airport of entry on the way back. This map covers Texas only.',
+      { who: 'US Customs and Border Protection; Mexico’s civil aviation authority (AFAC)', pen: ['Not reporting an arrival from abroad: civil penalty of $5,000 for a first violation and $10,000 after that, and the aircraft can be seized'],
+        cites: [c('19 U.S.C. 1436', usc(19, 1436)), c('19 CFR 122.22', ecfr(19, '122.22'))] }),
+    other_state: R('amber', 'Across the state line',
+      'This map applies Texas law. New Mexico, Oklahoma, Arkansas and Louisiana have their own trespass, aviation and local rules, so check them before landing here. The federal airspace and land rules shown still apply.',
+      { who: 'That state’s police and the county sheriff' }),
 
     // ---------- Austin zoning ----------
     austin_res: R('red', 'Residential zoning: no city permit possible',
@@ -134,12 +149,12 @@ window.HELI_RULES.TX = (function () {
 
     // ---------- federal land ----------
     military_fed: R('red', 'Military installation',
-      'Fort Cavazos and Joint Base San Antonio are closed federal reservations. Landing without the installation’s permission is entering for a prohibited purpose, and on Fort Cavazos you are also inside restricted airspace.',
+      'Military bases such as Fort Cavazos, Fort Bliss, Joint Base San Antonio and the Navy and Air Force fields are closed federal reservations. Landing without the installation’s permission is entering for a prohibited purpose, and over ranges you are also inside restricted airspace.',
       { who: 'Military police and installation security; federal prosecutors', pen: ['Up to 6 months in jail and a $5,000 fine', 'Willful breach of an installation security order: up to 1 year and $100,000', 'FAA action for any restricted-airspace entry'],
         cites: [c('18 U.S.C. 1382', usc(18, 1382)), c('50 U.S.C. 797', usc(50, 797))] }),
     military_guard: R('red', 'National Guard installation',
-      'Camp Mabry in Austin, Camp Swift near Bastrop and the Guard ramp at Austin-Bergstrom are Texas Military Department posts closed to the public. A commanding officer may detain trespassers and hand them to civil authorities.',
-      { who: 'Texas Military Department security; Austin Police or Bastrop County Sheriff', pen: [P.trespassB, 'Hindering Texas military forces: Class B, up to 180 days and $2,000', 'Federal charges are possible on federally owned land'],
+      'Texas Military Department posts such as Camp Mabry in Austin, Camp Swift near Bastrop and the Guard ramp at Austin-Bergstrom are closed to the public. A commanding officer may detain trespassers and hand them to civil authorities.',
+      { who: 'Texas Military Department security; local police or the county sheriff', pen: [P.trespassB, 'Hindering Texas military forces: Class B, up to 180 days and $2,000', 'Federal charges are possible on federally owned land'],
         cites: [c('Gov’t Code §437.210', tx('GV', 437)), CITE.pc3005] }),
     nwr: R('red', 'National wildlife refuge',
       'Unauthorized landing or takeoff on a national wildlife refuge is prohibited except in an emergency, and so is low flight that harasses wildlife.',
@@ -148,6 +163,13 @@ window.HELI_RULES.TX = (function () {
       'Golden-cheeked warblers nest in these juniper-oak woodlands, roughly March through July. A landing or hover that flushes nesting birds could be an illegal take by harassment under the Endangered Species Act. That turns on the facts, and no helicopter case is on record.',
       { who: 'U.S. Fish and Wildlife Service, Office of Law Enforcement', pen: ['Civil penalty up to $65,653 per knowing take', 'Criminal: up to 1 year in jail and a $100,000 fine'],
         cites: [c('50 CFR 17.3', ecfr(50, '17.3')), c('50 CFR 11.33', ecfr(50, '11.33')), c('16 U.S.C. 1540', usc(16, 1540))] }),
+    usfs: R('green', 'National forest or grassland: open outside wilderness',
+      'Federal rules don’t bar landing on national forest or grassland outside wilderness, and noncommercial recreation needs no permit. A flight that carries paying passengers or sells a service needs a Forest Service special use permit. A forest can close an area to aircraft by order, so check the National Forests and Grasslands in Texas alerts before you go.',
+      { who: 'Forest Service law enforcement', pen: ['Breaking a closure order or flying commercially without a permit: up to 6 months and $5,000'],
+        cites: [c('36 CFR 261.13', ecfr(36, '261.13')), c('36 CFR 251.50', ecfr(36, '251.50')), c('36 CFR 261.58', ecfr(36, '261.58')), c('Forest alerts', 'https://www.fs.usda.gov/r08/texas/alerts')] }),
+    wilderness: R('red', 'National forest wilderness',
+      'Landing any aircraft in a designated wilderness is banned outright, and so is dropping off or picking up people or supplies by aircraft. In Texas’s national forests that covers Big Slough, Indian Mounds, Little Lake Creek, Turkey Hill and Upland Island.',
+      { who: 'Forest Service law enforcement', pen: ['Up to 6 months in jail and a $5,000 fine'], cites: [c('36 CFR 261.18', ecfr(36, '261.18')), c('16 U.S.C. 1133', usc(16, 1133))] }),
     nps: R('red', 'National Park Service land',
       'Aircraft may land in a national park only at sites designated by special regulation, and LBJ National Historical Park has none. The old LBJ Ranch airstrip is closed year-round except to users the Park Service authorizes.',
       { who: 'National Park Service law enforcement rangers', pen: ['Up to 6 months in jail and a $5,000 fine'], cites: [c('36 CFR 2.17', ecfr(36, '2.17')), c('36 CFR 1.3', ecfr(36, '1.3')), c('Park compendium', 'https://www.nps.gov/lyjo/learn/management/superintendent-compendium.htm')] }),
@@ -262,8 +284,8 @@ window.HELI_RULES.TX = (function () {
   const checklist = [
     ['Check TFRs and NOTAMs the day you fly.', 'Use tfr.faa.gov or a briefing at 1-800-WX-BRIEF. UT home games, NASCAR and F1 at COTA, VIP visits and air shows all bring TFRs; one covers San Marcos for the Texas Capital Airshow, Nov 6–8, 2026.'],
     ['Get the owner’s permission in writing.', 'Name the site, the dates and the times. On public land, ask the managing agency; most say no outside designated sites.'],
-    ['Check the city’s rules.', 'Austin allows landings only at the airport or a permitted site, and won’t permit one on a residentially zoned lot; a temporary helistop permit takes 30 days, a fire inspection and $5 million of insurance. West Lake Hills, Lakeway and Dripping Springs ban landings almost everywhere. Outside city limits there’s no state or county permit.'],
-    ['Talk to ATC inside Class C or D.', 'Call Austin Approach or the tower before you enter. ATC can approve the operation, never the site.'],
+    ['Check the city’s rules.', 'The map colors each city by what its code says: some ban landings, many allow them only with a permit or in some districts, and some have no rule; small towns aren’t checked yet. Austin allows landings only at the airport or a permitted site, and won’t permit one on a residentially zoned lot. Outside city limits there’s no state or county permit.'],
+    ['Talk to ATC inside Class B, C or D.', 'Get a clearance before entering Class B, and call approach or the tower before entering Class C or D. ATC can approve the operation, never the site.'],
     ['Survey the site.', 'Look for wires, towers, slope, loose debris, people and livestock, and plan an approach and a go-around path.'],
     ['Keep people clear.', 'The helicopter exception in 14 CFR 91.119(d) applies only when there’s no hazard to people or property on the surface.'],
     ['File FAA Form 7480-1 for a site you’ll keep using.', 'Notice is due 90 days ahead unless the site is used for less than a year, no more than 3 days a week and 10 operations a day (14 CFR 157.1).'],
@@ -351,5 +373,15 @@ window.HELI_RULES.TX = (function () {
     ['Travis County Code ch. 232, county parks', 'https://www.traviscountytx.gov/images/commissioners_court/Doc/county-code/subtitle12/Ch_232_County_Parks.pdf'],
   ];
 
-  return { checked: 'October 31, 2026', rules, penalties, checklist, sources };
+  // each researched city's code becomes its own card, city_<GEOID>; a city whose code couldn't be read stays unchecked
+  const levels = { red: 'red', amber: 'amber', green: 'green' };
+  for (const [geoid, r] of Object.entries(window.HELI_CITY_RULES || {})) {
+    if (!levels[r.level]) continue;
+    rules[`city_${geoid}`] = R(r.level, r.title, r.text, {
+      who: r.who || '', pen: r.penalty ? [r.penalty] : [],
+      cites: (r.cites || []).filter((x) => x && x.t).map((x) => c(x.t, /^https?:\/\//.test(x.u || '') ? x.u : null)),
+      note: r.note || undefined,
+    });
+  }
+  return { checked: 'November 2, 2026', rules, penalties, checklist, sources };
 })();
