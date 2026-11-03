@@ -15,6 +15,15 @@ const byFips = new Map(fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf
 const OVERRIDES = {
   Kerrville: { level: 'amber', title: 'Kerrville: a helipad needs a conditional use permit',
     text: 'The zoning code doesn’t name heliports, but any use it doesn’t list needs a conditional use permit in every district, so a landing site would need one.' },
+  // the town pass missed Sunnyvale's helicopter article (§8.09), read in its eCode360 code on 2026-11-03
+  Sunnyvale: { level: 'amber', title: 'Sunnyvale: approved heliports or the town manager’s permission',
+    text: 'Helicopters may land or take off only at a heliport the town council has approved, or elsewhere with the town manager’s written permission and the landowner’s written consent. Away from such a site, flying below 1,000 ft above the ground is barred.',
+    penalty: 'Misdemeanor fine under §1.01.009; each day is a separate offense', who: 'Town manager; Sunnyvale Police',
+    cites: [{ t: 'Sunnyvale Code §8.09.002', u: 'https://ecode360.com/39446610' }], confidence: 'high', note: '' },
+  // the town pass read McLendon-Chisholm's use table as silent; it lists heliports (zoning §3-1, read 2026-11-03)
+  'McLendon-Chisholm': { level: 'amber', title: 'McLendon-Chisholm: heliports by specific use permit in most districts',
+    text: 'The zoning use table lists heliports: a specific use permit is needed in three districts, and they are allowed by right in one. A helistop is a pad for occasional, infrequent use.',
+    cites: [{ t: 'McLendon-Chisholm Zoning §3-1 (use table)', u: 'https://ecode360.com/40127646' }], confidence: 'medium', note: '' },
   Henderson: { level: 'amber', title: 'Henderson’s zoning allows heliports in no district',
     text: 'The code defines heliports but lists them in no zoning district, and it bars uses it doesn’t list, so a landing site can’t be set up without a zoning change. A one-off landing isn’t addressed.' },
 };
