@@ -1,5 +1,10 @@
 // Picks a region from the URL hash (#austin, #blacksburg/37.22900,-80.41400), loads that region's data file,
 // then builds the map and the briefing panel for it.
+// GitHub Pages lets browsers keep a file for 10 minutes, so each data file's link carries the build's stamp (set by
+// assemble.mjs from the data's contents) and a new deploy's data is fetched at once
+const HELI_BUILD = '__BUILD__';
+const withBuild = (src) => `${src}?v=${HELI_BUILD}`;
+
 (function () {
   'use strict';
   const REGIONS = window.HELI_REGIONS;
@@ -18,7 +23,7 @@
     else if (n.at && window.__heliGoTo) window.__heliGoTo(n.at[0], n.at[1]);
   });
   const s = document.createElement('script');
-  s.src = REGION.data;
+  s.src = withBuild(REGION.data);
   s.onload = () => heliStart(REGION, h.at);
   s.onerror = () => { document.getElementById('pane-spot').innerHTML = '<p class="hint" style="padding-top:16px">The map data didn’t load. Reload the page to try again.</p>'; };
   document.head.appendChild(s);
@@ -602,7 +607,7 @@ function heliStart(REGION, startAt) {
       chunkLoads.set(key, new Promise((resolve) => {
         chunkDone.set(key, (data) => { chunkDone.delete(key); addDetail(data); resolve(); });
         // a square that fails to load is tried again by the next view or spot that needs it
-        loadScript(`${CH.dir}/${key}.js`, null, () => { chunkLoads.delete(key); chunkDone.delete(key); resolve(); });
+        loadScript(withBuild(`${CH.dir}/${key}.js`), null, () => { chunkLoads.delete(key); chunkDone.delete(key); resolve(); });
       }));
     }
     return chunkLoads.get(key);
@@ -613,7 +618,7 @@ function heliStart(REGION, startAt) {
   function ensureZoning() {
     if (!D.zoningFile || zLots.length) return Promise.resolve();
     if (!zoningLoad) {
-      zoningLoad = new Promise((resolve) => loadScript(D.zoningFile,
+      zoningLoad = new Promise((resolve) => loadScript(withBuild(D.zoningFile),
         () => { if (window.HELI_ZONING) { decodeZoning(window.HELI_ZONING); addZoneLayer(); syncGroups(); } resolve(); },
         () => { zoningLoad = null; resolve(); }));
     }

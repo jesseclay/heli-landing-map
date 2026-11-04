@@ -4,6 +4,7 @@
 // Usage: node scripts/assemble.mjs
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 const dir = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const r = (p) => fs.readFileSync(path.join(dir, p), 'utf8');
@@ -15,7 +16,11 @@ const cities = fs.existsSync(path.join(dir, 'src/cities_tx.json'))
       note: c.level === 'green' ? 'We searched the whole city code for heliport, helicopter, aircraft and landing rules and found none. Codes change, so check with the city before relying on it.' : '' }]))
   : {};
 const rules = [`window.HELI_CITY_RULES = ${JSON.stringify(cities)};`, ...['src/rules.js', 'src/rules_va.js'].filter((f) => fs.existsSync(path.join(dir, f))).map(r)].join('\n');
-const app = r('src/app.js');
+// the build stamp the page puts on its data links: a hash of every data file, so it changes when the data does
+const dataFiles = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? dataFiles(path.join(d, e.name)) : [path.join(d, e.name)])).sort();
+const stamp = crypto.createHash('sha1');
+for (const f of dataFiles(path.join(dir, 'docs/data'))) stamp.update(f).update(fs.readFileSync(f));
+const app = r('src/app.js').replace("'__BUILD__'", `'${stamp.digest('hex').slice(0, 10)}'`);
 const parts = (hooks) => ({
   '/*__LEAFLET_CSS__*/': r('raw/leaflet.css').replace(/url\([^)]*\)/g, 'none'),
   '/*__REGIONS__*/': r('src/regions.js'),
