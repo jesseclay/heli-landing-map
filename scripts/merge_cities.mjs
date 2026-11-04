@@ -28,6 +28,9 @@ const OVERRIDES = {
   Tulia: { level: 'green', title: 'Tulia: no helicopter landing rule found',
     text: 'A search of the whole city code found nothing on helicopters, heliports or aircraft landings; its only aircraft rules cover junked vehicles.',
     cites: [{ t: 'Tulia Code of Ordinances', u: 'https://ecode360.com/TU6501' }], confidence: 'low', note: '' },
+  // Hamlin's only helicopter rule is about its hospital landing zone, which says nothing about other private land
+  Hamlin: { level: 'green', title: 'Hamlin: only a hospital landing zone, closed to private flights',
+    text: 'The city’s one helicopter rule sets up a landing zone near the hospital for medical, training and promotional flights, and says it isn’t for private or commercial flights. Nothing else in the code addresses landings.' },
   // links a researcher guessed but never opened
   Refugio: { cites: [] },
   Anthony: { cites: [{ t: 'Anthony Code of Ordinances (zoning, Title 17)', u: 'https://library.municode.com/tx/anthony/codes/code_of_ordinances' }] },
