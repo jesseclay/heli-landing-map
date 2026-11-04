@@ -163,7 +163,7 @@ function heliStart(REGION, startAt) {
     if (!p || p.reg === 'other_state') return null;
     if (CITY[p.reg]) return CITY[p.reg];
     const id = `city_${p.reg}`, r = p.reg && RULES[id];
-    return r ? { rule: id, tint: ['red', 'amber', 'green'].includes(r.level) ? r.level : '' } : null;
+    return r ? { rule: id, tint: !r.unknown && ['red', 'amber', 'green'].includes(r.level) ? r.level : '' } : null;
   }
   const CITY_NOTES = REGION.cityNotes || {};
   const MAJOR = new Set(REGION.major || []);
@@ -1136,7 +1136,7 @@ function heliStart(REGION, startAt) {
       const p = places.find((z) => inZone(z, la, lo));
       const lot = zoned(p) && !w ? lotAt(la, lo) : null;
       const cr = cityRuleOf(p), lv = cr && RULES[cr.rule] && RULES[cr.rule].level;
-      const cityNote = p ? ` <span class="z">· ${!cr ? 'city rules not checked' : lv === 'red' ? 'landings banned' : lv === 'amber' ? 'permit needed' : 'no city ban'}</span>` : '';
+      const cityNote = p ? ` <span class="z">· ${!cr ? 'city rules not checked' : RULES[cr.rule] && RULES[cr.rule].unknown ? 'city code not online' : lv === 'red' ? 'landings banned' : lv === 'amber' ? 'permit needed' : 'no city ban'}</span>` : '';
       txt = w ? `${esc(w.k === 'lake_austin_city' ? (lo > -97.7135 ? 'Colorado River' : austinLakeName(lo)) : w.n)}`
         : lot ? `${esc(p.n)} · ${esc(lot.t.code)} <span class="z">· ${lotNote(lot.t)}</span>`
         : p ? `${esc(p.n)} ${p.lsad === 'town' ? 'town' : 'city'} limits${cityNote}` : '<span class="z">Unincorporated</span>';

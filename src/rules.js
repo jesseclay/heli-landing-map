@@ -373,9 +373,16 @@ window.HELI_RULES.TX = (function () {
     ['Travis County Code ch. 232, county parks', 'https://www.traviscountytx.gov/images/commissioners_court/Doc/county-code/subtitle12/Ch_232_County_Parks.pdf'],
   ];
 
-  // each researched city's code becomes its own card, city_<GEOID>; a city whose code couldn't be read stays unchecked
+  // each researched city's code becomes its own card, city_<GEOID>; a city whose code isn't online gets a card that
+  // says so (unknown: the map leaves it gray)
   const levels = { red: 'red', amber: 'amber', green: 'green' };
   for (const [geoid, r] of Object.entries(window.HELI_CITY_RULES || {})) {
+    if (r.level === 'unknown') {
+      rules[`city_${geoid}`] = R('amber', `${r.city}: code not online`,
+        'This city’s code of ordinances isn’t online in a form this map could search, so its landing rules are unknown. Many small Texas towns have no zoning, but some ban landings outright. Ask the city secretary before you land.',
+        { who: 'City secretary and police', unknown: true, cites: (r.cites || []).filter((x) => x && x.t && /^https?:\/\//.test(x.u || '')).map((x) => c(x.t, x.u)) });
+      continue;
+    }
     if (!levels[r.level]) continue;
     rules[`city_${geoid}`] = R(r.level, r.title, r.text, {
       who: r.who || '', pen: r.penalty ? [r.penalty] : [],

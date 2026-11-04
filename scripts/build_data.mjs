@@ -289,7 +289,7 @@ if (!CFG) throw new Error(`unknown region ${REGION}`);
 // whose code was researched its own rule, keyed by its Census GEOID
 const popOf = exists('places_pop.json') ? new Map(read('places_pop.json').map((r) => [r.fips, r.p])) : null;
 const research = CFG.cityResearch && fs.existsSync(path.join(ROOT, CFG.cityResearch)) ? JSON.parse(fs.readFileSync(path.join(ROOT, CFG.cityResearch), 'utf8')) : [];
-const researched = new Set(research.filter((r) => r.level && r.level !== 'unknown').map((r) => r.fips));
+const researched = new Set(research.filter((r) => r.level).map((r) => r.fips));
 const places = read('tiger/places.geojson').features.map((f) => {
   const p = f.properties;
   const n = p.NAME.replace(/ (city|town|village)$/, '');

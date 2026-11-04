@@ -10,8 +10,8 @@ const dir = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const r = (p) => fs.readFileSync(path.join(dir, p), 'utf8');
 // the researched Texas cities' rules (src/cities_tx.json, keyed by Census GEOID) go in ahead of the rules that read them
 const cities = fs.existsSync(path.join(dir, 'src/cities_tx.json'))
-  ? Object.fromEntries(JSON.parse(r('src/cities_tx.json')).filter((c) => c.level && c.level !== 'unknown')
-    .map((c) => [c.fips, { level: c.level, title: c.title, text: c.text, penalty: c.penalty || '', who: c.who || '', cites: c.cites || [],
+  ? Object.fromEntries(JSON.parse(r('src/cities_tx.json')).filter((c) => c.level)
+    .map((c) => [c.fips, { city: c.city, level: c.level, title: c.title, text: c.text, penalty: c.penalty || '', who: c.who || '', cites: c.cites || [],
       // a green card means a search of the whole code found nothing, which is weaker than a rule that says yes
       note: c.level === 'green' ? 'We searched the whole city code for heliport, helicopter, aircraft and landing rules and found none. Codes change, so check with the city before relying on it.' : '' }]))
   : {};
