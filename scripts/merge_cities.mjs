@@ -24,6 +24,13 @@ const OVERRIDES = {
   'McLendon-Chisholm': { level: 'amber', title: 'McLendon-Chisholm: heliports by specific use permit in most districts',
     text: 'The zoning use table lists heliports: a specific use permit is needed in three districts, and they are allowed by right in one. A helistop is a pad for occasional, infrequent use.',
     cites: [{ t: 'McLendon-Chisholm Zoning §3-1 (use table)', u: 'https://ecode360.com/40127646' }], confidence: 'medium', note: '' },
+  // the town pass couldn't finish Tulia's searches; a whole-code search on 2026-11-04 found no landing rule
+  Tulia: { level: 'green', title: 'Tulia: no helicopter landing rule found',
+    text: 'A search of the whole city code found nothing on helicopters, heliports or aircraft landings; its only aircraft rules cover junked vehicles.',
+    cites: [{ t: 'Tulia Code of Ordinances', u: 'https://ecode360.com/TU6501' }], confidence: 'low', note: '' },
+  // links a researcher guessed but never opened
+  Refugio: { cites: [] },
+  Anthony: { cites: [{ t: 'Anthony Code of Ordinances (zoning, Title 17)', u: 'https://library.municode.com/tx/anthony/codes/code_of_ordinances' }] },
   Henderson: { level: 'amber', title: 'Henderson’s zoning allows heliports in no district',
     text: 'The code defines heliports but lists them in no zoning district, and it bars uses it doesn’t list, so a landing site can’t be set up without a zoning change. A one-off landing isn’t addressed.' },
 };
